@@ -7,15 +7,15 @@ O trabalho está estruturado em 4 fases sequenciais para garantir rigor bibliogr
 
 ## Fase 1: Levantamento Bibliográfico e Curadoria de Artigos sobre LLM-as-a-Judge
 
-- [ ] Task: Pesquisa e Curadoria de Artigos Científicos sobre LLM-as-a-Judge
-    - [ ] Pesquisar e selecionar artigos de referência (Zheng et al. 2023 - MT-Bench/Chatbot Arena; Kim et al. 2023 - Prometheus; Es et al. 2023 - RAGAS; Chen et al. 2024 - LLM-as-a-Judge survey).
-    - [ ] Mapear as contribuições de cada artigo: arquiteturas de avaliação, métricas (pairwise vs. pointwise), vieses conhecidos e mitigação.
-    - [ ] Estruturar fichamento sintético dos artigos com foco na aplicação a diálogos e personas em jogos.
+- [x] Task: Pesquisa e Curadoria de Artigos Científicos sobre LLM-as-a-Judge 5e07eb8
+    - [x] Pesquisar e selecionar artigos de referência (Zheng et al. 2023 - MT-Bench/Chatbot Arena; Kim et al. 2023 - Prometheus; Es et al. 2023 - RAGAS; Chen et al. 2024 - LLM-as-a-Judge survey).
+    - [x] Mapear as contribuições de cada artigo: arquiteturas de avaliação, métricas (pairwise vs. pointwise), vieses conhecidos e mitigação.
+    - [x] Estruturar fichamento sintético dos artigos com foco na aplicação a diálogos e personas em jogos.
 
-- [ ] Task: Atualização e Validação do Banco Bibliográfico (`referencias.bib`)
-    - [ ] Formatar as entradas BibTeX completas para todos os artigos selecionados.
-    - [ ] Integrar as entradas no arquivo `monografia/referencias.bib`.
-    - [ ] Validar a integridade sintática do arquivo BibTeX.
+- [x] Task: Atualização e Validação do Banco Bibliográfico (`referencias.bib`) 5e07eb8
+    - [x] Formatar as entradas BibTeX completas para todos os artigos selecionados.
+    - [x] Integrar as entradas no arquivo `monografia/referencias.bib`.
+    - [x] Validar a integridade sintática do arquivo BibTeX.
 
 - [ ] Task: Conductor - User Manual Verification 'Fase 1: Levantamento Bibliográfico e Curadoria de Artigos sobre LLM-as-a-Judge' (Protocol in workflow.md)
 
