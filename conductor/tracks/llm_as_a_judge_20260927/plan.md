@@ -1,0 +1,59 @@
+# Plano de Implementação: Adicionar fundamentação e discussão de LLM-as-a-Judge na monografia
+
+## Visão Geral das Fases
+O trabalho está estruturado em 4 fases sequenciais para garantir rigor bibliográfico, integração textual contínua e validação de compilação da monografia em LaTeX.
+
+---
+
+## Fase 1: Levantamento Bibliográfico e Curadoria de Artigos sobre LLM-as-a-Judge
+
+- [ ] Task: Pesquisa e Curadoria de Artigos Científicos sobre LLM-as-a-Judge
+    - [ ] Pesquisar e selecionar artigos de referência (Zheng et al. 2023 - MT-Bench/Chatbot Arena; Kim et al. 2023 - Prometheus; Es et al. 2023 - RAGAS; Chen et al. 2024 - LLM-as-a-Judge survey).
+    - [ ] Mapear as contribuições de cada artigo: arquiteturas de avaliação, métricas (pairwise vs. pointwise), vieses conhecidos e mitigação.
+    - [ ] Estruturar fichamento sintético dos artigos com foco na aplicação a diálogos e personas em jogos.
+
+- [ ] Task: Atualização e Validação do Banco Bibliográfico (`referencias.bib`)
+    - [ ] Formatar as entradas BibTeX completas para todos os artigos selecionados.
+    - [ ] Integrar as entradas no arquivo `monografia/referencias.bib`.
+    - [ ] Validar a integridade sintática do arquivo BibTeX.
+
+- [ ] Task: Conductor - User Manual Verification 'Fase 1: Levantamento Bibliográfico e Curadoria de Artigos sobre LLM-as-a-Judge' (Protocol in workflow.md)
+
+---
+
+## Fase 2: Fundamentação Teórica no Capítulo 2 (Referencial Teórico)
+
+- [ ] Task: Elaboração da Subseção Teórica de LLM-as-a-Judge em `cap2_referencial_teorico.tex`
+    - [ ] Analisar o fluxo atual do Capítulo 2 para posicionar harmonicamente a nova subseção.
+    - [ ] Redigir a subseção abordando conceitos fundamentais, comparação com métricas léxicas/n-gramas e modos de julgamento (pairwise vs pointwise).
+    - [ ] Abordar os vieses inerentes documentados na literatura (position bias, verbosity bias, self-enhancement bias) e estratégias de atenuação.
+    - [ ] Inserir chamadas de citação cruzada `\cite{...}` compatíveis com o banco BibTeX.
+
+- [ ] Task: Conductor - User Manual Verification 'Fase 2: Fundamentação Teórica no Capítulo 2 (Referencial Teórico)' (Protocol in workflow.md)
+
+---
+
+## Fase 3: Detalhamento Metodológico no Capítulo 4 (Metodologia)
+
+- [ ] Task: Formalização do Mecanismo de Avaliação no Capítulo 4 (`cap4_metodologia.tex`)
+    - [ ] Mapear onde a avaliação e métricas são descritas no Capítulo 4.
+    - [ ] Enriquecer a descrição metodológica explicitando o papel do LLM como juiz avaliador das respostas dos NPCs.
+    - [ ] Detalhar o pipeline de avaliação: formulação dos prompts de avaliação, rubricas de fidelidade à persona, preservação de segredos e integração com o framework RAGAS.
+
+- [ ] Task: Conductor - User Manual Verification 'Fase 3: Detalhamento Metodológico no Capítulo 4 (Metodologia)' (Protocol in workflow.md)
+
+---
+
+## Fase 4: Discussão Crítica no Capítulo 6 e Validação de Compilação
+
+- [ ] Task: Atualização das Discussões e Limitações no Capítulo 6 (`cap6_resultados_discussoes.tex`)
+    - [ ] Analisar as seções de resultados existentes para conectar os dados empíricos ao comportamento do juiz LLM.
+    - [ ] Redigir parágrafos de discussão crítica sobre a concordância e limitações observadas no LLM-as-a-Judge durante os testes de estresse e diálogo investigativo.
+    - [ ] Relacionar os achados experimentais com as discussões teóricas introduzidas no Capítulo 2.
+
+- [ ] Task: Compilação Completa e Auditoria da Monografia
+    - [ ] Executar pipeline de compilação da monografia (`pdflatex` + `bibtex` + `pdflatex` x2).
+    - [ ] Verificar logs de compilação para garantir ausência de citações não resolvidas (`?`) ou warnings críticos.
+    - [ ] Validar visualmente o PDF final gerado (`monografia/main.pdf`).
+
+- [ ] Task: Conductor - User Manual Verification 'Fase 4: Discussão Crítica no Capítulo 6 e Validação de Compilação' (Protocol in workflow.md)
