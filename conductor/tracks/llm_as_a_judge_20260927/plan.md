@@ -46,14 +46,14 @@ O trabalho está estruturado em 4 fases sequenciais para garantir rigor bibliogr
 
 ## Fase 4: Discussão Crítica no Capítulo 6 e Validação de Compilação
 
-- [ ] Task: Atualização das Discussões e Limitações no Capítulo 6 (`cap6_resultados_discussoes.tex`)
-    - [ ] Analisar as seções de resultados existentes para conectar os dados empíricos ao comportamento do juiz LLM.
-    - [ ] Redigir parágrafos de discussão crítica sobre a concordância e limitações observadas no LLM-as-a-Judge durante os testes de estresse e diálogo investigativo.
-    - [ ] Relacionar os achados experimentais com as discussões teóricas introduzidas no Capítulo 2.
+- [x] Task: Atualização das Discussões e Limitações no Capítulo 6 (`cap6_resultados_discussoes.tex`) 57ef2c8
+    - [x] Analisar as seções de resultados existentes para conectar os dados empíricos ao comportamento do juiz LLM.
+    - [x] Redigir parágrafos de discussão crítica sobre a concordância e limitações observadas no LLM-as-a-Judge durante os testes de estresse e diálogo investigativo.
+    - [x] Relacionar os achados experimentais com as discussões teóricas introduzidas no Capítulo 2.
 
-- [ ] Task: Compilação Completa e Auditoria da Monografia
-    - [ ] Executar pipeline de compilação da monografia (`pdflatex` + `bibtex` + `pdflatex` x2).
-    - [ ] Verificar logs de compilação para garantir ausência de citações não resolvidas (`?`) ou warnings críticos.
-    - [ ] Validar visualmente o PDF final gerado (`monografia/main.pdf`).
+- [x] Task: Compilação Completa e Auditoria da Monografia 57ef2c8
+    - [x] Executar pipeline de compilação da monografia (`pdflatex` + `bibtex` + `pdflatex` x2).
+    - [x] Verificar logs de compilação para garantir ausência de citações não resolvidas (`?`) ou warnings críticos.
+    - [x] Validar visualmente o PDF final gerado (`monografia/main.pdf`).
 
-- [ ] Task: Conductor - User Manual Verification 'Fase 4: Discussão Crítica no Capítulo 6 e Validação de Compilação' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Fase 4: Discussão Crítica no Capítulo 6 e Validação de Compilação' (Protocol in workflow.md) 57ef2c8
