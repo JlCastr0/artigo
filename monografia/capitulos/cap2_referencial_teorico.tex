@@ -1,0 +1,206 @@
+\chapter{Referencial Teórico}
+\label{cap:referencial}
+
+Este capítulo estabelece a fundamentação teórica que sustenta o desenvolvimento e a avaliação experimental da pesquisa. A discussão divide-se em cinco tópicos essenciais: (i) as estruturas de narrativa interativa e o papel dos NPCs no gênero de investigação; (ii) os fundamentos de Modelos de Linguagem e as particularidades da inferência local de modelos compactos; (iii) os paradigmas de recuperação de informação, contrastando a injeção estática com a arquitetura \textit{Agentic RAG} e a fragmentação dinâmica; (iv) as taxonomias de alucinação de persona e inconsistência espaço-temporal; e (v) os métodos de avaliação automatizada baseados no paradigma \textit{LLM-as-a-Judge} e no framework RAGAS.
+
+\section{Narrativa Interativa e Personagens Não Jogáveis (NPCs)}
+\label{sec:ref_narrativa}
+
+A interatividade em narrativas digitais difere fundamentalmente da experiência em mídias lineares, como a literatura e o cinema. Enquanto as mídias clássicas conduzem o receptor por um arco imutável de eventos, os jogos digitais operam sob a premissa da agência do usuário: a capacidade do jogador de executar ações intencionais que produzem efeitos observáveis no estado do mundo virtual \cite{murray1997hamlet,ryan2006interactive}. Na ludologia contemporânea, essa relação dialética entre regras de simulação e agência narrativa define a profundidade da imersão psicológica e da suspensão da descrença \cite{frasca2003simulation,bowman2012immersion}.
+
+Historicamente, o comportamento e os diálogos de Personagens Não Jogáveis têm sido projetados através de abordagens determinísticas sustentadas por grafos direcionados e Máquinas de Estados Finitos (\textit{Finite State Machines}, FSM) \cite{adams2014fundamentals}. A Figura \ref{fig:arvore_dialogo_conceito} ilustra a topologia clássica de uma árvore de diálogo em jogos digitais.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    auto,
+    node distance=1.1cm and 0.8cm,
+    rootbox/.style={rectangle, rounded corners=3pt, draw=black!80, fill=gray!15, thick, minimum width=3.4cm, minimum height=0.8cm, align=center, font=\footnotesize\bfseries},
+    decisionbox/.style={diamond, aspect=2.2, draw=blue!80, fill=blue!10, thick, minimum width=3.0cm, minimum height=0.8cm, align=center, font=\footnotesize},
+    choicebox/.style={rectangle, rounded corners=2pt, draw=teal!80, fill=teal!10, thick, minimum width=2.6cm, minimum height=0.75cm, align=center, font=\scriptsize},
+    leafbox/.style={rectangle, rounded corners=2pt, draw=orange!80, fill=orange!10, thick, minimum width=2.4cm, minimum height=0.7cm, align=center, font=\scriptsize},
+    arr/.style={thick, ->, >=stealth}
+]
+
+    % Nós verticais principais
+    \node (root) [rootbox] {Nó Raiz: NPC Inicia Diálogo};
+    \node (dec) [decisionbox, below=0.7cm of root] {Menu de Opções Fixas\\(Entrada do Jogador)};
+
+    % Três ramificações balanceadas
+    \node (r2) [choicebox, below=0.9cm of dec] {Opção 2: Confronto\\(Resposta Defensiva)};
+    \node (r1) [choicebox, left=0.6cm of r2] {Opção 1: Pergunta Álibi\\(Depoimento Factual)};
+    \node (r3) [choicebox, right=0.6cm of r2] {Opção 3: Nova Pista\\(Avanço de Quest)};
+
+    % Nós finais / convergência
+    \node (leaf1) [leafbox, below=0.7cm of r1] {Fim de Ramo\\(Álibi Esgotado)};
+    \node (leaf2) [leafbox, below=0.7cm of r2] {Retorno ao Loop\\(NPC Repete Fala)};
+    \node (leaf3) [leafbox, below=0.7cm of r3] {Nó de Convergência\\(Próxima Fase)};
+
+    % Conexões
+    \draw [arr] (root) -- (dec);
+    \draw [arr] (dec) -| (r1);
+    \draw [arr] (dec) -- (r2);
+    \draw [arr] (dec) -| (r3);
+
+    \draw [arr] (r1) -- (leaf1);
+    \draw [arr] (r2) -- (leaf2);
+    \draw [arr] (r3) -- (leaf3);
+
+\end{tikzpicture}
+\caption{Estrutura conceitual de uma árvore de diálogo determinística tradicional.}
+\label{fig:arvore_dialogo_conceito}
+\end{figure}
+
+Em uma árvore determinística, cada intervenção do jogador é limitada a um conjunto fechado de réplicas pré-concebidas pelos autores. Cada seleção conduz a um nó específico da estrutura hierárquica. O maior obstáculo inerente a essa abordagem é a denominada ``explosão combinatória'': à medida que se deseja proporcionar maior liberdade ao usuário, a quantidade de ramificações e caminhos alternativos necessários cresce exponencialmente. Como resultado, os custos de roteirização e dublagem tornam-se proibitivos para a indústria, forçando os desenvolvedores a concentrar escolhas em nós convergentes, gerando a sensação de ``falsa agência'' ou linearidade disfarçada \cite{riedl2013interactive}.
+
+No gênero de investigação e mistério, a limitação da árvore estática compromete a mecânica fundamental do jogo. Conforme demonstrado por Fern{\'a}ndez-Vara \cite{fernandez2014introduction}, jogos investigativos demandam uma dinâmica de ``Linguagem de Processo'' (\textit{Process Language}), na qual a interrogação opera como uma ferramenta ativa de dedução abdutiva. Quando o jogador percebe que as opções do menu revelam previamente os tópicos a serem investigados, o desafio de dedução é esvaziado; o jogador é induzido a testar exaustivamente todas as opções da árvore mecânica até obter a pista, eliminando a autêntica investigação intelectual \cite{deng2024mindmap}.
+
+\section{Modelos de Linguagem de Grande Escala e Inferência Local}
+\label{sec:ref_llms}
+
+Os Modelos de Linguagem de Grande Escala (LLMs) são redes neurais profundas pré-treinadas de forma auto-supervisionada sobre volumes massivos de dados textuais. A espinha dorsal dessa classe de modelos é a arquitetura \textit{Transformer}, introduzida por Vaswani et al. \cite{vaswani2017attention}, cujo mecanismo fundamental é o cálculo de atenção auto-atenciosa (\textit{self-attention}).
+
+Dada uma sequência de representações vetoriais de entrada $X \in \mathbb{R}^{n \times d}$, onde $n$ é o comprimento da sequência e $d$ é a dimensão oculta, o mecanismo de atenção calcula projeções lineares de Consultas ($Q$), Chaves ($K$) e Valores ($V$):
+
+\begin{equation}
+Q = X W_Q, \quad K = X W_K, \quad V = X W_V
+\label{eq:projecoes_qkv}
+\end{equation}
+
+\noindent onde $W_Q, W_K \in \mathbb{R}^{d \times d_k}$ e $W_V \in \mathbb{R}^{d \times d_v}$ são matrizes de parâmetros treináveis. O mapa de atenção ponderado é expresso pela formulação \textit{Scaled Dot-Product Attention}:
+
+\begin{equation}
+\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{Q K^T}{\sqrt{d_k}}\right) V
+\label{eq:scaled_dot_product}
+\end{equation}
+
+Essa formulação permite que o modelo pondere a relevância relativa de cada \textit{token} em relação a todos os demais elementos presentes na janela de contexto, superando as limitações de dependências temporais de longo alcance que afetavam redes neurais recorrentes anteriores (RNNs e LSTMs).
+
+\subsection{O Dilema Arquitetural: APIs Proprietárias na Nuvem vs. Inferência Local em Borda}
+\label{subsec:ref_custos_tokens}
+
+A viabilização comercial de NPCs inteligentes em jogos digitais esbarra na arquitetura de execução dos modelos. Embora modelos proprietários de ponta (como GPT-4o e Claude 3.5 Sonnet) apresentem elevada capacidade de raciocínio, sua operação via APIs na nuvem impõe gargalos severos e frequentemente intransponíveis para estúdios de desenvolvimento de jogos:
+
+\begin{itemize}
+    \item \textbf{A Inviabilidade Econômica dos Custos Recorrentes por Token:} No modelo tradicional de comercialização de jogos (\textit{Buy-to-Play}), o usuário realiza o pagamento único pelo título e espera desfrutar de horas ilimitadas de conteúdo. Em contrapartida, provedores de IA na nuvem cobram por volume consumido:
+    
+    \begin{equation}
+    C_{\text{total}} = \sum_{p=1}^{N_{\text{jogadores}}} \sum_{t=1}^{T_p} \left( c_{\text{in}} \cdot k_{\text{in}}^{(p,t)} + c_{\text{out}} \cdot k_{\text{out}}^{(p,t)} \right)
+    \label{eq:custo_api}
+    \end{equation}
+    
+    onde $c_{\text{in}}$ e $c_{\text{out}}$ representam as tarifas por milhão de \textit{tokens} de entrada e saída, e $k_{\text{in}}^{(p,t)}$ é a extensão do contexto enviado no turno $t$. Em sessões de inquérito investigativo denso, onde cada requisição concatena históricos de conversa e bases factuais (frequentemente entre 3.000 e 6.000 \textit{tokens}), uma base modesta de 50.000 jogadores ativos realizando 200 turnos cada demandará mais de 40 bilhões de \textit{tokens}. As faturas mensais de nuvem podem atingir centenas de milhares de dólares, consumindo integralmente a margem de receita do jogo e penalizando financeiramente o estúdio quanto maior for o engajamento de seus jogadores;
+    \item \textbf{Latência de Rede e Quebra de Fluência Lúdica:} A dependência de servidores remotos introduz variações de latência de transporte (frequentemente de 2 a 5 segundos por interação), destruindo o ritmo natural da conversa face a face com o suspeito;
+    \item \textbf{Privacidade, Soberania de Dados e Modo Offline:} A exigência de conexão ininterrupta à internet impede a execução do jogo em ambientes desconectados e expõe as conversas dos usuários a tráfego em servidores de terceiros.
+\end{itemize}
+
+Diante dessas restrições, a emergência de Modelos Compactos (\textit{Small Language Models}, SLMs), situados na faixa de 7 a 9 bilhões de parâmetros, destaca-se como a fronteira de aplicação mais promissora para jogos digitais \cite{cao2026task}. Tecnologias de quantização em pós-treinamento, especialmente o formato GGUF em 4 bits (\textit{e.g.}, Q4\_K\_M), reduzem substancialmente o uso de memória de vídeo (VRAM) e a banda de transferência de dados, viabilizando taxas de geração fluídas (acima de 25 \textit{tokens} por segundo) em placas de vídeo de consumo doméstico ou até mesmo em processadores centrais modernos. Plataformas de código aberto como o Ollama atuam como orquestradores eficientes para empacotamento, gerenciamento e inferência local dessas arquiteturas, fixando o custo marginal por turno em estritamente zero ($c_{\text{in}} = c_{\text{out}} = 0$).
+
+\section{Engenharia de Contexto: De Naive RAG a Agentic RAG}
+\label{sec:ref_rag}
+
+Para que um modelo fundacional assuma a identidade de um personagem específico e respeite as regras de um roteiro ficcional, seu comportamento precisa ser condicionado via engenharia de \textit{prompt} e injeção de contexto \cite{shanahan2023role}.
+
+A abordagem mais elementar consiste na injeção estática completa (\textit{Full Prompt}). Nesse método, toda a base de conhecimento do personagem (dados biográficos, cronograma completo de 24 horas, inventário e histórico de relações) é concatenada e enviada integralmente ao modelo a cada turno de conversação. Essa técnica gera problemas substanciais:
+
+\begin{enumerate}
+    \item \textbf{Saturação da Janela de Contexto e Custo Computacional:} A retransmissão de milhares de \textit{tokens} a cada pergunta do jogador eleva o processamento computacional da fase de pré-preenchimento (\textit{prefill phase}), elevando o tempo de resposta;
+    \item \textbf{O Fenômeno \textit{Lost in the Middle}:} Conforme evidenciado por Liu et al. \cite{liu2024lost}, modelos baseados em atenção tendem a recuperar informações com alta precisão quando localizadas no início ou no fim do contexto, mas sofrem de degradação acentuada de recuperação quando os fatos relevantes encontram-se dispostos no centro de \textit{prompts} longos.
+\end{enumerate}
+
+Para superar essas fragilidades, a Geração Aumentada por Recuperação (\textit{Retrieval-Augmented Generation}, RAG) foi originalmente proposta por Lewis et al. \cite{lewis2020retrieval}. No RAG tradicional (\textit{Naive RAG}), uma base de documentos externos é dividida em blocos (\textit{chunks}), indexada via representações vetoriais (\textit{embeddings}) e consultada por similaridade de cosseno a cada interação do usuário. Embora eficaz para bases textuais abertas, o \textit{Naive RAG} demonstra rigidez para raciocínios temporais complexos, uma vez que a similaridade semântica direta frequentemente falha em capturar relações cronológicas precisas (ex: distinguir o que aconteceu às 08:30 versus 18:30).
+
+\subsection{A Arquitetura Agentic RAG e o Paradigma ReAct}
+Para solucionar as deficiências dos métodos estáticos e vetoriais em tarefas complexas de inquérito, adota-se nesta pesquisa o conceito de \textit{Agentic RAG}. Diferente do fluxo passivo de recuperação, um agente dotado de capacidade de raciocínio é encarregado de analisar a intenção do usuário antes de emitir a resposta final.
+
+A base teórica dessa abordagem apoia-se no framework ReAct (\textit{Reasoning and Acting}), formulado por Yao et al. \cite{yao2023react}. O ReAct integra de forma sinérgica o raciocínio em linguagem natural (\textit{Thought}) com a execução de ações deliberadas (\textit{Action}), gerando um ciclo iterativo de resolução de problemas:
+
+\begin{equation}
+\text{Pensamento} \rightarrow \text{Ação} \rightarrow \text{Observação} \rightarrow \text{Conclusão}
+\label{eq:ciclo_react}
+\end{equation}
+
+No contexto de jogos de investigação, o agente de triagem utiliza o ReAct para decompor a pergunta do detetive. Se o jogador indaga sobre um álibi matutino, o modelo raciocina: ``\textit{O jogador está questionando minhas ações durante a manhã; logo, devo requisitar apenas o bloco temporal correspondente ao início do dia}''. O agente então emite uma ação controlada que recupera exclusivamente o fragmento pertinente.
+
+\subsection{Fragmentação Temporal Dinâmica (\textit{Dynamic Chunking})}
+A técnica de fragmentação temporal dinâmica consiste em segmentar a linha do tempo do personagem em janelas discretas coerentes com a estrutura dramática do caso (ex: Manhã, Tarde e Noite). Em vez de injetar o cronograma integral de 24 horas, o sistema despacha apenas o bloco temporal requisitado pelo agente de triagem, reduzindo drasticamente o ruído informacional e prevenindo o efeito \textit{Lost in the Middle}.
+
+\section{Alucinações de Persona e Inconsistência Espaço-Temporal}
+\label{sec:ref_alucinacoes}
+
+Em tarefas gerais de PLN, uma alucinação é definida como a geração de conteúdo fluente e convincente que é infundado ou contraditório em relação à fonte de referência primária ou ao conhecimento de mundo estabelecido \cite{ji2023survey}. No domínio especializado de simulação de personas e jogos interativos (\textit{roleplay}), a literatura recente tem identificado e formalizado manifestações particulares desse fenômeno:
+
+\begin{itemize}
+    \item \textbf{Alucinação de Personagem (\textit{Character Hallucination}):} Ocorre quando o agente emite afirmações que violam os traços psicológicos, a biografia oficial ou as competências do papel assumido \cite{shao2023character}. O modelo sobrepõe o conhecimento paramétrico geral adquirido no pré-treinamento às diretrizes do \textit{prompt};
+    \item \textbf{Viés de Onisciência e Falha de Limites (\textit{Boundary-Compliance}):} Manifesta-se quando o personagem demonstra ciência de fatos da trama que ele não presenciou, eventos que transcorreram em outros ambientes ou segredos de terceiros \cite{sunkyoung2024charm};
+    \item \textbf{Alucinação Ponto-no-Tempo (\textit{Point-in-Time Hallucination}):} Formalizada por Ahn et al. \cite{ahn2024timechara} no benchmark TimeChara, refere-se à incapacidade do modelo de respeitar os limites cronológicos de sua linha temporal. Em cenários investigativos, isso ocorre quando um suspeito cita eventos que ainda não haviam ocorrido no momento do crime ou admite retrospectivamente detalhes antes de sua revelação no enredo;
+    \item \textbf{Quebra de Personagem (\textit{Out-of-Character}, OOC):} Situação na qual o modelo abandona a diegese ficcional e responde de maneira metalinguística como um assistente de IA genérico (e.g., ``\textit{Como modelo de inteligência artificial, não posso responder a isso}''), destruindo a suspensão da descrença do jogador \cite{shanahan2023role}.
+\end{itemize}
+
+A contenção rigorosa dessas quatro classes de alucinação constitui o requisito determinante para garantir a estabilidade lógica do mistério em um jogo investigativo.
+
+\section{Metodologias de Avaliação Automatizada: Paradigma LLM-as-a-Judge e Framework RAGAS}
+\label{sec:ref_avaliacao}
+
+A avaliação empírica de sistemas conversacionais gerativos em Processamento de Linguagem Natural historicamente enfrentou severas limitações metodológicas. Abordagens baseadas em sobreposição de $n$-gramas e métricas léxicas clássicas --- tais como BLEU (\textit{Bilingual Evaluation Understudy}) e ROUGE (\textit{Recall-Oriented Understudy for Gisting Evaluation}) --- pressupõem uma correspondência léxica direta com um texto de referência estático. Em cenários de diálogo aberto, interpretação de papéis (\textit{role-play}) e inquérito investigativo com NPCs, tais métricas mostram-se fundamentalmente inadequadas: penalizam respostas semanticamente corretas que utilizam construções sintáticas alternativas e falham em mensurar dimensões cruciais, como a preservação de traços de personalidade, tom emocional, conformidade factual e contenção de informações secretas \cite{gu2024survey,li2025generation}.
+
+Por outro lado, estudos de usabilidade e anotação manual com juízes humanos, embora representem o padrão-ouro de fidelidade subjetiva, apresentam custos financeiros proibitivos, baixa escalabilidade temporal e inconsistência inter-anotadores decorrente de fadiga e interpretações subjetivas divergentes \cite{zheng2023judging}. Para solucionar esse impasse, consolidou-se na literatura recente o paradigma \textit{LLM-as-a-Judge}, no qual Modelos de Linguagem de Grande Escala de alta capacidade operam como avaliadores automáticos de textos gerados por outros modelos \cite{zheng2023judging,kim2024prometheus,li2025generation}.
+
+\subsection{O Paradigma LLM-as-a-Judge: Taxonomia, Modos de Avaliação e Desafios}
+\label{subsec:ref_llm_judge}
+
+A fundamentação formal do paradigma \textit{LLM-as-a-Judge} foi introduzida por Zheng et al. \cite{zheng2023judging} através dos benchmarks MT-Bench e Chatbot Arena, demonstrando que juízes sintéticos baseados em modelos como GPT-4 alcançam taxas de concordância com avaliadores humanos superiores a 80\%, equiparando-se à concordância média entre dois avaliadores humanos independentes. Conforme sistematizado nas revisões de Gu et al. \cite{gu2024survey} e Li et al. \cite{li2025generation}, a literatura categoriza os sistemas de juiz em três modos operacionais principais:
+
+\begin{enumerate}
+    \item \textbf{Pontuação Direta / Baseada em Rubricas (\textit{Pointwise / Direct Scoring}):} O modelo avaliador recebe um único par pergunta-resposta (ou diálogo completo), juntamente com um conjunto detalhado de critérios de qualidade e uma escala discreta ou contínua (ex: 1 a 5). O modelo gera uma justificativa analítica fundamentada em Cadeia de Pensamento (\textit{Chain-of-Thought}, CoT) seguida pela nota atribuída. Abordagens seminais como o G-Eval \cite{liu2023geval} e o modelo especializado Prometheus \cite{kim2024prometheus} comprovaram que a definição explícita de rubricas com descrições semânticas detalhadas para cada nível de pontuação mitiga expressivamente a variância e aproxima as notas automáticas das correlações humanas;
+    
+    \item \textbf{Comparação Pareada (\textit{Pairwise Comparison}):} O juiz analisa simultaneamente duas respostas alternativas ($A$ e $B$) para o mesmo estímulo contextual e determina qual resposta é superior ou se há empate. Embora muito empregado no alinhamento por preferências humanas (\textit{RLHF/DPO}), esse modo introduz complexidade combinatória quadrática quando se deseja comparar múltiplos modelos;
+    
+    \item \textbf{Avaliação Multiagente e Debate (\textit{Multi-Agent Evaluation}):} Proposto por Chan et al. \cite{chan2024chateval} no framework ChatEval, esse método simula um painel colegiado onde múltiplos agentes com personas avaliativas distintas (e.g., um crítico de precisão factual, um analista de tom e um avaliador de coerência) debatem e refinam conjuntamente o veredito final, neutralizando vieses idiossincráticos de um único modelo julgador.
+\end{enumerate}
+
+\subsubsection{Vieses Cognitivos Sistemáticos e Estratégias de Mitigação}
+Apesar de sua flexibilidade e poder analítico, modelos avaliadores estão sujeitos a vieses sistemáticos bem documentados que podem comprometer a validade científica das medições caso não sejam rigorosamente controlados \cite{zheng2023judging,gu2024survey}:
+
+\begin{itemize}
+    \item \textbf{Viés de Posição (\textit{Position Bias}):} Em avaliações pareadas, os LLMs tendem a favorecer desproporcionalmente a resposta posicionada na primeira colocação (ou na última), em virtude de dinâmicas de atenção e decodificação autoregressiva. A mitigação canônica consiste na permutação de posições (\textit{swap test}), executando duas passagens de inferência com a ordem invertida e calculando a consistência dos resultados \cite{zheng2023judging};
+    
+    \item \textbf{Viés de Verbosidade (\textit{Verbosity Bias}):} Juízes automáticos manifestam uma inclinação estatística pronunciada a atribuir notas superiores a respostas prolixas, densas e visualmente extensas, mesmo quando tais respostas contêm redundâncias ou menor aderência à pergunta. Para contrabalançar essa distorção, as rubricas avaliativas devem penalizar explicitamente a divagação e recompensar a concisão proporcional ao contexto;
+    
+    \item \textbf{Viés de Auto-Favorecimento e Egocentrismo (\textit{Self-Enhancement / Egocentric Bias}):} Modelos avaliadores tendem a superestimar a qualidade de respostas geradas por instâncias de sua própria família arquitetural ou treinadas com dados similares, penalizando injustamente modelos concorrentes de código aberto \cite{zheng2023judging,li2025generation};
+    
+    \item \textbf{Viés de Formatação e Estilo:} Respostas organizadas com marcações visuais estéticas (como listas em tópicos, negrito e blocos de código) recebem notas artificiais mais altas do que respostas em texto corrido de idêntico teor semântico.
+\end{itemize}
+
+Neste trabalho, para garantir máxima imparcialidade na avaliação dos diálogos dos NPCs, adota-se o modo de Pontuação Direta (\textit{Pointwise}) ancorado em rubricas determinísticas e critérios matemáticos pré-definidos, associado ao framework RAGAS.
+
+\subsection{O Framework RAGAS e Métricas Quantitativas de Recuperação}
+\label{subsec:ref_ragas}
+
+Para quantificar objetivamente o pipeline de RAG e a estabilidade factual dos modelos, esta pesquisa fundamenta-se no framework científico RAGAS (\textit{Retrieval Augmented Generation Assessment}), concebido por Es et al. \cite{es2024ragas}. O RAGAS operacionaliza o paradigma \textit{LLM-as-a-Judge} através de métricas matemáticas que isolam a qualidade da recuperação da qualidade da geração:
+
+\subsubsection{Fidelidade Factual (\textit{Faithfulness})}
+Mede a proporção de declarações geradas na resposta do modelo ($A$) que podem ser inferidas diretamente a partir do contexto fornecido ($C$). Uma resposta altamente fiel evita a invenção de evidências e detalhes factuais. A métrica é expressa matematicamente por:
+
+\begin{equation}
+\text{Faithfulness} = \frac{|\{s \in S(A) \mid C \models s\}|}{|S(A)|}
+\label{eq:faithfulness}
+\end{equation}
+
+\noindent onde $S(A)$ representa o conjunto de declarações atômicas extraídas da resposta $A$, e $C \models s$ denota que a declaração $s$ é dedutível a partir do contexto $C$.
+
+\subsubsection{Relevância da Resposta (\textit{Answer Relevance})}
+Avalia se a fala do personagem responde com precisão àquilo que foi interrogado pelo jogador, penalizando respostas prolixas, evasivas ou desconexas. O cálculo é realizado gerando $M$ perguntas sintéticas potenciais $q_i$ a partir da resposta gerada $A$ e calculando a similaridade de cosseno média com a pergunta real original $q$:
+
+\begin{equation}
+\text{Answer Relevance} = \frac{1}{M} \sum_{i=1}^{M} \frac{E(q_i) \cdot E(q)}{\|E(q_i)\| \|E(q)\|}
+\label{eq:answer_relevance}
+\end{equation}
+
+\noindent onde $E(\cdot)$ denota a representação vetorial obtida por meio de um modelo de \textit{embedding}.
+
+\subsubsection{Precisão do Contexto (\textit{Context Precision})}
+Mensura a qualidade do mecanismo de recuperação (\textit{Retriever}), avaliando se as informações relevantes presentes no contexto recuperado $C$ foram dispostas nas primeiras posições de prioridade. Em sistemas que utilizam fragmentação dinâmica, essa métrica valida se o agente de triagem recuperou exclusivamente o bloco cronológico correto.
+
+\subsubsection{Abrangência do Contexto (\textit{Context Recall})}
+Mede se todos os fatos necessários para responder à pergunta estavam presentes no contexto recuperado. O índice varia de 0,0 a 1,0, indicando se houve omissão de informações vitais para a sustentação do depoimento.
