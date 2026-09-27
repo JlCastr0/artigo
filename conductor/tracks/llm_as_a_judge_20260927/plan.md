@@ -17,7 +17,7 @@ O trabalho está estruturado em 4 fases sequenciais para garantir rigor bibliogr
     - [x] Integrar as entradas no arquivo `monografia/referencias.bib`.
     - [x] Validar a integridade sintática do arquivo BibTeX.
 
-- [ ] Task: Conductor - User Manual Verification 'Fase 1: Levantamento Bibliográfico e Curadoria de Artigos sobre LLM-as-a-Judge' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Fase 1: Levantamento Bibliográfico e Curadoria de Artigos sobre LLM-as-a-Judge' (Protocol in workflow.md) 348d900
 
 ---
 
