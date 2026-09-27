@@ -23,13 +23,13 @@ O trabalho está estruturado em 4 fases sequenciais para garantir rigor bibliogr
 
 ## Fase 2: Fundamentação Teórica no Capítulo 2 (Referencial Teórico)
 
-- [ ] Task: Elaboração da Subseção Teórica de LLM-as-a-Judge em `cap2_referencial_teorico.tex`
-    - [ ] Analisar o fluxo atual do Capítulo 2 para posicionar harmonicamente a nova subseção.
-    - [ ] Redigir a subseção abordando conceitos fundamentais, comparação com métricas léxicas/n-gramas e modos de julgamento (pairwise vs pointwise).
-    - [ ] Abordar os vieses inerentes documentados na literatura (position bias, verbosity bias, self-enhancement bias) e estratégias de atenuação.
-    - [ ] Inserir chamadas de citação cruzada `\cite{...}` compatíveis com o banco BibTeX.
+- [x] Task: Elaboração da Subseção Teórica de LLM-as-a-Judge em `cap2_referencial_teorico.tex` 1e9b2fe
+    - [x] Analisar o fluxo atual do Capítulo 2 para posicionar harmonicamente a nova subseção.
+    - [x] Redigir a subseção abordando conceitos fundamentais, comparação com métricas léxicas/n-gramas e modos de julgamento (pairwise vs pointwise).
+    - [x] Abordar os vieses inerentes documentados na literatura (position bias, verbosity bias, self-enhancement bias) e estratégias de atenuação.
+    - [x] Inserir chamadas de citação cruzada `\cite{...}` compatíveis com o banco BibTeX.
 
-- [ ] Task: Conductor - User Manual Verification 'Fase 2: Fundamentação Teórica no Capítulo 2 (Referencial Teórico)' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Fase 2: Fundamentação Teórica no Capítulo 2 (Referencial Teórico)' (Protocol in workflow.md) 1e9b2fe
 
 ---
 
