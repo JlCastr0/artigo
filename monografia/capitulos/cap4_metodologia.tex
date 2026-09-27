@@ -59,29 +59,24 @@ A progressão para além da Fase 1 depende da habilidade dedutiva do jogador em 
     \item \textcolor{red}{[TODO: Passo 4 - Pista de transição: Como o testemunho sincero de Alberto direciona as suspeitas contra Silas Drummond e desbloqueia o interrogatório da Fase 2.]}
 \end{itemize}
 
-\section{Arquitetura de Agentic RAG com Fragmentação Temporal Dinâmica}
+\section{Arquitetura Conceitual de Agentic RAG com Fragmentação Temporal Dinâmica}
 \label{sec:met_arquitetura_rag}
 
-Em vez de submeter toda a base documental de Alberto em cada turno de diálogo (\textit{Full Prompt}), prática que satura a memória de trabalho do modelo e deflagra o fenômeno \textit{Lost in the Middle} \cite{liu2024lost}, projetou-se uma arquitetura de dois estágios, denominada \textit{Agentic RAG}.
+A concepção da arquitetura de recuperação de informação para NPCs em jogos investigativos enfrenta um dilema fundamental de engenharia de contexto. A abordagem ingênua consistiria em submeter a totalidade do roteiro factual, da linha do tempo e dos segredos do suspeito no \textit{prompt} de sistema a cada turno de diálogo (\textit{Full Prompt}). Entretanto, essa prática satura desnecessariamente a janela de contexto, eleva a latência de processamento em hardware local e deflagra o fenômeno \textit{Lost in the Middle} \cite{liu2024lost}, no qual o modelo perde a capacidade de atender a evidências críticas situadas no meio de contextos extensos.
 
-O pipeline funciona através de um ciclo de raciocínio ReAct \cite{yao2023react}:
+Por outro lado, o emprego de abordagens convencionais de RAG baseadas unicamente em similaridade vetorial por \textit{embeddings} revela-se falho em investigações policiais: métricas de distância semântica (como similaridade de cosseno) são cegas a causalidades cronológicas rígidas, frequentemente recuperando depoimentos de horários desconexos que induzem o personagem a anacronismos e falsas declarações de álibi.
+
+Para solucionar esse desafio, formulou-se um modelo conceitual híbrido em dois estágios, denominado \textit{Agentic RAG}, fundamentado no ciclo de raciocínio ReAct (\textit{Reasoning and Acting}) \cite{yao2023react}:
 
 \begin{enumerate}
-    \item O jogador digita uma pergunta aberta no terminal de diálogo do jogo (ex: ``\textit{Onde você estava às 14:00 e o que estava fazendo?}'');
-    \item A mensagem é interceptada pelo \textbf{Agente de Triagem e Roteamento}. Para essa função, utilizou-se o modelo Gemma-2-9b-it de forma padronizada para todas as baterias experimentais, assegurando neutralidade no despacho contextual;
-    \item O agente de triagem gera internamente uma cadeia de raciocínio lógico (\textit{Thought}) e emite um comando sintático estruturado (\textit{Action}), selecionado a partir de um vocabulário restrito:
-    \begin{itemize}
-        \item \texttt{[BUSCAR\_CRONOGRAMA\_MANHA]}: Período das 08:00 às 12:00;
-        \item \texttt{[BUSCAR\_CRONOGRAMA\_TARDE]}: Período das 12:00 às 18:00;
-        \item \texttt{[BUSCAR\_CRONOGRAMA\_NOITE]}: Período das 18:00 à 01:00;
-        \item \texttt{[BUSCAR\_RELACIONAMENTOS]}: Consultas sobre opiniões a respeito de terceiros;
-        \item \texttt{[RESPONDER\_DIRETO]}: Saudações ou perguntas biográficas básicas que demandam apenas o \texttt{perfil.json}.
-    \end{itemize}
-    \item O despachador em C\# no Unity injeta exclusivamente o fragmento selecionado (\textit{Dynamic Chunking}) no \textit{prompt} de sistema do modelo gerador da persona;
-    \item O modelo principal recebe o contexto filtrado e sintetiza a fala final do NPC com máxima precisão e carga dramática.
+    \item \textbf{Estágio 1 (Triagem Analítica e Roteamento Contextual):} Responsável pela interpretação da intenção interrogativa do jogador e seleção deliberativa da partição de conhecimento relevante. Ao receber a mensagem do usuário, um modelo auxiliar padronizado (Gemma-2-9b-it) realiza uma etapa de reflexão lógica (\textit{Thought}), identificando o período horário ou o escopo relacional demandado, e emite uma decisão discreta de roteamento (\textit{Action});
+    
+    \item \textbf{Estágio 2 (Dramatização e Encenação de Persona):} O modelo condutor do personagem recebe unicamente o fragmento de conhecimento estritamente pertinente ao turno (\textit{Dynamic Chunking}), concatenado à sua persona psicológica básica. Desonerado da tarefa de varrer todo o dia de eventos, o modelo canaliza sua capacidade atencional para a estilização do diálogo, mantendo a postura defensiva e a retórica característica de Alberto Castelo.
 \end{enumerate}
 
-Essa abordagem garante que o contexto fornecido ao modelo em teste contenha apenas os dados estritamente necessários para a dedução daquele turno, reduzindo o tamanho do \textit{prompt} em até 65\% em relação ao método estático tradicional.
+Sob a perspectiva metodológica, a fragmentação dinâmica substitui a busca probabilística vetorial por um particionamento determinístico do universo do jogo, dividido em: (i) blocos temporais do cronograma (manhã, tarde e noite); (ii) grafo subjetivo de relacionamentos; e (iii) dados biográficos estáveis do perfil. Essa segregação reduz o volume de texto trafegado em até 65\% em relação ao método estático, mitigando alucinações espaço-temporais e garantindo que o suspeito nunca acesse informações fora de sua linha de visão.
+
+Os detalhes específicos da engenharia de software da triagem, incluindo a gramática sintática de ações ReAct, a tabela descritiva de despacho, as expressões regulares e a implementação do despachador em C\# no Unity, são apresentados na Seção \ref{sec:dev_triagem} do Capítulo \ref{cap:implementacao}.
 
 \section{Bateria de Testes de Estresse Dialógico (50 Perguntas)}
 \label{sec:met_bateria}
