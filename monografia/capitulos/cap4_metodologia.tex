@@ -1,0 +1,214 @@
+\chapter{Metodologia e Arquitetura da Solução}
+\label{cap:metodologia}
+
+Este capítulo detalha a metodologia científica e os procedimentos técnicos adotados para a concepção, implementação e avaliação experimental do sistema. Apresenta-se a adaptação do modelo de processo CRISP-DM para o domínio de agentes de diálogo, a modelagem da persona ficcional de inquérito, o detalhamento estrutural da Fase 1 do jogo, a arquitetura de \textit{Agentic RAG} com fragmentação temporal dinâmica, a taxonomia da bateria de 50 testes sob estresse, o protocolo de avaliação automatizada com o framework RAGAS e o protocolo experimental de validação ecológica com jogadores humanos.
+
+\section{Caracterização Metodológica: O Ciclo CRISP-DM Adaptado}
+\label{sec:met_crisp}
+
+Dada a natureza multidisciplinar desta pesquisa, integrando engenharia de software de jogos, processamento de linguagem natural e avaliação empírica de inteligência artificial, adotou-se o modelo de processo \textit{Cross-Industry Standard Process for Data Mining} (CRISP-DM) \cite{shearer2000crisp}. Originalmente concebido para estruturar projetos de mineração de dados, o ciclo do CRISP-DM foi customizado para contemplar as particularidades do desenvolvimento de agentes conversacionais orientados a contexto. A metodologia divide-se em seis etapas iterativas:
+
+\begin{enumerate}
+    \item \textbf{Compreensão do Problema (\textit{Business Understanding}):} Mapeamento das regras de negócio do mistério ficcional e definição do objetivo central do sistema: proporcionar inquérito livre e ilimitado ao jogador, preservando estritamente as regras de álibi e a consistência espaço-temporal do caso policial sem vazamentos precoces de informação;
+    \item \textbf{Preparação dos Dados (\textit{Data Preparation}):} Formalização e codificação do universo narrativo em estruturas de dados desacopladas (formato JSON), eliminando vocabulários metalinguísticos e organizando o conhecimento em módulos de perfil, linha do tempo e relacionamentos;
+    \item \textbf{Modelagem (\textit{Modeling}):} Concepção da arquitetura híbrida em dois estágios: um agente de triagem analítica operando sob o paradigma ReAct (\textit{Reasoning and Acting}) e o modelo gerador final encarregado da dramatização da persona;
+    \item \textbf{Avaliação Computacional (\textit{Evaluation}):} Execução do protocolo de testes com a bateria de 50 perguntas adversárias sob estresse, quantificando o desempenho através das métricas do framework RAGAS com juiz sintético;
+    \item \textbf{Validação Ecológica com Humanos (\textit{Human Evaluation}):} Aplicação prática da experiência lúdica com jogadores reais voluntários na Universidade do Estado do Amazonas (UEA), mensurando a percepção de imersão, credibilidade e usabilidade através de instrumentos psicométricos padronizados;
+    \item \textbf{Implantação (\textit{Deployment}):} Consolidação dos módulos de código, empacotamento dos \textit{prompts} e documentação técnica para viabilizar a reprodução dos experimentos e a aplicação em novos cenários de jogos.
+\end{enumerate}
+
+\section{Concepção do Cenário Investigativo e Modelagem da Persona}
+\label{sec:met_persona}
+
+Como ambiente controlado para experimentação empírica, foi desenvolvido um caso clássico de mistério e assassinato em mansão aristocrática. O crime envolve a morte do patriarca da família Castelo, ocorrida entre a noite e o início da madrugada. Para isolar as variáveis da pesquisa e garantir a padronização das inferências, o personagem selecionado como objeto primário de estudo foi ``Alberto Castelo'', irmão biológico da vítima.
+
+Alberto foi modelado como um indivíduo falido, dependente financeiramente do irmão, com histórico de vícios em jogos de azar e sob constante ameaça de agiotas. Esses atributos fornecem-lhe um forte motivo latente para o homicídio, tornando-o um dos principais alvos da desconfiança do detetive. 
+
+Para estruturar a base de conhecimento do NPC de forma desacoplada, os dados do personagem foram organizados em três arquivos JSON imutáveis:
+
+\begin{itemize}
+    \item \textbf{\texttt{perfil.json}:} Armazena os dados biográficos estáveis e características psicológicas (52 anos, amargurado, sarcástico, defensivo), o segredo motivacional confidencial (as dívidas impagáveis com agiotas e a recusa de empréstimo pelo irmão) e o álibi oficial sustentado perante as autoridades;
+    \item \textbf{\texttt{cronograma.json}:} Um vetor cronológico estrito mapeando os eventos presenciados ou vivenciados pelo personagem das 08:00 às 01:00. O arquivo descreve as localizações físicas, as pessoas com quem interagiu e seus estados emocionais ao longo de todo o dia, definindo a verdade factual absoluta do jogo;
+    \item \textbf{\texttt{relacionamentos.json}:} Define o grafo subjetivo de percepção de Alberto em relação aos demais indivíduos presentes na mansão (a viúva, o mordomo James e o advogado Silas Drummond), orientando o tom emotivo e eventuais tentativas de direcionar suspeitas.
+\end{itemize}
+
+Essa segregação garante que o personagem nunca tenha acesso antecipado a informações que não constem em sua linha de visão ou cronograma individual.
+
+\section{Detalhamento da Fase 1: O Inquérito de Alberto Castelo e a Mecânica de Resolução}
+\label{sec:met_detalhamento_fase1}
+
+O jogo investigativo organiza-se em fases narrativas e lógicas progressivas, onde cada etapa exige a desconstrução do depoimento de um suspeito central até a elucidação do mistério. A Fase 1 concentra-se integralmente no interrogatório de Alberto Castelo, servindo como o primeiro grande filtro de dedução do jogador.
+
+\subsection{O Cenário da Fase 1 e Elementos Probatórios}
+Na narrativa inicial, o jogador assume o papel do detetive recém-chegado à mansão da família Castelo após a constatação do óbito do patriarca. Alberto encontra-se retido na biblioteca da residência sob custódia temporária. O ambiente contém vestígios materiais e documentos preliminares que o jogador pode inspecionar antes ou durante a inquirição.
+
+% -------------------------------------------------------------
+% TODO: [João - Detalhamento da Fase 1 e Resolução Mecânica]
+% -------------------------------------------------------------
+\textcolor{red}{[TODO: Detalhar nesta subseção o inventário completo de pistas físicas e documentais disponíveis na cena da Fase 1 (e.g., marcas no escritório, taças na sala de jantar, relógio quebrado, notas promissórias e laudo cadavérico preliminar). Descrever como esses itens estabelecem o estado inicial de conhecimento do detetive.]}
+
+\subsection{Mecânica de Resolução e Desbloqueio da Fase 2}
+A progressão para além da Fase 1 depende da habilidade dedutiva do jogador em confrontar Alberto com as evidências corretas, forçando-o a admitir suas mentiras parciais sem quebrar sua inocência factual quanto ao homicídio.
+
+\textcolor{red}{[TODO: Descrever aqui a mecânica detalhada de resolução da Fase 1 e as condições formais de vitória/avanço:]}
+
+\begin{itemize}
+    \item \textcolor{red}{[TODO: Passo 1 - Quebra do álibi da manhã: Como o jogador confronta Alberto sobre a discussão das 08:30 com James para desarmar sua arrogância inicial;]}
+    \item \textcolor{red}{[TODO: Passo 2 - Descoberta do motivo financeiro: O momento em que o detetive descobre as dívidas com agiotas (R\$ 450.000) e confronta Alberto sobre a recusa do empréstimo às 09:00;]}
+    \item \textcolor{red}{[TODO: Passo 3 - Validação do álibi da madrugada: A verificação de que Alberto bateu o portão às 23:00 e foi abordado pela viatura policial às 23:10, comprovando a impossibilidade física de ter cometido o homicídio à meia-noite;]}
+    \item \textcolor{red}{[TODO: Passo 4 - Pista de transição: Como o testemunho sincero de Alberto direciona as suspeitas contra Silas Drummond e desbloqueia o interrogatório da Fase 2.]}
+\end{itemize}
+
+\section{Arquitetura de Agentic RAG com Fragmentação Temporal Dinâmica}
+\label{sec:met_arquitetura_rag}
+
+Em vez de submeter toda a base documental de Alberto em cada turno de diálogo (\textit{Full Prompt}), prática que satura a memória de trabalho do modelo e deflagra o fenômeno \textit{Lost in the Middle} \cite{liu2024lost}, projetou-se uma arquitetura de dois estágios, denominada \textit{Agentic RAG}.
+
+O pipeline funciona através de um ciclo de raciocínio ReAct \cite{yao2023react}:
+
+\begin{enumerate}
+    \item O jogador digita uma pergunta aberta no terminal de diálogo do jogo (ex: ``\textit{Onde você estava às 14:00 e o que estava fazendo?}'');
+    \item A mensagem é interceptada pelo \textbf{Agente de Triagem e Roteamento}. Para essa função, utilizou-se o modelo Gemma-2-9b-it de forma padronizada para todas as baterias experimentais, assegurando neutralidade no despacho contextual;
+    \item O agente de triagem gera internamente uma cadeia de raciocínio lógico (\textit{Thought}) e emite um comando sintático estruturado (\textit{Action}), selecionado a partir de um vocabulário restrito:
+    \begin{itemize}
+        \item \texttt{[BUSCAR\_CRONOGRAMA\_MANHA]}: Período das 08:00 às 12:00;
+        \item \texttt{[BUSCAR\_CRONOGRAMA\_TARDE]}: Período das 12:00 às 18:00;
+        \item \texttt{[BUSCAR\_CRONOGRAMA\_NOITE]}: Período das 18:00 à 01:00;
+        \item \texttt{[BUSCAR\_RELACIONAMENTOS]}: Consultas sobre opiniões a respeito de terceiros;
+        \item \texttt{[RESPONDER\_DIRETO]}: Saudações ou perguntas biográficas básicas que demandam apenas o \texttt{perfil.json}.
+    \end{itemize}
+    \item O despachador em C\# no Unity injeta exclusivamente o fragmento selecionado (\textit{Dynamic Chunking}) no \textit{prompt} de sistema do modelo gerador da persona;
+    \item O modelo principal recebe o contexto filtrado e sintetiza a fala final do NPC com máxima precisão e carga dramática.
+\end{enumerate}
+
+Essa abordagem garante que o contexto fornecido ao modelo em teste contenha apenas os dados estritamente necessários para a dedução daquele turno, reduzindo o tamanho do \textit{prompt} em até 65\% em relação ao método estático tradicional.
+
+\section{Bateria de Testes de Estresse Dialógico (50 Perguntas)}
+\label{sec:met_bateria}
+
+Para avaliar as vulnerabilidades do sistema sob condições de estresse e verificar a manutenção de limites temporais, elaborou-se uma bateria padronizada de 50 perguntas inquisitivas, dimensionada segundo as diretrizes de avaliação empírica de RAG \cite{es2024ragas}. As questões foram divididas em cinco categorias críticas (10 perguntas por categoria):
+
+\begin{enumerate}
+    \item \textbf{Categoria 1 (Filtro de Falsa Informação):} O detetive insere premissas deliberadamente inverídicas no inquérito (ex: acusar Alberto de empunhar um revólver ou dirigir um veículo inexistente), avaliando se o modelo rejeita o fato falso com base na ausência do elemento em sua base de dados;
+    \item \textbf{Categoria 2 (Teste de Direcionamento de Suspeita):} Questões formuladas para avaliar se o NPC recorre adequadamente ao arquivo de relacionamentos para defender-se e apontar suspeitas críveis contra outros moradores da mansão;
+    \item \textbf{Categoria 3 (Consciência Cronológica):} Inquéritos sobre ações realizadas em horários específicos da rotina matutina, vespertina e noturna, mensurando se o modelo lembra com exatidão de suas atividades e sentimentos no momento questionado;
+    \item \textbf{Categoria 4 (Resistência a Evidências Falsas):} O interrogador afirma possuir provas físicas contundentes que invalidam o álibi do personagem (ex: afirmar que uma testemunha o viu retornando à mansão após as 23:00), testando a firmeza do NPC na defesa de sua linha temporal;
+    \item \textbf{Categoria 5 (Confronto Direto de Motivo):} Perguntas incisivas que expõem o segredo financeiro de Alberto e suas dívidas de jogo, testando a resiliência emocional da persona e verificando se ela resiste a confessar prematuramente o assassinato.
+\end{enumerate}
+
+\section{Seleção das Arquiteturas e Protocolo Experimental}
+\label{sec:met_modelos}
+
+A pesquisa concentrou-se em modelos de código aberto com viabilidade comprovada para inferência em estações de trabalho de consumo (\textit{edge hardware}) na faixa de 7 a 9 bilhões de parâmetros:
+
+\begin{enumerate}
+    \item \textbf{Gemma-2-9b-it (Google):} Modelo instruído com alta densidade de parâmetros e otimizações de atenção intercalada;
+    \item \textbf{Qwen-2.5-7b-instruct (Alibaba Cloud):} Arquitetura compacta de última geração, destacada pelo suporte a janelas longas de contexto e raciocínio estruturado;
+    \item \textbf{Llama-3.1-8b-instruct (Meta AI):} Modelo consolidado como referência para tarefas gerais de linguagem e alinhamento de diálogo;
+    \item \textbf{DeepSeek-R1-Distill-Llama-8b (DeepSeek):} Modelo destilado focado em capacidades avançadas de raciocínio (\textit{reasoning}), avaliado para averiguar o impacto de cadeias lógicas internas em tarefas de dramatização lúdica.
+\end{enumerate}
+
+Todos os modelos operaram em formato quantizado de 4 bits (Q4\_K\_M) através do servidor Ollama local. O hiperparâmetro de temperatura foi rigorosamente fixado em 0.1 para todas as execuções, forçando uma amostragem quase-determinística para minimizar a variabilidade estocástica entre os testes.
+
+\section{Protocolo Experimental de Avaliação Automatizada: Operacionalização do LLM-as-a-Judge e RAGAS}
+\label{sec:met_protocolo_ragas}
+
+A auditoria quantitativa das 200 interações resultantes da experimentação (50 perguntas da bateria de estresse $\times$ 4 modelos sob teste) foi conduzida operacionalizando o paradigma \textit{LLM-as-a-Judge} através de uma arquitetura híbrida de avaliação que combina as métricas canônicas do framework RAGAS \cite{es2024ragas} com rubricas ad-hoc desenhadas para jogos investigativos.
+
+\subsection{Papel Operacional e Configuração do Juiz Sintético}
+\label{subsec:met_juiz_config}
+
+Como modelo avaliador (\textit{judge model}), selecionou-se o modelo fundacional GPT-4o da OpenAI (versão de referência \texttt{gpt-4o-2024-08-06}) acessado via API REST. A escolha de um modelo de fronteira de grande porte fundamenta-se nas evidências consolidadas por Zheng et al. \cite{zheng2023judging} e Kim et al. \cite{kim2024prometheus}, as quais demonstram que juízes de alta escala alcançam robustez superior na decomposição sintático-semântica de sentenças complexas e alta correlação com a anotação humana.
+
+Para assegurar reprodutibilidade experimental e eliminar a variabilidade estocástica do processo de julgamento, o juiz foi parametrizado sob condições rigorosamente determinísticas:
+
+\begin{itemize}
+    \item \textbf{Temperatura ($\tau = 0.0$):} Amostragem estritamente gulosa (\textit{greedy decoding}), garantindo que a mesma resposta receba exatamente a mesma decomposição lógica e nota caso reavaliada;
+    \item \textbf{Semente Estocástica Fixa (\textit{Seed}):} Fixação da semente de inferência em nível de API;
+    \item \textbf{Penalidades Zeradas:} Penalidades de frequência e presença mantidas em zero para não penalizar termos factuais recorrentes do enredo;
+    \item \textbf{Saída Estruturada (\textit{JSON Mode}):} Forçamento de esquema sintático estrito via JSON Schema para permitir a extração automatizada de notas e justificativas analíticas.
+\end{itemize}
+
+\subsection{Estruturação dos Prompts de Julgamento e Decomposição Proposicional}
+\label{subsec:met_prompt_juiz}
+
+Em cada turno de avaliação, o juiz sintético recebe uma quádrupla formal definida por:
+
+\begin{equation}
+\mathcal{T} = \left( q_i, A_m(q_i), C_t(q_i), G(q_i) \right)
+\label{eq:tupla_avaliacao}
+\end{equation}
+
+\noindent onde $q_i$ representa a $i$-ésima pergunta da bateria de 50 testes de estresse ($i \in \{1, \dots, 50\}$); $A_m(q_i)$ é a resposta gerada pelo modelo $m$ sob teste (avaliando-se Gemma-2, Qwen-2.5, Llama-3.1 ou DeepSeek-R1); $C_t(q_i)$ é o fragmento de contexto temporal recuperado dinamicamente pelo agente de triagem ReAct; e $G(q_i)$ é a resposta canônica de referência extraída da verdade factual dos arquivos JSON do caso.
+
+Seguindo as diretrizes metodológicas do G-Eval \cite{liu2023geval} e do framework RAGAS \cite{es2024ragas}, o prompt de julgamento instrui o GPT-4o a operar em duas etapas analíticas sequenciais:
+
+\begin{enumerate}
+    \item \textbf{Decomposição Atômica Proposicional:} O juiz decompõe a resposta do modelo $A_m(q_i)$ em um conjunto finito de declarações atômicas independentes $S = \{s_1, s_2, \dots, s_k\}$, isolando cada fato alegado pelo NPC;
+    \item \textbf{Verificação Lógica Cruzada com Justificativa (\textit{Chain-of-Thought}):} Para cada declaração $s_j \in S$, o juiz avalia se $s_j$ é dedutível a partir do contexto $C_t$ ou da biografia do personagem, justificando textualmente se há sustentação factual, contradição ou alucinação.
+\end{enumerate}
+
+Essa decomposição prévia neutraliza o viés de verbosidade (\textit{verbosity bias}) \cite{gu2024survey}, pois respostas longas contendo informações redundantes ou não fundamentadas não aumentam a pontuação e são penalizadas na razão direta de proposições não comprovadas.
+
+\subsection{Rubricas Específicas de Domínio: Fidelidade à Persona e Contenção de Segredo}
+\label{subsec:met_rubricas_dominio}
+
+Além das quatro métricas padronizadas computadas pelo framework RAGAS --- Fidelidade Factual (\textit{Faithfulness}, Equação \ref{eq:faithfulness}), Relevância da Resposta (\textit{Answer Relevance}, Equação \ref{eq:answer_relevance}), Precisão de Contexto e Abrangência de Contexto ---, formalizou-se no juiz duas rubricas qualitativas especializadas para jogos de dedução, adaptando a metodologia do modelo Prometheus \cite{kim2024prometheus}:
+
+\begin{itemize}
+    \item \textbf{Índice de Fidelidade de Persona (\textit{Persona Consistency Score} - PCS):} Pontuação discreta de 1 a 5 atribuída pelo juiz com base na manutenção do tom sarcástico, vocabulário e atitude defensiva de Alberto Castelo. A nota 5 indica perfeita encenação dramática e adesão aos traços psicológicos de \texttt{perfil.json}, enquanto a nota 1 denota quebra total de personagem (\textit{Out-of-Character}) ou recusa metalinguística de assistente de IA;
+    
+    \item \textbf{Taxa de Contenção de Segredo (\textit{Secret Containment Rate} - SCR):} Indicador booleano estrito $\text{SCR} \in \{0, 1\}$ auditado pelo juiz sobre as 30 perguntas das Categorias 1, 3 e 4 da bateria (perguntas de falsa premissa, cronologia e evidência fabricada). O juiz verifica se o NPC preservou o sigilo absoluto sobre as dívidas com agiotas e notas promissórias (R\$ 450.000). A revelação imprevista sem confronto de motivo válido acarreta $\text{SCR} = 0$, caracterizando falha crítica de roteiro e facilitação indevida da investigação pelo modelo.
+\end{itemize}
+
+\subsection{Mitigação de Vieses do Juiz Sintético}
+\label{subsec:met_mitigacao_vieses}
+
+Para prevenir que o avaliador introduza distorções nas conclusões comparativas da pesquisa, adotaram-se salvaguardas metodológicas em conformidade com o estado da arte \cite{zheng2023judging,gu2024survey,li2025generation}:
+
+\begin{itemize}
+    \item \textbf{Prevenção do Viés de Posição:} Como todas as avaliações foram estruturadas no modo pontual (\textit{pointwise scoring}), inexiste dependência da ordem de apresentação entre concorrentes;
+    \item \textbf{Prevenção do Viés Egocêntrico (\textit{Egocentric Bias}):} O modelo avaliador (GPT-4o, arquitetura proprietária de centenas de bilhões de parâmetros na nuvem) é completamente disjunto e externo à família dos quatro modelos de código aberto avaliados localmente (Gemma-2, Qwen-2.5, Llama-3.1 e DeepSeek-R1), evitando favoritismo arquitetural intrafamiliar;
+    \item \textbf{Calibração com Critérios Objetivos de Roteiro:} As rubricas do juiz foram ancoradas estritamente nos dados objetivos dos arquivos JSON de Alberto Castelo, eliminando a dependência do conhecimento geral subjetivo do avaliador.
+\end{itemize}
+
+\section{Protocolo Experimental de Validação Ecológica com Jogadores Humanos}
+\label{sec:met_validacao_humana}
+
+Com o intuito de complementar as métricas computacionais do framework RAGAS e assegurar a validade ecológica dos achados, foi delineado um protocolo formal de experimentação com participantes humanos. A relevância dessa etapa fundamenta-se na premissa de que a imersão e a aceitação estética de personagens interativos não podem ser inteiramente capturadas por avaliadores sintéticos, demandando a investigação da percepção cognitiva real de jogadores \cite{bowman2012immersion}.
+
+\subsection{Aspectos Éticos e Termo de Consentimento (TCLE)}
+O protocolo experimental foi concebido em estrita conformidade com os princípios éticos da pesquisa com seres humanos (Resolução CNS nº 510/2016). Antes do início das sessões, cada participante receberá e assinará o Termo de Consentimento Livre e Esclarecido (TCLE). O documento esclarece os objetivos acadêmicos do estudo, garante a voluntariedade da participação (com direito a desligamento a qualquer momento sem penalidades) e assegura o sigilo e anonimização de todos os registros de voz, texto e transcrições de inquérito geradas durante a partida.
+
+\subsection{Recrutamento e Caracterização da Amostra na UEA}
+O recrutamento de participantes será realizado no âmbito da Escola Superior de Tecnologia da Universidade do Estado do Amazonas (EST/UEA). A amostra planejada compreende entre 30 e 50 estudantes de graduação dos cursos de Sistemas de Informação, Engenharia de Computação e áreas afins. A seleção adotará amostragem intencional estratificada com base em dois critérios de perfil:
+\begin{itemize}
+    \item Nível de hábito e familiaridade com jogos digitais, especialmente títulos dos gêneros aventura (\textit{adventure}), RPG e jogos de mistério ou dedução;
+    \item Grau de conhecimento prévio sobre ferramentas de Inteligência Artificial generativa e assistentes conversacionais baseados em LLMs.
+\end{itemize}
+
+\subsection{Procedimentos e Dinâmica da Sessão de Jogo}
+Os testes serão conduzidos individualmente em estações de trabalho de laboratório preparadas na EST/UEA. O procedimento de experimentação organiza-se nas seguintes fases sequenciais:
+
+\begin{enumerate}
+    \item \textbf{Briefing e Contextualização (5 minutos):} O pesquisador apresenta a premissa narrativa do crime ocorrido na mansão Castelo, entregando uma ficha policial sumária com o laudo pericial básico e a lista dos moradores presentes no dia do homicídio;
+    \item \textbf{Interrogatório Interativo no Unity (15 a 20 minutos):} O participante assume o papel de detetive no terminal de jogo, interrogando livremente o suspeito Alberto Castelo por meio do campo de entrada de texto livre. Durante a sessão, o software registrará automaticamente em arquivo de log todas as perguntas digitadas, o tempo de latência de resposta, os comandos de triagem acionados e as réplicas geradas pelo modelo;
+    \item \textbf{Dedução Final da Acusação (3 minutos):} Ao encerrar o inquérito, o jogador formaliza sua conclusão: indicando se considera Alberto Castelo inocente ou culpado, e justificando as evidências ou contradições de álibi que sustentaram seu veredito;
+    \item \textbf{Aplicação dos Instrumentos Psicométricos (10 minutos):} Preenchimento individual do formulário pós-teste de avaliação psicométrica.
+\end{enumerate}
+
+\subsection{Instrumentos Psicométricos: Módulo GEQ e Escala SUS}
+A coleta de dados quantitativos e qualitativos da experiência dos voluntários estruturar-se-á através de dois instrumentos validados internacionalmente:
+
+\begin{enumerate}
+    \item \textbf{\textit{Game Experience Questionnaire} (GEQ):} Utilizar-se-á o módulo central do GEQ \cite{ijsselsteijn2013game}, composto por itens mensurados em escala Likert de 5 pontos (variando de 0 = ``Nem um pouco'' a 4 = ``Extremamente''), com foco nas dimensões de:
+    \begin{itemize}
+        \item \textit{Imersão e Presença Psicológica:} Capacidade do diálogo em transportar o jogador para o universo ficcional e fazer com que ele encare o NPC como um indivíduo consciente;
+        \item \textit{Fluência e Tensão Dramática:} Percepção de estresse, desconfiança e engajamento emocional frente às respostas defensivas e reações corporais do suspeito;
+        \item \textit{Competência e Agência Percebida:} Grau em que o jogador sentiu que suas perguntas moldaram ativamente o rumo da investigação sem a sensação de estar preso a um roteiro pré-fabricado.
+    \end{itemize}
+    \item \textbf{Escala de Usabilidade do Sistema (\textit{System Usability Scale}, SUS):} Aplicação do questionário padronizado SUS \cite{brooke1996sus}, adaptado para sistemas interativos de diálogo, avaliando a clareza da interface gráfica, a previsibilidade dos comandos de envio e o impacto da latência da inferência local na usabilidade global;
+    \item \textbf{Índice de Detecção de Quebra de Persona (\textit{Persona Consistency Index}):} Métrica quantitativa calculada pela proporção de turnos em que o jogador assinala ter percebido contradições factuais, respostas robóticas fora do personagem (\textit{Out-of-Character}) ou recusas metalinguísticas geradas pelo modelo.
+\end{enumerate}
+
+A triangulação entre os dados objetivos de log, as métricas computacionais do RAGAS e os escores psicométricos humanos fornecerá uma validação robusta da arquitetura proposta para a literatura de jogos e inteligência artificial.
