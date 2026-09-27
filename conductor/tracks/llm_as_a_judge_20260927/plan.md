@@ -35,12 +35,12 @@ O trabalho está estruturado em 4 fases sequenciais para garantir rigor bibliogr
 
 ## Fase 3: Detalhamento Metodológico no Capítulo 4 (Metodologia)
 
-- [ ] Task: Formalização do Mecanismo de Avaliação no Capítulo 4 (`cap4_metodologia.tex`)
-    - [ ] Mapear onde a avaliação e métricas são descritas no Capítulo 4.
-    - [ ] Enriquecer a descrição metodológica explicitando o papel do LLM como juiz avaliador das respostas dos NPCs.
-    - [ ] Detalhar o pipeline de avaliação: formulação dos prompts de avaliação, rubricas de fidelidade à persona, preservação de segredos e integração com o framework RAGAS.
+- [x] Task: Formalização do Mecanismo de Avaliação no Capítulo 4 (`cap4_metodologia.tex`) e01d2a2
+    - [x] Mapear onde a avaliação e métricas são descritas no Capítulo 4.
+    - [x] Enriquecer a descrição metodológica explicitando o papel do LLM como juiz avaliador das respostas dos NPCs.
+    - [x] Detalhar o pipeline de avaliação: formulação dos prompts de avaliação, rubricas de fidelidade à persona, preservação de segredos e integração com o framework RAGAS.
 
-- [ ] Task: Conductor - User Manual Verification 'Fase 3: Detalhamento Metodológico no Capítulo 4 (Metodologia)' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Fase 3: Detalhamento Metodológico no Capítulo 4 (Metodologia)' (Protocol in workflow.md) e01d2a2
 
 ---
 
