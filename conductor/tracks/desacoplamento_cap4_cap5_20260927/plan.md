@@ -13,12 +13,12 @@
 
 ## Fase 2: Harmonização no Capítulo 5 e Validação de Compilação
 
-- [ ] Task: Revisão da Seção 5.4 no Capítulo 5 (`cap5_desenvolvimento_implementacao.tex`)
-    - [ ] Verificar e assegurar que a Seção 5.4 e a Tabela 5.1 contêm a gramática completa e autossuficiente da engenharia ReAct.
-    - [ ] Ajustar a abertura da Seção 5.4 para referenciar formalmente a decisão metodológica estabelecida na Seção 4.4.
+- [x] Task: Revisão da Seção 5.4 no Capítulo 5 (`cap5_desenvolvimento_implementacao.tex`) ae717e4
+    - [x] Verificar e assegurar que a Seção 5.4 e a Tabela 5.1 contêm a gramática completa e autossuficiente da engenharia ReAct.
+    - [x] Ajustar a abertura da Seção 5.4 para referenciar formalmente a decisão metodológica estabelecida na Seção 4.4.
 
-- [ ] Task: Auditoria de Compilação LaTeX
-    - [ ] Compilar a monografia com `pdflatex` + `bibtex` + `pdflatex`.
-    - [ ] Confirmar ausência de referências quebradas e validar fluidez de leitura.
+- [x] Task: Auditoria de Compilação LaTeX ae717e4
+    - [x] Compilar a monografia com `pdflatex` + `bibtex` + `pdflatex`.
+    - [x] Confirmar ausência de referências quebradas e validar fluidez de leitura.
 
-- [ ] Task: Conductor - User Manual Verification 'Fase 2: Harmonização no Capítulo 5 e Validação de Compilação' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Fase 2: Harmonização no Capítulo 5 e Validação de Compilação' (Protocol in workflow.md) ae717e4
