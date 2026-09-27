@@ -1,0 +1,134 @@
+\chapter{Desenvolvimento e Implementação}
+\label{cap:implementacao}
+
+Este capítulo documenta a engenharia de software da solução desenvolvida, descrevendo a integração entre o motor gráfico Unity, o middleware Neo Cortex e o ambiente de inferência local Ollama. Detalha-se a implementação da interface de usuário, o protocolo de comunicação cliente-servidor, os algoritmos de triagem baseados em ReAct e as especificações da infraestrutura computacional utilizada.
+
+\section{Visão Geral da Arquitetura do Sistema}
+\label{sec:dev_arquitetura}
+
+Para viabilizar a simulação de personagens autônomos sem dependência de serviços externos em nuvem, concebeu-se uma arquitetura em camadas desacopladas. A Figura \ref{fig:arquitetura_pipeline} sintetiza o fluxo de dados entre as camadas do sistema:
+
+\input{figuras/flow_arquitetura.tex}
+
+O sistema organiza-se em três domínios principais:
+\begin{enumerate}
+    \item \textbf{Camada de Apresentação e Interação (Unity Engine):} Gerencia a renderização gráfica, o estado do jogo e a captura das mensagens digitadas pelo usuário;
+    \item \textbf{Camada de Mediação e Orquestração (Neo Cortex Middleware):} Atua como a ponte assíncrona entre o Unity e os modelos de linguagem, executando o ciclo de triagem ReAct e o despachador de fragmentos JSON;
+    \item \textbf{Camada de Inferência Neural Local (Ollama Runtime):} Responsável pela alocação dos pesos dos modelos quantizados em memória VRAM e pela execução do cálculo tensorial de geração de \textit{tokens}.
+\end{enumerate}
+
+\section{Implementação no Motor Gráfico Unity}
+\label{sec:dev_unity}
+
+O ambiente visual do jogo de investigação foi desenvolvido utilizando o motor gráfico Unity \textcolor{red}{[TODO: faltando informação: especificar a versão exata do Unity utilizada, e.g., Unity 2022.3.x LTS]}. 
+
+A cena principal simula a sala de interrogatório de uma delegacia ou a biblioteca da mansão onde os suspeitos aguardam o inquérito. A interface de usuário (\textit{User Interface}, UI) foi estruturada através dos seguintes elementos gráficos:
+
+\begin{itemize}
+    \item \textbf{Área de Histórico de Diálogo (\textit{Scroll View} com TextMeshPro):} Exibe cronologicamente as intervenções do detetive e as respostas geradas pelo NPC, com suporte a cores diferenciadas e rubricas teatrais em itálico;
+    \item \textbf{Campo de Entrada de Texto (\textit{TMP\_InputField}):} Permite a digitação irrestrita de perguntas pelo jogador, enviadas ao pressionar a tecla \textit{Enter} ou o botão de confirmação;
+    \item \textbf{Indicador de Estado / \textit{Loading Spinner}:} Elemento visual que sinaliza quando o agente de triagem ou o modelo gerador está processando o turno, fornecendo \textit{feedback} imediato ao jogador para mascarar a latência de inferência local.
+\end{itemize}
+
+O script principal em C\#, denominado \texttt{InvestigationDialogueManager.cs}, coordena a máquina de estados da interface. A listagem de código a seguir ilustra a rotina assíncrona utilizada para despachar a entrada do jogador sem travar a taxa de quadros (\textit{framerate}) da engine:
+
+\begin{lstlisting}[language={[Sharp]C}, caption={Rotina assíncrona em C\# para comunicação com o middleware Neo Cortex.}, label={lst:envio_mensagem}]
+public IEnumerator SendPlayerInquiry(string playerText) {
+    SetUIState(UIState.WaitingForResponse);
+    AppendMessageToHistory("Detetive", playerText);
+
+    // Estrutura payload JSON para o middleware Neo Cortex
+    InquiryPayload payload = new InquiryPayload {
+        characterId = "alberto_castelo",
+        userInput = playerText,
+        currentInGameTime = "23:30"
+    };
+
+    string jsonPayload = JsonUtility.ToJson(payload);
+    using (UnityWebRequest request = new UnityWebRequest(
+               "http://localhost:11434/api/generate", "POST")) {
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonPayload);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success) {
+            ProcessServerResponse(request.downloadHandler.text);
+        } else {
+            HandleNetworkError(request.error);
+        }
+    }
+    SetUIState(UIState.ReadyForInput);
+}
+\end{lstlisting}
+
+\section{O Middleware Neo Cortex e o Protocolo de Mensagens}
+\label{sec:dev_neocortex}
+
+O framework Neo Cortex atua como um barramento de integração que abstrai as chamadas brutas de API do Ollama e padroniza a conversão de tipos de dados entre o C\# do Unity e as cadeias de texto dos LLMs.
+
+O protocolo de comunicação baseia-se em requisições assíncronas HTTP REST direcionadas em malha fechada ao endereço local (\texttt{127.0.0.1}). A escolha por chamadas locais garante mínima sobrecarga de rede (latência de transporte inferior a 2 milissegundos), assegurando que o tempo de resposta percebido pelo jogador seja dominado exclusivamente pelo tempo de inferência dos modelos.
+
+\section{O Algoritmo de Triagem ReAct e os Comandos Estruturados}
+\label{sec:dev_triagem}
+
+Conforme delineado no modelo conceitual da Seção \ref{sec:met_arquitetura_rag}, a viabilidade do \textit{Agentic RAG} depende da capacidade do agente de triagem em interpretar a intenção interrogativa do jogador e despachar exclusivamente a partição documental correspondente. Nesta seção, detalha-se a implementação desse mecanismo na camada de engenharia, especificando a parametrização do modelo, o ciclo de raciocínio ReAct e a gramática formal de comandos estruturados.
+
+Utilizando o modelo Gemma-2-9b-it configurado com diretrizes rigorosas de sistema, o agente recebe a pergunta bruta do jogador e avalia se há necessidade de consulta à base factual antes de invocar o modelo do personagem. O \textit{prompt} de sistema do agente de triagem impõe que a resposta seja emitida estritamente sob o formato padronizado de pensamento e ação:
+
+\begin{quote}
+\small
+\texttt{Thought: [raciocínio analítico identificando intenção e período de tempo]}\\
+\texttt{Action: [comando estruturado selecionado]}
+\end{quote}
+
+A Tabela \ref{tab:comandos_triagem} detalha o mapa de correspondência entre as intenções do interrogador, as ações emitidas pelo agente e os arquivos JSON despachados em memória:
+
+\begin{table}[htbp]
+\centering
+\caption{Gramática de Ações do Agente de Triagem e Despacho de Contexto}
+\vspace{0.2cm}
+\label{tab:comandos_triagem}
+\footnotesize
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|>{\hsize=0.95\hsize}X|>{\hsize=1.15\hsize}X|>{\hsize=0.9\hsize}X|}
+\hline
+\textbf{Intenção da Pergunta} & \textbf{Comando Emitido (\textit{Action})} & \textbf{Fragmento JSON Injetado} \\ \hline
+Perguntas sobre ações entre 08:00 e 12:00 & {\scriptsize\texttt{[BUSCAR\_CRONOGRAMA\_MANHA]}} & {\scriptsize\texttt{cronograma\_manha.json}} \\ \hline
+Perguntas sobre ações entre 12:00 e 18:00 & {\scriptsize\texttt{[BUSCAR\_CRONOGRAMA\_TARDE]}} & {\scriptsize\texttt{cronograma\_tarde.json}} \\ \hline
+Perguntas sobre ações após as 18:00 até a madrugada & {\scriptsize\texttt{[BUSCAR\_CRONOGRAMA\_NOITE]}} & {\scriptsize\texttt{cronograma\_noite.json}} \\ \hline
+Perguntas sobre opiniões ou suspeitas contra terceiros & {\scriptsize\texttt{[BUSCAR\_RELACIONAMENTOS]}} & {\scriptsize\texttt{relacionamentos.json}} \\ \hline
+Saudações, perguntas sobre biografia ou provocações genéricas & {\scriptsize\texttt{[RESPONDER\_DIRETO]}} & Nenhum (apenas \texttt{perfil.json} base) \\ \hline
+\end{tabularx}
+\end{table}
+
+Após a identificação do comando pela expressão regular do despachador, o conteúdo do fragmento JSON é concatenado ao \textit{prompt} de persona do modelo principal, garantindo que o volume de \textit{tokens} transmitido permaneça na faixa ótima de processamento.
+
+\section{Infraestrutura Computacional e Ambiente de Execução Local}
+\label{sec:dev_hardware}
+
+A validação experimental foi conduzida integralmente em ambiente local. A Tabela \ref{tab:setup_hardware} sintetiza as especificações do ambiente de teste \textcolor{red}{[TODO: validar se as especificações de hardware abaixo coincidem exatamente com a máquina onde os testes foram executados]}.
+
+\begin{table}[htbp]
+\centering
+\caption{Especificações do Ambiente de Execução Local}
+\vspace{0.2cm}
+\label{tab:setup_hardware}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{4.5cm}|X|}
+\hline
+\textbf{Componente} & \textbf{Especificação Técnica} \\ \hline
+Sistema Operacional & Linux (Ubuntu 24.04 LTS / Debian-based) / Windows 11 \\ \hline
+Processador (CPU) & \textcolor{red}{[faltando informação: e.g., AMD Ryzen 7 / Intel Core i7]} \\ \hline
+Placa Gráfica (GPU) & \textcolor{red}{[faltando informação: e.g., NVIDIA GeForce RTX 3060 / 4060, 12GB VRAM]} \\ \hline
+Memória RAM do Sistema & 16 GB / 32 GB DDR4/DDR5 \\ \hline
+Orquestrador de LLMs & Ollama (v0.3.x+) \\ \hline
+Formato de Quantização & GGUF Q4\_K\_M (4 bits) \\ \hline
+Temperatura Fixa & 0.1 \\ \hline
+\end{tabularx}
+\end{table}
+
+A utilização da quantização Q4\_K\_M permitiu que os modelos de 7B a 9B parâmetros ocupassem entre 4,8 GB e 6,2 GB de VRAM, permitindo a execução simultânea do motor gráfico Unity e do servidor Ollama na mesma máquina sem estouro de memória gráfica (\textit{Out of Memory}, OOM).
