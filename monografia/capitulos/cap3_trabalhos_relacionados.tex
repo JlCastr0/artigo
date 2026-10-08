@@ -1,0 +1,87 @@
+\chapter{Trabalhos Relacionados}
+\label{cap:relacionados}
+
+A integração de Modelos de Linguagem de Grande Escala em ambientes de jogos e simulação de personagens tem sido objeto de intensa investigação científica nos últimos anos. Esta seção analisa criticamente as contribuições seminais da literatura, organizando-as em quatro frentes de pesquisa: (i) a simulação de comportamentos autônomos por agentes generativos; (ii) estudos de caso sobre a recepção de NPCs com IA no mercado comercial de jogos; (iii) abordagens de ajuste fino e parametrização de personas; e (iv) benchmarks dedicados à aferição de inconsistência temporal. Ao final, apresenta-se uma matriz comparativa que sintetiza o estado da arte e posiciona as contribuições originais desta monografia.
+
+\section{Agentes Generativos e Sociedades Virtuais}
+\label{sec:rel_park}
+
+No trabalho pioneiro de Park et al. \cite{park2023generative}, os autores apresentaram a arquitetura dos ``Agentes Generativos'' (\textit{Generative Agents}), instanciando 25 personagens autônomos em um ambiente virtual bidimensional inspirado em jogos de simulação social (como \textit{The Sims}). A arquitetura computacional proposta é constituída por três módulos integrados:
+
+\begin{enumerate}
+    \item \textbf{Fluxo de Memória (\textit{Memory Stream}):} Um registro abrangente em linguagem natural de todas as percepções e ações do agente ao longo do tempo;
+    \item \textbf{Mecanismo de Reflexão (\textit{Reflection}):} Uma rotina periódica na qual o modelo sintetiza memórias de baixo nível em generalizações de alto nível, atribuindo pesos de importância aos eventos passados;
+    \item \textbf{Planejamento e Reação (\textit{Planning and Reacting}):} Geração recursiva de planos diários e adaptação de comportamentos com base em interações emergentes entre os personagens.
+\end{enumerate}
+
+Embora o estudo de Park et al. \cite{park2023generative} tenha demonstrado que a arquitetura aumenta significativamente a verossimilhança das dinâmicas sociais, o escopo da pesquisa concentrou-se em comportamentos cotidianos genéricos (como organizar festas ou trocar gentilezas), onde pequenos desvios factuais passam despercebidos. Em contraste, a presente monografia investiga um cenário de inquérito de alta pressão sob regras estritas de dedução lógica. Em jogos de mistério, uma única alucinação de álibi ou temporalidade quebra imediatamente a integridade mecânica de todo o jogo, evidenciando a insuficiência de memórias reflexivas puras para jogos investigativos.
+
+\section{NPCs Dirigidos por LLMs no Mercado Comercial: O Caso Vaudeville}
+\label{sec:rel_cox}
+
+Avaliando a transição dessa tecnologia para a indústria comercial de jogos, Cox e Ooi \cite{cox2023conversational} conduziram um estudo empírico baseado na análise de conteúdo das reações e avaliações de jogadores do título independente \textit{Vaudeville} (lançado em 2023). Em \textit{Vaudeville}, o jogador interroga suspeitos de homicídio utilizando entrada de voz ou texto livre, com as respostas geradas em tempo real por modelos proprietários via API.
+
+A análise de Cox e Ooi \cite{cox2023conversational} revelou uma dualidade marcante na experiência do usuário:
+
+\begin{itemize}
+    \item \textbf{Impacto Positivo:} O inquérito livre gerou um pico expressivo de engajamento e sensação de imersão inicial, rompendo com a previsibilidade das árvores estáticas de diálogo;
+    \item \textbf{Gargalos e Frustrações:} A ocorrência frequente de alucinações (suspeitos confessando crimes não cometidos ou inventando pistas falsas que não existiam no ambiente) e o esquecimento de eventos citados minutos antes na conversa geraram frustração severa nos jogadores, bloqueando o avanço na resolução lógica do mistério.
+\end{itemize}
+
+O estudo de Cox e Ooi evidenciou que a simples injeção estática de contexto em modelos na nuvem não oferece garantias de integridade factual para jogos de dedução. Essa constatação reforça a tese defendida nesta monografia sobre a necessidade imperativa de pipelines estruturados de recuperação seletiva e validação local.
+
+\section{Parametrização e Ajuste Fino de Personas: Character-LLM}
+\label{sec:rel_shao}
+
+Avançando na modelagem de personas específicas, Shao et al. \cite{shao2023character} introduziram o framework \textit{Character-LLM}. Em vez de confiar exclusivamente na engenharia de \textit{prompt} em modelos genéricos, os autores propuseram o treinamento supervisionado e o ajuste fino (\textit{Fine-Tuning}) de modelos de código aberto sobre dados históricos e biográficos detalhados de personagens específicos (como Sócrates, Beethoven e Cleópatra).
+
+O \textit{Character-LLM} demonstrou que o ajuste fino capacita os agentes a memorizarem traços psicológicos profundos e a rejeitarem perguntas anacrônicas ou fora de sua esfera histórica. No entanto, a abordagem apresenta dois obstáculos práticos consideráveis para o desenvolvimento de jogos:
+
+\begin{enumerate}
+    \item \textbf{Custo Computacional Proibitivo de Autoria:} Cada personagem requer a coleta de milhares de pares de treino e o treinamento de pesos neurais dedicados, tornando inviável para estúdios independentes que contam com dezenas de NPCs distintos;
+    \item \textbf{Rigidez de Atualização Dinâmica:} Se o estado do jogo muda (por exemplo, um NPC descobre uma nova pista ou seu relacionamento com o jogador se altera durante a partida), o modelo pré-ajustado não se atualiza automaticamente, exigindo intervenções complexas na camada de contexto em tempo de execução.
+\end{enumerate}
+
+Em contraposição, a presente monografia investiga a parametrização desacoplada em tempo de inferência (\textit{in-context learning}) via dados estruturados (JSON) e \textit{Agentic RAG}, permitindo que o mesmo modelo fundacional atue sobre diferentes papéis e atualizações dinâmicas de estado sem a necessidade de re-treinamento de parâmetros.
+
+\section{Consistência Temporal e o Benchmark TimeChara}
+\label{sec:rel_ahn}
+
+A dimensão temporal da consistência de personagens foi formalizada e mapeada por Ahn et al. \cite{ahn2024timechara} no benchmark \textit{TimeChara}. Os autores identificaram que, quando modelos de linguagem atuam em papéis ficcionais, eles sofrem sistematicamente do viés de onisciência (\textit{omniscience bias}): o modelo conhece a totalidade da obra literária e frequentemente antecipa fatos futuros em respostas atribuídas a momentos iniciais da narrativa.
+
+O benchmark TimeChara submeteu agentes a quatro classes de inquérito:
+\begin{itemize}
+    \item \textbf{Futuro (\textit{Future}):} Perguntas sobre eventos posteriores ao momento atual do personagem;
+    \item \textbf{Passado com Ausência (\textit{Past-Absence}):} Perguntas sobre acontecimentos passados nos quais o personagem não estava presente;
+    \item \textbf{Passado com Presença (\textit{Past-Presence}):} Fatos passados efetivamente testemunhados pelo personagem;
+    \item \textbf{Histórico Estático (\textit{Past-Only}):} Conhecimento de mundo disponível até aquela data.
+\end{itemize}
+
+Os experimentos de Ahn et al. \cite{ahn2024timechara} demonstraram que até mesmo modelos de fronteira na nuvem (como o GPT-4o) obtiveram acurácia inferior a 51\% em testes de eventos futuros quando operados em modo \textit{zero-shot}, alucinando continuamente informações da trama completa. Para mitigar o problema, os autores propuseram o método \textit{Narrative-Experts}, decompondo a inferência em etapas de verificação de limites espaço-temporais.
+
+A presente monografia converge com os princípios formulados em TimeChara, porém estende a investigação para a realidade operacional de jogos digitais: aplicando testes semelhantes a modelos de porte intermediário (7B a 9B) executados estritamente em hardware local de consumo, e resolvendo a consistência temporal por meio de fragmentação dinâmica (\textit{Dynamic Chunking}) do cronograma.
+
+\section{Matriz Comparativa e Posicionamento da Pesquisa}
+\label{sec:rel_matriz}
+
+A Tabela \ref{tab:trabalhos_relacionados} sintetiza o comparativo estrutural entre os principais trabalhos da literatura e a abordagem apresentada nesta monografia, destacando as dimensões de escopo lúdico, modelo de implantação, técnica de gestão contextual, controle de temporalidade e rigor de auditoria.
+
+\begin{table}[htbp]
+\centering
+\caption{Matriz Comparativa entre Trabalhos Relacionados e a Presente Monografia}
+\vspace{0.2cm}
+\label{tab:trabalhos_relacionados}
+\footnotesize
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|>{\hsize=0.8\hsize}X|>{\hsize=0.9\hsize}X|>{\hsize=0.85\hsize}X|>{\hsize=1.15\hsize}X|>{\hsize=1.3\hsize}X|}
+\hline
+\textbf{Trabalho} & \textbf{Gênero e Escopo} & \textbf{Ambiente} & \textbf{Gestão de Contexto} & \textbf{Método de Avaliação} \\ \hline
+Park et al. \cite{park2023generative} & Simulação Social Geral & Nuvem (APIs Pagas) & Fluxo de Memória e Reflexão & Observação Fenomenológica e Entrevistas \\ \hline
+Cox e Ooi \cite{cox2023conversational} & Jogo Investigativo (\textit{Vaudeville}) & Nuvem (APIs Pagas) & Prompt Estático (\textit{Full Prompt}) & Análise Qualitativa de Avaliações de Jogadores \\ \hline
+Shao et al. \cite{shao2023character} & Simulação de Personagens Históricos & Local / Nuvem & Treinamento Supervisionado (\textit{Fine-Tuning}) & Métricas de Perplexidade e Avaliação Humana \\ \hline
+Ahn et al. \cite{ahn2024timechara} & Análise Literária em Séries & Nuvem (Modelos de Fronteira) & Verificação em Múltiplos Especialistas & Benchmark Sintético de Acurácia Temporal \\ \hline
+\textbf{Esta Monografia (2026)} & \textbf{Jogo de Investigação e Mistério} & \textbf{Inferência Local em GPU de Consumo (Ollama)} & \textbf{Agentic RAG com Fragmentação Temporal Dinâmica} & \textbf{Métricas RAGAS (Juiz GPT-4o) + 50 Testes sob Estresse} \\ \hline
+\end{tabularx}
+\end{table}
+
+A matriz comparativa evidencia a lacuna de pesquisa preenchida por este trabalho: enquanto os estudos seminais operam na nuvem com altos custos ou focam em simulações sociais genéricas sem restrições severas de álibi, esta monografia estabelece a viabilidade de uma arquitetura de alta consistência espaço-temporal operando inteiramente em hardware local para o gênero de investigação.

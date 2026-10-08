@@ -1,0 +1,10 @@
+\babel@toc {brazil}{}\relax 
+\beamer@sectionintoc {1}{Introdução}{3}{0}{1}
+\beamer@sectionintoc {2}{A Solução}{6}{0}{2}
+\beamer@sectionintoc {3}{O Jogo de Investigação}{7}{0}{3}
+\beamer@sectionintoc {4}{Arquitetura Proposta}{8}{0}{4}
+\beamer@sectionintoc {5}{Metodologia}{10}{0}{5}
+\beamer@sectionintoc {6}{Resultados e Análise}{12}{0}{6}
+\beamer@sectionintoc {7}{Conclusões}{16}{0}{7}
+\beamer@sectionintoc {8}{Cronograma de TCC 2}{17}{0}{8}
+\beamer@sectionintoc {9}{Referências}{18}{0}{9}

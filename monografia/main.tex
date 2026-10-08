@@ -1,0 +1,267 @@
+\documentclass[12pt,a4paper,oneside]{report}
+
+% --- Pacotes Fundamentais ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+
+% Renomeação manual de termos canônicos para Português (padrão ABNT / UEA)
+\addto\captionsenglish{
+    \renewcommand{\contentsname}{Sumário}
+    \renewcommand{\listfigurename}{Lista de Figuras}
+    \renewcommand{\listtablename}{Lista de Tabelas}
+    \renewcommand{\bibname}{Referências Bibliográficas}
+    \renewcommand{\chaptername}{Capítulo}
+    \renewcommand{\appendixname}{Apêndice}
+    \renewcommand{\figurename}{Figura}
+    \renewcommand{\tablename}{Tabela}
+}
+
+\usepackage{times} % Tipografia Times New Roman / padrão acadêmico
+\usepackage{geometry}
+\geometry{
+    a4paper,
+    top=3.0cm,
+    left=3.0cm,
+    bottom=2.0cm,
+    right=2.0cm
+}
+\usepackage{setspace}
+\onehalfspacing % Espaçamento 1.5 entre linhas
+
+% --- Pacotes de Matemática, Figuras e Tabelas ---
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{listings}
+\lstset{
+    basicstyle=\ttfamily\scriptsize,
+    breaklines=true,
+    breakatwhitespace=true,
+    frame=single,
+    showstringspaces=false,
+    columns=flexible,
+    keepspaces=true,
+    tabsize=2,
+    xleftmargin=1.0em,
+    xrightmargin=1.0em
+}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, positioning, calc, fit, backgrounds}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% --- Títulos e Cabeçalhos ---
+\usepackage{titlesec}
+\titleformat{\chapter}[hang]{\normalfont\LARGE\bfseries}{\thechapter\hspace{10pt}|\hspace{10pt}}{0pt}{\LARGE\bfseries}
+\titlespacing*{\chapter}{0pt}{-10pt}{20pt}
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+% --- Citações e Links ---
+\usepackage{cite}
+\usepackage{url}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=blue!70!black,
+    urlcolor=blue!70!black
+}
+
+\begin{document}
+
+% ==========================================
+% ELEMENTOS PRÉ-TEXTUAIS
+% ==========================================
+\pagenumbering{roman}
+
+% --- CAPA ---
+\begin{titlepage}
+\begin{center}
+    {\large \textbf{UNIVERSIDADE DO ESTADO DO AMAZONAS -- UEA}}\\[0.2cm]
+    {\large \textbf{ESCOLA SUPERIOR DE TECNOLOGIA -- EST}}\\[0.2cm]
+    {\large \textbf{CURSO DE BACHARELADO EM SISTEMAS DE INFORMAÇÃO}}\\[3.5cm]
+
+    {\large \textbf{JOÃO LUCAS NORONHA DE CASTRO}}\\[3.5cm]
+
+    {\Large \textbf{AVALIAÇÃO DE MODELOS DE LINGUAGEM DE GRANDE ESCALA NA GERAÇÃO DINÂMICA DE DIÁLOGOS PARA PERSONAGENS NÃO JOGÁVEIS EM JOGOS DE INVESTIGAÇÃO}}\\[4.0cm]
+
+    \vfill
+    {\large \textbf{Manaus -- AM}}\\[0.2cm]
+    {\large \textbf{2026}}
+\end{center}
+\end{titlepage}
+
+% --- FOLHA DE ROSTO ---
+\newpage
+\begin{center}
+    {\large \textbf{JOÃO LUCAS NORONHA DE CASTRO}}\\[4.0cm]
+
+    {\Large \textbf{AVALIAÇÃO DE MODELOS DE LINGUAGEM DE GRANDE ESCALA NA GERAÇÃO DINÂMICA DE DIÁLOGOS PARA PERSONAGENS NÃO JOGÁVEIS EM JOGOS DE INVESTIGAÇÃO}}\\[2.5cm]
+
+    \hfill
+    \begin{minipage}{0.55\textwidth}
+        \linespread{1.1}\selectfont
+        \small
+        Monografia de Trabalho de Conclusão de Curso (TCC II) apresentada à Escola Superior de Tecnologia da Universidade do Estado do Amazonas (EST/UEA) como requisito parcial para a obtenção do título de Bacharel em Sistemas de Informação.\\[0.5cm]
+        \textbf{Orientador:} Prof. Dr. Luis Cuevas Rodriguez
+    \end{minipage}\\[4.0cm]
+
+    \vfill
+    {\large \textbf{Manaus -- AM}}\\[0.2cm]
+    {\large \textbf{2026}}
+\end{center}
+
+% --- FOLHA DE APROVAÇÃO ---
+\newpage
+\begin{center}
+    {\large \textbf{JOÃO LUCAS NORONHA DE CASTRO}}\\[1.5cm]
+
+    {\large \textbf{AVALIAÇÃO DE MODELOS DE LINGUAGEM DE GRANDE ESCALA NA GERAÇÃO DINÂMICA DE DIÁLOGOS PARA PERSONAGENS NÃO JOGÁVEIS EM JOGOS DE INVESTIGAÇÃO}}\\[1.5cm]
+
+    \hfill
+    \begin{minipage}{0.55\textwidth}
+        \linespread{1.1}\selectfont
+        \small
+        Monografia defendida e aprovada perante a Banca Examinadora do Curso de Sistemas de Informação da Escola Superior de Tecnologia da Universidade do Estado do Amazonas (EST/UEA).\\[0.3cm]
+        \textbf{Nota Obtida:} \underline{\hspace{2.5cm}} pontos.\\[0.3cm]
+        \textbf{Data da Defesa:} \underline{\hspace{1cm}} / \underline{\hspace{1cm}} / 2026.
+    \end{minipage}\\[1.5cm]
+
+    \textbf{BANCA EXAMINADORA}\\[1.5cm]
+
+    \rule{0.75\textwidth}{0.5pt}\\
+    \textbf{Prof. Dr. Luis Cuevas Rodriguez} -- Orientador\\
+    Universidade do Estado do Amazonas (UEA)\\[1.2cm]
+
+    \rule{0.75\textwidth}{0.5pt}\\
+    \textbf{Prof. Dr. [Nome do Avaliador 1]} -- Examinador Interno\\
+    Universidade do Estado do Amazonas (UEA)\\[1.2cm]
+
+    \rule{0.75\textwidth}{0.5pt}\\
+    \textbf{Prof. Dr. [Nome do Avaliador 2]} -- Examinador Externo / Interno\\
+    Universidade do Estado do Amazonas (UEA)
+\end{center}
+
+% --- DEDICATÓRIA E AGRADECIMENTOS ---
+\newpage
+\chapter*{Agradecimentos}
+\addcontentsline{toc}{chapter}{Agradecimentos}
+
+Agradeço à minha família pelo apoio incondicional ao longo de toda a minha formação universitária. 
+
+Ao meu orientador, Prof. Dr. Luis Cuevas Rodriguez, pela orientação precisa, paciência e incentivo constante durante a concepção e desenvolvimento desta pesquisa.
+
+Aos colegas do curso de Sistemas de Informação da Universidade do Estado do Amazonas (UEA), pelas trocas de experiências, colaboração técnica e companheirismo durante esta jornada acadêmica.
+
+A todos que direta ou indiretamente contribuíram para a realização deste trabalho.
+
+\newpage
+\chapter*{Epígrafe}
+\addcontentsline{toc}{chapter}{Epígrafe}
+\vspace*{14cm}
+\hfill
+\begin{minipage}{0.6\textwidth}
+\textit{''Interactive narrative is not about the author dictating every branch, but creating intelligent worlds where player agency and emergent stories coexist seamlessly.''}
+\vspace{0.3cm}
+\hfill -- Mark O. Riedl
+\end{minipage}
+
+% --- RESUMO ---
+\newpage
+\chapter*{Resumo}
+\addcontentsline{toc}{chapter}{Resumo}
+\noindent Modelos de Linguagem de Grande Escala (\textit{Large Language Models} - LLMs) e Modelos Compactos (\textit{Small Language Models} - SLMs) representam uma alternativa arquitetural promissora para superar a rigidez e a explosão combinatória das tradicionais árvores de diálogo em jogos digitais, especialmente no gênero de dedução e mistério. No entanto, sua natureza estocástica introduz vulnerabilidades críticas de consistência espaço-temporal e suscetibilidade à quebra de persona sob pressão investigativa. Esta pesquisa desenvolve e avalia uma arquitetura híbrida de \textit{Agentic RAG} com fragmentação temporal dinâmica (\textit{Dynamic Chunking}) integrada ao motor gráfico Unity e executada localmente via framework Neo Cortex e plataforma Ollama. Submeteu-se uma bateria padronizada de 50 perguntas de inquérito sob estresse a quatro arquiteturas de modelos (Gemma-2-9b-it, Qwen-2.5-7b, Llama-3.1-8b e DeepSeek-R1-8b), auditando o desempenho pelo framework RAGAS com juiz sintético GPT-4o. Os resultados demonstram que o mecanismo de triagem e chunking alcançou precisão e recuperação de contexto perfeitas (1,00), validando a arquitetura de recuperação. Entre os modelos geradores, Gemma-2-9b-it obteve a maior fidelidade factual (0,38) e relevância (0,60), enquanto Llama-3.1-8b destacou-se pela riqueza de atuação dramática à custa de precisão factual (0,30). O DeepSeek-R1-8b apresentou instabilidade severa sob baixas temperaturas, quebrando a quarta parede. Conclui-se que a simulação robusta de NPCs exige uma abordagem de engenharia narrativa que desacople a recuperação de contexto da síntese dialógica, estabelecendo parâmetros para a adoção sustentável de IA generativa em hardware local de jogos.
+
+\vspace{0.8cm}
+\noindent \textbf{Palavras-chave:} Modelos de Linguagem, Personagens Não Jogáveis, Jogos de Investigação, Agentic RAG, Consistência Espaço-Temporal, RAGAS.
+
+% --- ABSTRACT ---
+\newpage
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+\noindent Large Language Models (LLMs) and Small Language Models (SLMs) offer a transformative architectural approach to overcoming the authorial bottleneck and combinatorial explosion of static dialogue trees in digital games, particularly within the mystery and detective genre. However, their probabilistic nature introduces severe vulnerabilities in spatiotemporal consistency, character hallucination, and persona derailment under rigorous cross-examination. This research develops and evaluates a hybrid Agentic RAG architecture featuring Dynamic Temporal Chunking, seamlessly integrated into the Unity engine and executed locally via the Neo Cortex middleware and the Ollama runtime. A standardized stress-test suite of 50 investigative inquiries across five vulnerability categories was administered to four distinct models (Gemma-2-9b-it, Qwen-2.5-7b, Llama-3.1-8b, and DeepSeek-R1-8b), followed by automated evaluation using the RAGAS framework with GPT-4o as a synthetic judge. Experimental findings show that the routing and chunking pipeline achieved perfect Context Precision and Recall (1.00), validating the retrieval architecture. Among generators, Gemma-2-9b-it achieved superior factual faithfulness (0.38) and answer relevance (0.60), whereas Llama-3.1-8b exhibited rich dramatic embodiment accompanied by minor temporal drift (0.30 faithfulness). DeepSeek-R1-8b collapsed into algorithmic meta-responses when restricted by low temperatures. We conclude that robust NPC simulation requires decoupling factual retrieval from dramatic synthesis, establishing concrete architectural guidelines for edge-deployed generative dialogue in games.
+
+\vspace{0.8cm}
+\noindent \textbf{Keywords:} Large Language Models, Non-Player Characters, Investigation Games, Agentic RAG, Spatiotemporal Consistency, RAGAS.
+
+% --- LISTAS ---
+\newpage
+\listoffigures
+\addcontentsline{toc}{chapter}{\listfigurename}
+
+\newpage
+\listoftables
+\addcontentsline{toc}{chapter}{\listtablename}
+
+\newpage
+\chapter*{Lista de Abreviaturas e Siglas}
+\addcontentsline{toc}{chapter}{Lista de Abreviaturas e Siglas}
+\begin{tabular}{ll}
+API & \textit{Application Programming Interface} (Interface de Programação de Aplicações) \\
+CRISP-DM & \textit{Cross-Industry Standard Process for Data Mining} \\
+GGUF & \textit{GPT-Generated Unified Format} \\
+GUI & \textit{Graphical User Interface} (Interface Gráfica de Usuário) \\
+IA & Inteligência Artificial \\
+JSON & \textit{JavaScript Object Notation} \\
+LLM & \textit{Large Language Model} (Modelo de Linguagem de Grande Escala) \\
+NLI & \textit{Natural Language Inference} (Inferência em Linguagem Natural) \\
+NLP / PLN & \textit{Natural Language Processing} / Processamento de Linguagem Natural \\
+NPC & \textit{Non-Player Character} (Personagem Não Jogável) \\
+OOC & \textit{Out of Character} (Fora do Personagem) \\
+RAG & \textit{Retrieval-Augmented Generation} (Geração Aumentada por Recuperação) \\
+RAGAS & \textit{Retrieval Augmented Generation Assessment} \\
+ReAct & \textit{Reasoning and Acting} (Raciocínio e Ação) \\
+SLM & \textit{Small Language Model} (Modelo de Linguagem Compacto) \\
+UEA & Universidade do Estado do Amazonas \\
+UI & \textit{User Interface} (Interface de Usuário) \\
+UX & \textit{User Experience} (Experiência do Usuário) \\
+VRAM & \textit{Video Random Access Memory} (Memória de Vídeo) \\
+\end{tabular}
+
+\newpage
+\tableofcontents
+
+% ==========================================
+% ELEMENTOS TEXTUAIS
+% ==========================================
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\include{capitulos/cap1_introducao}
+\include{capitulos/cap2_referencial_teorico}
+\include{capitulos/cap3_trabalhos_relacionados}
+\include{capitulos/cap4_metodologia}
+\include{capitulos/cap5_desenvolvimento_implementacao}
+\include{capitulos/cap6_resultados_discussoes}
+\include{capitulos/cap7_conclusao}
+
+% ==========================================
+% ELEMENTOS PÓS-TEXTUAIS
+% ==========================================
+\bibliographystyle{plain}
+\bibliography{referencias}
+
+\appendix
+\include{apendices/apendice_a_prompts}
+\include{apendices/apendice_b_persona_json}
+\include{apendices/apendice_c_perguntas_estresse}
+
+\end{document}

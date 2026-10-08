@@ -1,0 +1,223 @@
+\begin{thebibliography}{10}
+
+\bibitem{adams2014fundamentals}
+Ernest Adams.
+\newblock {\em Fundamentals of Game Design}.
+\newblock New Riders, San Francisco, 3rd edition, 2014.
+
+\bibitem{ahn2024timechara}
+Jaewoo Ahn, Taehyun Lee, Junyoung Lim, Jin-Hwa Kim, Sangdoo Yun, Hwaran Lee,
+  and Gunhee Kim.
+\newblock {TimeChara}: Evaluating point-in-time character hallucination of
+  role-playing large language models.
+\newblock In {\em Findings of the Association for Computational Linguistics:
+  ACL 2024}, pages 15745--15762, 2024.
+
+\bibitem{bowman2012immersion}
+Nicholas~David Bowman and Alison McMahan.
+\newblock Player immersion in video games: The role of presence, flow, and
+  psychological absorption.
+\newblock {\em Computers in Human Behavior}, 28(5):1692--1702, 2012.
+
+\bibitem{brooke1996sus}
+John Brooke.
+\newblock {SUS}: A 'quick and dirty' usability scale.
+\newblock In P.~W. Jordan, B.~Thomas, B.~A. Weerdmeester, and I.~L. McClelland,
+  editors, {\em Usability Evaluation in Industry}, pages 189--194. Taylor \&
+  Francis, London, 1996.
+
+\bibitem{cao2026task}
+Yuan Cao et~al.
+\newblock Task-specific efficiency analysis: When small language models
+  outperform large language models.
+\newblock {\em arXiv preprint arXiv:2601.01234}, 2026.
+
+\bibitem{cdprojekt2023report}
+{CD Projekt Red}.
+\newblock Management board report on the activities of the {CD PROJEKT} group
+  in 2020--2023.
+\newblock
+  \url{https://www.cdprojekt.com/en/investors/regulatory-announcements/}, 2023.
+\newblock Financial disclosure report.
+
+\bibitem{chan2024chateval}
+Chi-Min Chan, Weize Chen, Yusheng Su, Jianxuan Yu, Wei Xue, Shanghang Zhang,
+  Jie Fu, and Zhiyuan Liu.
+\newblock {ChatEval}: Towards better {LLM}-based evaluators through multi-agent
+  debate.
+\newblock In {\em International Conference on Learning Representations (ICLR)},
+  2024.
+
+\bibitem{cox2023conversational}
+Samuel~Rhys Cox and Wei~Tsang Ooi.
+\newblock Conversational interactions with {NPCs} in {LLM}-driven gaming:
+  Guidelines from a content analysis of player feedback.
+\newblock {\em arXiv preprint arXiv:2307.09009}, 2023.
+
+\bibitem{deng2024mindmap}
+Zhi Deng et~al.
+\newblock {MindMap}: Knowledge graph and {LLM} for narrative consistency in
+  games.
+\newblock {\em IEEE Transactions on Games}, 2024.
+
+\bibitem{dubois2024alpacafarm}
+Yann Dubois, Xuechen Li, Rohan Taori, Tatsunori Hashimoto, Percy Liang, and
+  Carlos Guestrin.
+\newblock {AlpacaFarm}: A simulation framework for methods that learn from
+  human feedback.
+\newblock In {\em Advances in Neural Information Processing Systems},
+  volume~36, 2024.
+
+\bibitem{es2024ragas}
+Shahul Es, Jithin James, Luis Espinosa-Anke, and Steven Schockaert.
+\newblock {RAGAS}: Automated evaluation of retrieval augmented generation.
+\newblock In {\em Proceedings of the 18th Conference of the European Chapter of
+  the Association for Computational Linguistics (EACL): System Demonstrations},
+  pages 150--158, 2024.
+
+\bibitem{fernandez2014introduction}
+Clara Fern{\'a}ndez-Vara.
+\newblock {\em Introduction to Game Analysis}.
+\newblock Routledge, New York, 2014.
+
+\bibitem{frasca2003simulation}
+Gonzalo Frasca.
+\newblock Simulation versus narrative: Introduction to ludology.
+\newblock {\em The Video Game Theory Reader}, pages 221--235, 2003.
+
+\bibitem{gu2024survey}
+Jiawei Gu, Xuhui Jiang, Zhichao Shi, Hexiang Tan, Xuehao Zhai, Chengjin Xu, Wei
+  Li, Yinghan Shen, Shengjie Ma, Honghao Liu, Yuanzhuo Wang, and Jian Guo.
+\newblock A survey on {LLM}-as-a-judge.
+\newblock {\em arXiv preprint arXiv:2411.15594}, 2024.
+
+\bibitem{ijsselsteijn2013game}
+Wijnand~A. IJsselsteijn, Yvonne A.~W. de~Kort, and Karolien Poels.
+\newblock The game experience questionnaire: Development of a self-report
+  measure to assess the psychological impact of digital games.
+\newblock Technical report, Technische Universiteit Eindhoven, Eindhoven,
+  Netherlands, 2013.
+
+\bibitem{ji2023survey}
+Ziwei Ji, Nayeon Lee, Rita Frieske, Tiezheng Yu, Dan Su, Yan Xu, Etsuko Ishii,
+  Yejin Bang, Andrea Madotto, and Pascale Fung.
+\newblock Survey of hallucination in natural language generation.
+\newblock {\em ACM Computing Surveys}, 55(12):1--38, 2023.
+
+\bibitem{kim2024prometheus}
+Seungone Kim, Jamin Shin, Yejin Cho, Joel Jang, Shayne Longpre, Hwaran Lee,
+  Sangdoo Yun, Seongjin Shin, Sungdong Kim, James Thorne, and Minjoon Seo.
+\newblock {Prometheus}: Inducing fine-grained evaluation capability in language
+  models.
+\newblock In {\em International Conference on Learning Representations (ICLR)},
+  2024.
+
+\bibitem{lewis2020retrieval}
+Patrick Lewis, Ethan Perez, Aleksandra Piktus, Fabio Petroni, Vladimir
+  Karpukhin, Naman Goyal, Heinrich K{\"u}ttler, Mike Lewis, Wen-tau Yih, Tim
+  Rockt{\"a}schel, et~al.
+\newblock Retrieval-augmented generation for knowledge-intensive {NLP} tasks.
+\newblock In {\em Advances in Neural Information Processing Systems},
+  volume~33, pages 9459--9474, 2020.
+
+\bibitem{li2025generation}
+Dawei Li, Bohan Jiang, Liangjie Huang, Alimohammad Beigi, Chengshuai Zhao, Zhen
+  Tan, Amrita Bhattacharjee, Yuxuan Jiang, Canyu Chen, Tianhao Wu, Kai Shu,
+  Lu~Cheng, and Huan Liu.
+\newblock From generation to judgment: Opportunities and challenges of
+  {LLM}-as-a-judge.
+\newblock In {\em Proceedings of the 2025 Conference on Empirical Methods in
+  Natural Language Processing (EMNLP)}, pages 2757--2791, 2025.
+
+\bibitem{liu2024lost}
+Nelson~F. Liu, Kevin Lin, Peter Chen, Rohan Taori, Alane Selig, Omer Levy,
+  Christopher~D. Manning, and Christopher Potts.
+\newblock Lost in the middle: How language models use long contexts.
+\newblock {\em Transactions of the Association for Computational Linguistics},
+  12:157--173, 2024.
+
+\bibitem{liu2023geval}
+Yang Liu, Dan Iter, Yichong Xu, Shuohang Wang, Ruochen Xu, and Chenguang Zhu.
+\newblock {G-Eval}: {NLG} evaluation using {GPT-4} with better human alignment.
+\newblock In {\em Proceedings of the 2023 Conference on Empirical Methods in
+  Natural Language Processing (EMNLP)}, pages 2511--2522, 2023.
+
+\bibitem{murray1997hamlet}
+Janet~H. Murray.
+\newblock {\em Hamlet on the Holodeck: The Future of Narrative in Cyberspace}.
+\newblock MIT Press, Cambridge, 1997.
+
+\bibitem{newzoo2024games}
+{Newzoo}.
+\newblock Global games market report 2024: Revenue, player numbers, and trends.
+\newblock
+  \url{https://newzoo.com/resources/trend-reports/newzoo-global-games-market-report-2024},
+  2024.
+\newblock Acesso em: setembro de 2026.
+
+\bibitem{park2023generative}
+Joon~Sung Park, Joseph~C. O'Brien, Carrie~J. Cai, Meredith~Ringel Morris, Percy
+  Liang, and Michael~S. Bernstein.
+\newblock Generative agents: Interactive simulacra of human behavior.
+\newblock In {\em Proceedings of the 36th Annual ACM Symposium on User
+  Interface Software and Technology (UIST)}, pages 1--22, 2023.
+
+\bibitem{riedl2013interactive}
+Mark~O. Riedl and Vadim Bulitko.
+\newblock Interactive narrative: An intelligent systems approach.
+\newblock {\em AI Magazine}, 34(1):67--77, 2013.
+
+\bibitem{ryan2006interactive}
+Marie-Laure Ryan.
+\newblock {\em Avatars of Story: Narrative Modes in Interactive Media}.
+\newblock University of Minnesota Press, Minneapolis, 2006.
+
+\bibitem{schreier2017blood}
+Jason Schreier.
+\newblock {\em Blood, Sweat, and Pixels: The Triumphant, Turbulent Stories
+  Behind How Video Games Are Made}.
+\newblock Harper, New York, 2017.
+
+\bibitem{shanahan2023role}
+Murray Shanahan, Kyle McDonell, and Laria Reynolds.
+\newblock Role play with large language models.
+\newblock {\em Nature}, 623(7987):493--498, 2023.
+
+\bibitem{shao2023character}
+Yunfan Shao, Linyang Li, Junqi Dai, and Xipeng Qiu.
+\newblock Character-{LLM}: A trainable agent for role-playing.
+\newblock {\em arXiv preprint arXiv:2310.10158}, 2023.
+
+\bibitem{shearer2000crisp}
+Colin Shearer.
+\newblock The {CRISP-DM} model: The new blueprint for data mining.
+\newblock {\em Journal of Data Warehousing}, 5(4):13--22, 2000.
+
+\bibitem{sunkyoung2024charm}
+Han Sunkyoung et~al.
+\newblock {CHARM}: A multicultural benchmark for evaluating character
+  hallucination in large language models.
+\newblock {\em arXiv preprint arXiv:2406.18243}, 2024.
+
+\bibitem{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N. Gomez, {\L}ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock In {\em Advances in Neural Information Processing Systems},
+  volume~30, pages 5998--6008, 2017.
+
+\bibitem{yao2023react}
+Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan,
+  and Yuan Cao.
+\newblock {ReAct}: Synergizing reasoning and acting in language models.
+\newblock In {\em International Conference on Learning Representations (ICLR)},
+  2023.
+
+\bibitem{zheng2023judging}
+Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Siyuan Hao, Zhanghao Wu, Joseph~E.
+  Ba, Zi~Lin Jiang, Eric~P. Xing, et~al.
+\newblock Judging {LLM}-as-a-judge with {MT-Bench} and {Chatbot Arena}.
+\newblock In {\em Advances in Neural Information Processing Systems},
+  volume~36, pages 46595--46623, 2023.
+
+\end{thebibliography}

@@ -1,0 +1,102 @@
+\begin{thebibliography}{}
+
+\bibitem[Adams 2014]{ref1}
+Adams, E. (2014).
+\newblock {\em Fundamentals of Game Design}.
+\newblock New Riders, 3rd edition.
+
+\bibitem[Cao et~al. 2026]{cao2026task}
+Cao, Y. et~al. (2026).
+\newblock Task-specific efficiency analysis: When small language models
+  outperform large language models.
+\newblock {\em arXiv preprint arXiv:2601.01234}.
+
+\bibitem[Cox and Ooi 2023]{cox2023}
+Cox, S.~R. and Ooi, W.~T. (2023).
+\newblock Conversational interactions with npcs in llm-driven gaming:
+  Guidelines from a content analysis of player feedback.
+\newblock {\em arXiv preprint arXiv:2307.09009}.
+
+\bibitem[Es et~al. 2023]{es2023ragas}
+Es, S., James, J., Espinosa-Anke, L., and Schockaert, S. (2023).
+\newblock Ragas: Automated evaluation of retrieval augmented generation.
+\newblock {\em arXiv preprint arXiv:2309.15217}.
+
+\bibitem[Fern{\'a}ndez-Vara 2014]{ref7}
+Fern{\'a}ndez-Vara, C. (2014).
+\newblock {\em Introduction to game analysis}.
+\newblock Routledge.
+
+\bibitem[Ji et~al. 2023]{ref10}
+Ji, Z., Lee, N., Frieske, R., Yu, T., Su, D., Xu, Y., Ishii, E., Bang, Y.,
+  Madotto, A., and Fung, P. (2023).
+\newblock Survey of hallucination in natural language generation.
+\newblock {\em ACM Computing Surveys}, 55(12):1--38.
+
+\bibitem[Lewis et~al. 2020]{lewis2020retrieval}
+Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N.,
+  K{\"u}ttler, H., Lewis, M., Yih, W.-t., Rockt{\"a}schel, T., et~al. (2020).
+\newblock Retrieval-augmented generation for knowledge-intensive nlp tasks.
+\newblock In {\em Advances in Neural Information Processing Systems},
+  volume~33, pages 9459--9474.
+
+\bibitem[Liu et~al. 2023]{liu2023lost}
+Liu, N.~F., Lin, K., Chen, P., Taori, R., Selig, A., Chen, P., Levy, O.,
+  Manning, C.~D., Potts, C., et~al. (2023).
+\newblock Lost in the middle: How language models use long contexts.
+\newblock {\em arXiv preprint arXiv:2307.03172}.
+
+\bibitem[Murray 1997]{ref13}
+Murray, J.~H. (1997).
+\newblock {\em Hamlet on the Holodeck: The future of narrative in cyberspace}.
+\newblock MIT press.
+
+\bibitem[Park et~al. 2023]{park2023}
+Park, J.~S., O'Brien, J.~C., Cai, C.~J., Morris, M.~R., Liang, P., and
+  Bernstein, M.~S. (2023).
+\newblock Generative agents: Interactive simulacra of human behavior.
+\newblock In {\em Proceedings of the 36th Annual ACM Symposium on User
+  Interface Software and Technology}, pages 1--22.
+
+\bibitem[Riedl and Bulitko 2013]{riedl2013}
+Riedl, M.~O. and Bulitko, V. (2013).
+\newblock Interactive narrative: An intelligent systems approach.
+\newblock {\em AI Magazine}, 34(1):67--77.
+
+\bibitem[Schreier 2017]{inserir_ref_custos_jogos}
+Schreier, J. (2017).
+\newblock {\em Blood, Sweat, and Pixels: The Triumphant, Turbulent Stories
+  Behind How Video Games Are Made}.
+\newblock Harper.
+
+\bibitem[Shanahan et~al. 2023]{ref2}
+Shanahan, M., McDonell, K., and Reynolds, L. (2023).
+\newblock Role play with large language models.
+\newblock {\em Nature}, 623(7987):493--498.
+
+\bibitem[Shao et~al. 2023]{shao2023character}
+Shao, Y., Li, L., Dai, J., and Qiu, X. (2023).
+\newblock Character-llm: A trainable agent for role-playing.
+\newblock {\em arXiv preprint arXiv:2310.10158}.
+
+\bibitem[Vaswani et~al. 2017]{ref4}
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A.~N.,
+  Kaiser, {\L}., and Polosukhin, I. (2017).
+\newblock Attention is all you need.
+\newblock In {\em Advances in Neural Information Processing Systems},
+  volume~30.
+
+\bibitem[Yao et~al. 2022]{yao2022react}
+Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K., and Cao, Y.
+  (2022).
+\newblock React: Synergizing reasoning and acting in language models.
+\newblock {\em arXiv preprint arXiv:2210.03629}.
+
+\bibitem[Zheng et~al. 2023]{zheng2023judging}
+Zheng, L., Chiang, W.-L., Sheng, Y., Hao, S., Wu, Z., Ba, J.~E., Jiang, Z.~L.,
+  Wu, H., et~al. (2023).
+\newblock Judging llm-as-a-judge with mt-bench and chatbot arena.
+\newblock In {\em Advances in Neural Information Processing Systems},
+  volume~36.
+
+\end{thebibliography}

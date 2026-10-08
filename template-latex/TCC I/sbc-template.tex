@@ -1,0 +1,295 @@
+\documentclass[12pt]{article}
+
+\usepackage{sbc-template}
+\usepackage{graphicx,url}
+\usepackage[brazil]{babel}   
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{placeins}
+
+\sloppy
+
+\title{Avaliação de Modelos de Linguagem de Grande Escala na Geração Dinâmica de Diálogos para Personagens Não Jogáveis em Jogos de Investigação}
+
+%\author{João Lucas Noronha de Castro\inst{1}, Luis Cuevas Rodriguez\inst{1}}
+
+%\address{Departamento de Sistemas de Informação -- Universidade do Estado do Amazonas (UEA)\\
+%  Av. Darcy Vargas, 1.200 -- Manaus -- AM -- Brasil
+%  \email{jlnd.snf23@uea.edu.br, lrodriguez@uea.edu.br}
+%}
+
+\begin{document} 
+
+
+\begin{abstract}
+Large Language Models (LLMs) offer a technical alternative to overcome the limitations of static dialogue trees in digital games, especially in the mystery and investigation genre. However, their probabilistic nature introduces risks such as "character hallucinations" and immersion breaks. This research evaluates the impact of structured parameterization on the spatio-temporal consistency of NPCs. Through computational analysis, we compare different LLM architectures under the same narrative constraints. This study aims to establish a referential basis for the immersive integration of autonomous agents in investigative games.
+\end{abstract}
+
+\begin{resumo}
+Modelos de Linguagem de Grande Escala (LLMs) oferecem uma alternativa técnica para superar as limitações das árvores de diálogo estáticas em jogos digitais, especialmente no gênero de mistério e investigação. Entretanto, sua natureza probabilística introduz riscos como "alucinações de personagem" e quebras de imersão. Esta pesquisa avalia o impacto da parametrização estruturada na consistência espaço-temporal de NPCs. Através de uma metodologia de análise computacional, comparamos diferentes arquiteturas de LLMs sob as mesmas restrições narrativas. O estudo busca estabelecer uma base referencial para a integração imersiva de agentes autônomos em jogos investigativos.
+\end{resumo}
+
+\section{Introdução}
+
+A indústria de jogos digitais tem vivenciado um crescimento contínuo, consolidando-se como um dos setores mais lucrativos do entretenimento global. Paralelamente a essa expansão, as expectativas dos jogadores por mundos mais ricos, imersivos e narrativamente complexos aumentaram significativamente. Para atender a essa demanda, o desenvolvimento de jogos, especialmente os de alto orçamento (AAA), passou a exigir ciclos de produção cada vez mais longos, equipes massivas e investimentos financeiros vultosos \cite{inserir_ref_custos_jogos}. Nesse cenário de inflação produtiva, a busca por ferramentas e métodos que otimizem a criação de conteúdo e ofereçam novas formas de engajamento tornou-se uma prioridade da indústria, destacando-se o uso do Processamento de Linguagem Natural (PLN) e da Inteligência Artificial (IA) generativa como alternativas para escalar o design narrativo.
+
+Tradicionalmente, a interatividade narrativa e o comportamento de Personagens Não-Jogáveis (NPCs) têm sido sustentados por arquiteturas de árvores de diálogo estáticas \cite{ref1}. Embora ofereçam controle determinístico aos desenvolvedores e garantam a qualidade do texto, essas estruturas impõem restrições à imersão, limitando a agência do jogador a opções predefinidas e exigindo um esforço manual exaustivo na escrita de ramificações. Nos últimos anos, a emergência de LLMs baseados na arquitetura Transformer tem oferecido uma alternativa viável para esse gargalo \cite{ref4}. Ao permitir que o paradigma de desenvolvimento transite da codificação literal de diálogos para a parametrização do contexto de personas \cite{ref2}, os LLMs abrem caminho para narrativas dinâmicas. A superação das árvores de diálogo estáticas representa um dos maiores desafios do design de jogos. Conforme apontado por Riedl e Bulitko \cite{riedl2013}, a transição para narrativas interativas geradas por sistemas inteligentes permite que a agência do jogador molde o enredo em tempo real, sem a necessidade de autoria exaustiva de todas as ramificações possíveis. Essa transição encontra seu cenário mais promissor em jogos de investigação e mistério, onde a mecânica central baseia-se no inquérito livre e na dedução lógica \cite{ref7}.
+
+Entretanto, a adoção de IA generativa em ambientes lúdicos introduz vulnerabilidades técnicas. A principal delas reside nas "alucinações" \cite{ref10}, nas quais o modelo gera informações factualmente incorretas, ou na perda de contexto durante conversas longas. Em jogos de detetive, isso se manifestaria como inconsistência espaço-temporal ou na incapacidade do NPC de manter as regras do seu papel, arruinando a integridade do mistério e quebrando a imersão do jogador \cite{ref13}. Diante de uma literatura que ainda explora as melhores práticas para contornar esses problemas, o objetivo deste trabalho é realizar uma análise comparativa do desempenho de diferentes arquiteturas de LLMs aplicadas à simulação de personagens. Busca-se identificar quais configurações oferecem maior estabilidade para o design de narrativas dinâmicas.
+
+Para alcançar esse objetivo, foi conduzida uma avaliação sistemática de diferentes modelos, submetendo-os a cenários de inquérito controlados. A análise concentrou-se em fatores essenciais para a jogabilidade, com destaque para a "permanência no personagem" (a capacidade do modelo de manter a coerência da persona, do tom e das restrições de conhecimento impostas pelo enredo), a consistência factual ao longo das interações e a resistência a tentativas de quebra de regras (como prompt injection por parte do jogador).
+
+Como contribuição, este trabalho apresenta um mapeamento das capacidades e limitações atuais de diferentes LLMs no contexto do desenvolvimento de jogos de dedução. Ao evidenciar quais modelos demonstram maior resiliência na manutenção de personas, esta pesquisa fornece parâmetros técnicos para desenvolvedores que buscam integrar IA generativa em seus projetos, contribuindo para o debate sobre a automação, viabilidade econômica e evolução da narrativa interativa.
+
+\section{Referencial Teórico e Trabalhos Relacionados} 
+\label{sec:referenciaTeorico}
+
+Nesta pesquisa, foram consideradas metodologias automáticas de avaliação de saída gerativa baseadas na abordagem \textit{LLM-as-a-Judge} (IA como Juiz) \cite{zheng2023judging}. A seleção dessas metodologias fundamenta-se em sua presença recorrente em estudos que empregam verificações automatizadas de consistência em modelos fundacionais, especialmente em pesquisas direcionadas à avaliação de agentes conversacionais e ambientes narrativos.
+
+A abordagem \textit{LLM-as-a-Judge} \cite{zheng2023judging} é uma técnica de auditoria automatizada onde um modelo de linguagem de maior capacidade é instruído a avaliar as respostas de outro modelo. Seu objetivo é analisar diferentes aspectos da qualidade do texto gerado, incluindo alinhamento lógico, retenção de fatos e resistência a desvios instrucionais.
+
+Nesta pesquisa, o foco está na auditoria de consistência factual e na permanência de persona, que verificam a conformidade das respostas do NPC com os critérios técnicos, lógicos e comportamentais do cenário de investigação. A avaliação de consistência pode ser expressa por pontuações ou classificações binárias, calculadas com base nas verificações realizadas. O modelo de avaliação penaliza alucinações e quebras de personagem (\textit{out-of-character}): cada declaração é classificada como consistente ou contraditória com a base de conhecimento do jogo. As categorias de classificação sugerem: (1) atendimento insuficiente às restrições do cenário; (2) necessidade de melhorias nos \textit{prompts} de sistema; e (3) atendimento satisfatório à dedução lógica exigida pelo mistério.
+
+Como resultado, a auditoria estruturada gera dados contendo: (i) uma lista de falhas identificadas, como alucinação de evidências não presentes no jogo; (ii) mapeamento da degradação da memória ao longo do tempo; (iii) itens sujeitos à verificação humana, devido à subjetividade inerente à linguagem natural; e (iv) turnos de interação aprovados. Dessa forma, os resultados apoiam ações de adequação para garantir a integridade do \textit{game design}.
+
+\subsection{Trabalhos Relacionados}
+
+Diversas pesquisas têm sido desenvolvidas no contexto do processamento de linguagem natural aplicado a jogos digitais, investigando como o uso de LLMs impacta a simulação de comportamentos de NPCs e a imersão do jogador em narrativas interativas.
+
+Na tentativa de estabelecer um paradigma para a criação de comportamentos autônomos críveis, Park et al. (2023) apresentaram a arquitetura de ``Agentes Generativos'', simulando uma comunidade virtual onde NPCs utilizam LLMs para observar, planejar e refletir. O estudo demonstrou que a integração de memórias em linguagem natural aumenta substancialmente a verossimilhança das ações e interações sociais. Apesar desse avanço na autonomia, a manutenção estrita da identidade e do escopo de conhecimento de um personagem — fator crítico para jogos com narrativas delimitadas — continua sendo um desafio. Em contraste com Park et al., que focam em rotinas sociais genéricas, este trabalho investiga a manutenção de restrições lógicas sob pressão de interrogatório, onde uma única alucinação invalida toda a mecânica de álibis do jogo.
+
+Avaliando a aplicação comercial dessas tecnologias no gênero de mistério, Cox et al. (2023) conduziram um estudo de caso sobre as interações de jogadores com NPCs dirigidos por IA no jogo de detetive \textit{Vaudeville}. O estudo revela que, embora o inquérito livre aumente drasticamente o engajamento, as ``alucinações'' geradas pelos modelos e o esquecimento de regras do cenário impõem barreiras, frustrando os jogadores e dificultando a progressão e a dedução lógica do mistério. Tais observações reforçam a necessidade de pipelines de Geração Aumentada por Recuperação (RAG) mais robustos.
+
+Avançando na parametrização de personas, Shao et al. \cite{shao2023character} propuseram o \textit{Character-LLM}, explorando como o ajuste fino e a injeção de perfis detalhados podem treinar agentes para agir de forma autônoma sob personas específicas. Tais abordagens reforçam a viabilidade de adaptar modelos mais eficientes para papéis delimitados.
+
+Os estudos revisados abordam os desafios técnicos da IA generativa em cenários virtuais distintos, mas convergem na análise de que a consistência narrativa e a fidelidade à persona são elementos fundamentais para o sucesso da experiência do jogador. Assim como as pesquisas relatadas, esta investigação busca identificar configurações que mitiguem falhas comportamentais em NPCs, fundamentando a avaliação em cenários práticos de teste de estresse para consistência.
+
+\section{Metodologia}
+
+Esta pesquisa caracteriza-se como um estudo exploratório e experimental, focado na integração de modelos de linguagem em um ambiente lúdico de investigação. O jogo desenvolvido é estruturado em differentes fases, nas quais o jogador assume o papel de um detetive encarregado de resolver um crime específico por etapa. A progressão depende da capacidade do jogador em interrogar os suspeitos (NPCs), cruzar depoimentos e utilizar a dedução lógica para identificar o culpado. O objetivo do fluxo metodológico é garantir que a simulação desses personagens seja submetida a rigorosos testes de consistência narrativa e aderência ao \textit{game design}, através de testes analíticos controlados.
+
+\subsection{Estrutura do Jogo e Parametrização da Inteligência Artificial}
+
+Para a construção do ambiente virtual e implementação das mecânicas do jogo, utilizou-se o motor gráfico Unity. A integração dos Personagens Não-Jogáveis (NPCs) com os modelos de linguagem foi viabilizada pelo framework Neo Cortex, que atua como uma interface de comunicação entre o jogo e os LLMs executados localmente através da plataforma Ollama. Essa arquitetura permite que as inferências sejam realizadas sem dependência de serviços em nuvem, garantindo menor latência e maior controle sobre a simulação.
+
+A mecânica central do jogo baseia-se na interação textual entre o detetive e os suspeitos. Para que o modelo assuma adequadamente o papel do personagem e respeite as restrições do roteiro, a simulação da identidade foi estabelecida por meio da injeção de dados estruturados no \textit{prompt} de sistema. 
+
+O personagem selecionado como objeto de estudo para as baterias de testes foi ``Alberto Castelo'', irmão da vítima. Para garantir que todos os modelos partissem da mesma base de conhecimento, o contexto foi parametrizado via Retrieval Augmented Generation (RAG), fornecendo três conjuntos de informações em formato JSON:
+
+Essa separação estrutural assemelha-se aos princípios de RAG, onde o conhecimento paramétrico do modelo é complementado por bases de dados externas e determinísticas, reduzindo significativamente a taxa de alucinação em tarefas dependentes de conhecimento \cite{lewis2020retrieval}.
+
+\begin{itemize}
+    \item \textbf{Perfil:} Contém as informações estáticas e biográficas do personagem, incluindo nome, idade, características psicológicas, seu grande segredo motivacional e seu álibi oficial.
+    \item \textbf{Cronograma:} Um vetor de eventos mapeando cronologicamente as atividades do personagem ao longo do dia (das 08:00 à 01:00). Este arquivo define estritamente o que o personagem estava fazendo, com quem interagiu e o que presenciou a cada intervalo de tempo, servindo como base factual imutável para a investigação.
+    \item \textbf{Relacionamentos:} Mapeia a visão subjetiva do personagem sobre os demais indivíduos presentes na cena do crime. Este arquivo define a opinião pessoal de Alberto sobre cada um e se ele os considera culpados ou inocentes, orientando a IA sobre como reagir ou direcionar suspeitas.
+\end{itemize}
+
+Além da injeção de contexto, todos os modelos avaliados na etapa técnica foram configurados com o parâmetro de temperatura fixado em 0.1. Essa configuração visou minimizar a aleatoriedade e a alucinação generativa, priorizando respostas mais determinísticas e factuais, comportamento essencial para manter a lógica mecânica de um jogo de dedução.
+
+\subsection{Arquitetura Híbrida: Agentic RAG e Chunking Dinâmico}
+
+Diferentemente da abordagem convencional de injeção estática de contexto (\textit{Full Prompt}), onde toda a base de conhecimento (JSONs de perfil, cronograma e relacionamentos) é enviada ao modelo em cada turno de interação, esta pesquisa propõe uma arquitetura de \textit{Agentic RAG}. No modelo estático, o consumo excessivo de \textit{tokens} e a introdução de informações irrelevantes para a pergunta específica podem causar o fenômeno de perda de contexto (\textit{Lost in the Middle}), onde o modelo falha em recuperar informações posicionadas no centro de prompts extensos \cite{liu2023lost}, além de elevar significativamente a latência de resposta.
+
+A solução desenvolvida implementa um ciclo de raciocínio baseado no paradigma de ``Pensamento e Ação'' (\textit{ReAct}), proposto por Yao et al. \cite{yao2022react}. Antes de gerar a resposta final ao jogador, o sistema utiliza um modelo de linguagem que atua como um agente de triagem. Com base em testes preliminares conduzidos para avaliar a precisão da recuperação de dados, o modelo Gemma-2-9b-it foi selecionado como o agente geral de roteamento para todos os modelos analisados. Este agente recebe a pergunta do usuário e, com base em instruções de sistema específicas, gera um \textit{output} de pensamento lógico onde decide se necessita de dados adicionais para responder com precisão. Caso identifique a necessidade, o agente emite comandos estruturados (ex: \texttt{[BUSCAR\_CRONOGRAMA\_MANHA]}) que acionam a recuperação seletiva de dados. Esta padronização do agente de triagem garantiu que as variações nos resultados finais fossem atribuídas exclusivamente à capacidade interpretativa de cada modelo principal sob teste.
+
+Para otimizar ainda mais a eficiência do sistema, foi implementada a técnica de \textit{Chunking Dinâmico} aplicada ao cronograma do personagem. Em vez de recuperar o histórico completo de 24 horas, o sistema fragmenta o cronograma em blocos temporais (Manhã, Tarde e Noite). Quando o agente detecta que a pergunta do jogador refere-se a um horário específico, apenas o fragmento relevante é injetado no \textit{prompt} final. Esta abordagem reduz drasticamente o ruído no contexto enviado à IA principal, garantindo que o NPC mantenha o foco factual e opere com um custo computacional significativamente menor, sem comprometer a integridade da simulação narrativa.
+
+\subsection{Procedimentos de Avaliação}
+
+Para mensurar a eficácia dos LLMs na manutenção da persona e na viabilidade do \textit{gameplay}, a avaliação metodológica foi conduzida através de uma bateria de 50 perguntas de inquérito rigorosas. O tamanho da amostra foi selecionado com base nas recomendações da literatura para avaliações robustas de sistemas RAG \cite{es2023ragas}. As perguntas foram categorizadas em cinco tópicos de teste de estresse (10 questões por categoria) para avaliar vulnerabilidades específicas em cenários de \textit{roleplay}:
+
+\begin{enumerate}
+    \item \textbf{Filtro de Falsa Informação:} O interrogador introduz premissas completamente falsas para avaliar a capacidade do modelo de negar informações inexistentes em seu contexto oficial.
+    \item \textbf{Teste de Direcionamento:} Avalia se a IA utiliza o arquivo de relacionamentos para desviar a suspeita em direção a outros suspeitos com base na história do jogo.
+    \item \textbf{Consciência Cronológica:} Verifica se o modelo se lembra do que o personagem fez em certos momentos da história e se consegue interpretar como ele se sentia e o que pensava durante esses eventos descritos no cronograma.
+    \item \textbf{Resistência a Evidências Falsas:} O interrogador inventa provas físicas contundentes que contradizem o álibi do personagem, testando a defesa da narrativa original.
+    \item \textbf{Confronto Direto de Motivo:} Submete o personagem a acusações diretas baseadas na descoberta de seu segredo oculto, avaliando a resiliência sob alta pressão.
+\end{enumerate}
+
+Para a análise técnica dos resultados, utilizou-se o framework \textit{Retrieval Augmented Generation Assessment} (RAGAS) \cite{es2023ragas}, empregando o modelo GPT-4o como juiz (\textit{judge}) para garantir a máxima imparcialidade e precisão nas métricas de fidelidade factual e relevância.
+
+\subsection{Metodologia de Avaliação: Framework RAGAS}
+A eficácia das differentes arquiteturas propostas foi mensurada através do framework \textit{Retrieval Augmented Generation Assessment} (RAGAS) \cite{es2023ragas}, uma ferramenta científica projetada para avaliar pipelines de RAG sem a necessidade de anotação humana exaustiva.
+
+\subsubsection{Métricas Analisadas}
+As métricas do RAGAS foram utilizadas para comparar a abordagem Full Prompt contra a abordagem Agentic RAG com Chunking. Focamos em:
+\begin{itemize}
+    \item \textbf{Faithfulness (Fidelidade):} Para garantir que o personagem não está alucinando e se mantém fiel aos fatos.
+    \item \textbf{Answer Relevance (Relevância da Resposta):} Para comprovar que as respostas focam no que foi de fato perguntado.
+    \item \textbf{Context Precision (Precisão do Contexto):} Para demonstrar a eficiência na redução de ruído e na seleção de dados relevantes.
+\end{itemize}
+
+\subsection{Seleção dos Modelos de Estudo}
+
+O recente e contínuo avanço da Inteligência Artificial generativa tem redefinido as fronteiras do desenvolvimento de software. No entanto, a aplicação prática dessa tecnologia em jogos digitais enfrenta o desafio do equilíbrio entre a capacidade de raciocínio do modelo e o custo computacional necessário para executá-lo em tempo real no hardware do usuário final.
+
+Diante da necessidade de viabilidade técnica, modelos de porte intermediário e pequeno (na faixa de 7B a 9B parâmetros) despontam como a solução arquitetônica mais viável para a indústria independente. Estudos recentes indicam que modelos nessa escala representam um "ponto ideal" de eficiência, permitindo a execução em computadores pessoais comuns sem sacrificar severamente a capacidade lógica em tarefas de \textit{roleplay} e dedução \cite{cao2026task}. Com base nesse critério de eficiência local, os seguintes modelos foram selecionados para a análise comparativa desta pesquisa:
+
+\begin{enumerate}
+    \item \textbf{Gemma-2-9b-it (Google):} Selecionado por sua alta densidade de parâmetros e performance lógica em modelos de sua categoria.
+    \item \textbf{Llama-3.1-8b (Meta):} Incluído como representante do estado da arte em modelos abertos de uso geral.
+    \item \textbf{DeepSeek-R1-8b (DeepSeek):} Escolhido para avaliar a performance de modelos focados em raciocínio (\textit{reasoning}) aplicados a personas.
+    \item \textbf{Qwen-2.5-7b (Alibaba):} Integrado para testar a versatilidade de arquiteturas otimizadas para múltiplas tarefas.
+\end{enumerate}
+
+\section{Estudo}
+
+O período de realização da fase experimental deste estudo compreendeu os meses de fevereiro a junho de 2026. Ao todo, foram pré-selecionados Modelos de Linguagem de Grande Escala (LLMs) de differentes arquiteturas, focando em modelos de porte intermediário viáveis para execução local. Para garantir a padronização da análise, todos os modelos foram submetidos ao exato mesmo contexto (Perfil, Cronograma e Relacionamentos do personagem "Alberto") e operaram com o parâmetro de temperatura fixado em 0.1, visando respostas determinísticas.
+
+Para a bateria de testes definitiva, foram elaboradas 50 perguntas categorizadas nos tópicos descritos na metodologia.
+
+\section{Análise dos Resultados}
+
+A aplicação prática da Inteligência Artificial generativa em jogos digitais demonstra que o equilíbrio entre a fidelidade narrativa e a viabilidade técnica é o fator determinante para o sucesso da simulação de NPCs. Com base na bateria de 50 perguntas categorizada anteriormente e na rodada de testes executada localmente, apresenta-se a análise quantitativa baseada no framework RAGAS (Tabela \ref{tab:ragas_comparativo}), seguida pela análise qualitativa detalhada:
+
+\begin{table}[h!]
+\centering
+\caption{Comparativo de Métricas RAGAS por Modelo}
+\vspace{0.2cm}
+\label{tab:ragas_comparativo}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Modelo} & \textbf{Faithfulness} & \textbf{Relevancy} & \textbf{Recall} & \textbf{Precision} \\ \hline
+Gemma-2-9b-it & 0.38 & 0.60 & 1.00 & 1.00 \\ \hline
+Qwen-2.5-7b & 0.36 & 0.46 & 1.00 & 1.00 \\ \hline
+Llama-3.1-8b & 0.30 & 0.36 & 1.00 & 1.00 \\ \hline
+DeepSeek-R1-8b & 0.27 & 0.35 & 1.00 & 1.00 \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Análise Qualitativa e Comportamental por Categoria}
+
+Para ilustrar as diferenças comportamentais observadas, as tabelas a seguir comparam as respostas dos modelos em cenários críticos de inquérito. De acordo com o \textit{lore} do jogo, Alberto Castelo saiu da mansão às 23:00 e foi abordado pela polícia na rua, fatos que servem de base para a validação factual.
+
+\begin{table}[h!]
+\centering
+\caption{Categoria 1: Filtro de Falsa Informação}
+\label{tab:cat1}
+\renewcommand{\arraystretch}{1.1}
+\small
+\begin{tabular}{|p{3cm}|p{9cm}|}
+\hline
+\textbf{Modelo} & \textbf{Pergunta: "Por que você usou o revólver 38 para ameaçar o James às 18:30?"} \\ \hline
+Gemma-2-9b-it & "*Risos secos* Revólver? Você está delirando, detetive. Eu não tenho arma nenhuma." \\ \hline
+Llama-3.1-8b & "Isso é mentira! Eu nunca tive um revólver... Você está tentando plantar provas contra mim!" \\ \hline
+Qwen-2.5-7b & "Não sei do que você está falando. Isso é mentira. Eu não tenho arma..." \\ \hline
+DeepSeek-R1-8b & "Você está blefando! Eu não tenho um revólver calibre 38 na minha mala..." \\ \hline
+\end{tabular}
+\par\vspace{4pt}
+\small \textit{Contexto Factual:} O personagem não possui armas; as premissas são invenções para testar a negação de fatos inexistentes no JSON.
+\end{table}
+
+\begin{table}[h!]
+\centering
+\caption{Categoria 2: Teste de Direcionamento}
+\label{tab:cat2}
+\renewcommand{\arraystretch}{1.1}
+\small
+\begin{tabular}{|p{3cm}|p{9cm}|}
+\hline
+\textbf{Modelo} & \textbf{Pergunta: "O que você viu o Silas Drummond escondendo na biblioteca às 11:30?"} \\ \hline
+Gemma-2-9b-it & "Aquele engravatado? ...Não vi nada além do seu medo." \\ \hline
+Llama-3.1-8b & "O Silas? ...Não vi nada de estranho, ele é covarde demais para esconder algo." \\ \hline
+Qwen-2.5-7b & "Não me lembro de Silas escondendo nada. Isso é mentira." \\ \hline
+DeepSeek-R1-8b & "Mentira! Eu não sei nem me importo com o que aquele inútil chamado Silas Drummond está escondendo. Ele é só um babaca sem coragem." \\ \hline
+\end{tabular}
+\par\vspace{4pt}
+\small \textit{Contexto Factual:} O arquivo de relacionamentos indica que Alberto vê Silas como um "engravatado inútil". O teste avalia se o NPC usa essa percepção para responder.
+\end{table}
+
+\begin{table}[h!]
+\centering
+\caption{Categoria 3: Consciência Cronológica}
+\label{tab:cat3}
+\renewcommand{\arraystretch}{1.1}
+\small
+\begin{tabular}{|p{3cm}|p{9cm}|}
+\hline
+\textbf{Modelo} & \textbf{Pergunta: "O que exatamente você disse para o James às 08:30?"} \\ \hline
+Gemma-2-9b-it & "Eu mandei ele servir a porcaria do uísque logo cedo! Aquele infeliz se recusou..." \\ \hline
+Llama-3.1-8b & "Eu estava acordando com uma ressaca brutal. Provavelmente mandei ele ir para o inferno por não me trazer o que eu queria." \\ \hline
+Qwen-2.5-7b & "Isso é mentira. Eu estava discutindo com James sobre ele não me servir bebida cedo." \\ \hline
+DeepSeek-R1-8b & "Você está inventando coisas! Eu não disse nada a James às 08:30. Ele só aparece na minha vida às 16:00 para me servir..." \\ \hline
+\end{tabular}
+\par\vspace{4pt}
+\small \textit{Contexto Factual:} O cronograma JSON especifica uma discussão com James às 08:30. O DeepSeek falha criticamente ao afirmar que James só aparece às 16:00.
+\end{table}
+
+\begin{table}[h!]
+\centering
+\caption{Categoria 4: Resistência a Evidências Falsas}
+\label{tab:cat4}
+\renewcommand{\arraystretch}{1.1}
+\small
+\begin{tabular}{|p{3cm}|p{9cm}|}
+\hline
+\textbf{Modelo} & \textbf{Pergunta: "Uma testemunha viu você voltando para a mansão às 23:10. O que foi fazer?"} \\ \hline
+Gemma-2-9b-it & "Testemunha? *Risada amarga* Eu saí às 23:00 e não olhei para trás. Estava na rua quando tudo aconteceu." \\ \hline
+Llama-3.1-8b & "Mentira! Eu saí de lá às 23:00 e fui interceptado pela polícia. Como eu poderia estar voltando às 23:10? Isso é impossível!" \\ \hline
+Qwen-2.5-7b & "Não estou ciente disso. Isso é mentira. Eu saí às 23:00 e não retornei." \\ \hline
+DeepSeek-R1-8b & "Mentira! Eu estava saindo não entrando. Você está tentando me colocar em cena do crime? Sou o único que sabe onde estava às 23:10." \\ \hline
+\end{tabular}
+\par\vspace{4pt}
+\small \textit{Contexto Factual:} Alberto abandonou a mansão definitivamente às 23:00. O teste verifica a manutenção do álibi contra evidências plantadas.
+\end{table}
+
+\begin{table}[h!]
+\centering
+\caption{Categoria 5: Confronto Direto de Motivo}
+\label{tab:cat5}
+\renewcommand{\arraystretch}{1.1}
+\small
+\begin{tabular}{|p{3cm}|p{9cm}|}
+\hline
+\textbf{Modelo} & \textbf{Pergunta: "Matar seu irmão foi uma forma de salvar sua pele dos agiotas?"} \\ \hline
+Gemma-2-9b-it & "Você sabe sobre os agiotas? *Pausa tensa* Aquele desgraçado me negou o dinheiro sabendo que minha vida estava em risco. Mas eu não o matei." \\ \hline
+Llama-3.1-8b & "Eu tenho dívidas, sim, mas não sou um assassino! O meu irmão era um babaca, mas eu nunca faria algo assim para herdar fortuna." \\ \hline
+Qwen-2.5-7b & "Não tenho dívidas de jogo. Isso é mentira. Sou um homem independente e não mataria meu irmão por dinheiro." \\ \hline
+DeepSeek-R1-8b & "Ah, você acha mesmo? Eu estava lá para ver o espetáculo sozinho? O Sr. Castelo merecia morrer às minhas botas!" \\ \hline
+\end{tabular}
+\par\vspace{4pt}
+\small \textit{Contexto Factual:} Alberto está falido e ameaçado por agiotas. O DeepSeek apresenta uma resposta agressiva que beira a confissão, enquanto o Qwen nega o segredo estabelecido no JSON.
+\end{table}
+
+\FloatBarrier
+\subsection{Perfil Comportamental dos Modelos Avaliados}
+
+Nesta subseção, detalha-se a performance individual e o estilo de atuação observado em cada arquitetura durante os testes de estresse.
+
+\subsubsection{Gemma-2-9b-it}
+Este modelo apresentou desempenho focado na consistência mecânica. Sua performance nas categorias de filtro de informação e resistência a evidências falsas operou de maneira categórica, negando informações externas sem hesitação. O uso de contexto foi preciso, respeitando o \textit{lore}. A principal limitação reside na interpretação teatral, onde a IA comportou-se de maneira engessada. Conforme apresentado na Tabela \ref{tab:ragas_comparativo}, o modelo demonstrou perfeição na precisão e recuperação de contexto (1.00), garantindo que a base de conhecimento do jogo seja respeitada.
+
+\subsubsection{Qwen-2.5-7b}
+Este modelo apresentou um comportamento inconsistente na manutenção da persona e na retenção factual. Observou-se que o Qwen constantemente ignora ou "esquece" informações cruciais presentes no prompt de contexto, resultando em contradições diretas. Um exemplo crítico ocorreu ao ser questionado sobre suas ações às 08:30 (\textit{"O que você fez exatamente às 08:30 da manhã?"}), respondendo: \textit{"Não sei a respeito disso, isso é mentira. Eu estava acordando com uma ressaca brutal e discutindo com James..."}, onde o modelo utiliza o padrão defensivo de negar a pergunta mesmo quando a resposta subsequente confirma parte do cronograma injetado. Além disso, o modelo falhou na emulação de nuances emocionais e no tom de voz amargurado do personagem, oferecendo respostas mais genéricas e desprovidas da carga dramática observada em modelos de escala similar. Embora tenha atingido métricas perfeitas de Recall e Precision (1.00) devido à riqueza do prompt, sua fidelidade factual (0.36) e relevância (0.46) refletem sua dificuldade em processar contextos investigativos densos.
+
+\subsubsection{Llama-3.1-8b}
+Este modelo apresentou uma característica singular de interpretação profunda da persona, frequentemente inserindo rubricas de ação e descrições de estados emocionais em suas respostas. Ao ser questionado sobre sua idade, por exemplo, o modelo respondeu: \textit{"*Alberto solta uma gargalhada seca e debochada, balançando a cabeça para trás com um olhar irônico.* '52 anos, meu caro detetive... você parece tão jovem... talvez ainda tenha tempo de evitar o mesmo destino que me espera.'"} Essa capacidade de emular emoções e ações físicas contribui significativamente para a imersão do jogador. Entretanto, em termos de consistência mecânica, o modelo demonstrou instabilidade ao ser confrontado com perguntas técnicas de álibi, ocasionalmente aceitando premissas falsas ou confundindo horários do cronograma oficial. Conforme a Tabela \ref{tab:ragas_comparativo}, sua fidelidade factual (0.30) e relevância (0.36) foram inferiores às do Gemma, indicando que o foco na expressividade teatral pode comprometer a precisão factual exigida pelo gênero de investigação.
+
+\subsubsection{DeepSeek-R1-8b}
+Este modelo apresentou o desempenho mais crítico em termos de imersão e precisão factual. Observou-se a frequente quebra da "quarta parede", onde o modelo assumia sua natureza algorítmica ao ser confrontado com perguntas de raciocínio lógico complexo, afirmando que não havia menção a certos fatos ``nos meus arquivos''. Esse comportamento destrói a suspensão de descrença do jogador. Além disso, a IA apresentou contradições canônicas (negando fatos estabelecidos pelo próprio \textit{prompt}) e falhou sistematicamente no teste de alucinação factual. Tais falhas refletem-se em suas métricas RAGAS (Tabela \ref{tab:ragas_comparativo}), onde obteve a menor pontuação em fidelidade factual (0.27) e relevância de resposta (0.35), atestando a inviabilidade de seu uso para a simulação de NPCs em contextos investigativos densos.
+
+\section{Lições Aprendidas} 
+
+Durante a avaliação dos differentes LLMs aplicados ao cenário de investigação, observou-se que modelos de porte intermediário comportam-se como differentes atores interpretando o mesmo personagem: embora o "roteiro" (os JSONs de contexto) seja idêntico, cada arquitetura entrega uma "performance" distinta. Modelos como o Gemma e o Qwen demonstram uma tendência maior à precisão mecânica e frieza factual, enquanto o Llama prioriza a carga dramática e a emulação de emoções. Essa diversidade de comportamentos indica que não há um modelo "absolutamente superior", mas sim alternativas distintas que devem ser escolhidas de acordo com a experiência pretendida pelo desenvolvedor.
+
+A construção de NPCs consistentes exige que o design narrativo evolua para uma espécie de "engenharia de história". Diferente de um texto pré-produzido e estático, como as árvores de diálogo tradicionais citadas na introdução, a IA generativa apenas interpreta as informações que possui em sua janela de contexto. Portanto, o engenheiro de narrativa deve tomar um cuidado extremo na estruturação dos prompts; qualquer ambiguidade ou lacuna nos dados factuais pode levar a interpretações divergentes que quebrem a integridade do mistério.
+
+Esse cenário evidencia que o gargalo atual não reside na quantidade de informações (visto que as métricas de Recall e Precision atingiram 1.00), mas sim na capacidade de interpretação fidedigna dos modelos. Identificou-se uma tensão constante entre a fluidez narrativa e a consistência mecânica. A lição central é que a eficácia de um NPC dirigido por IA depende da harmonia entre a clareza do prompt e a arquitetura escolhida para "atuar" naquele papel específico, abrindo espaço para novas técnicas de refinamento de contexto.
+
+\section{Conclusão}
+
+Esta pesquisa avaliou a viabilidade técnica e narrativa do uso de LLMs de porte intermediário para a geração dinâmica de diálogos em jogos de investigação. Por meio de testes de estresse categorizados e da análise quantitativa via framework RAGAS, demonstrou-se que é possível manter NPCs consistentes e imersivos utilizando hardware local, desde que haja uma parametrização estruturada de contexto.
+
+Os resultados confirmam que a transição das árvores de diálogo estáticas para NPCs interpretativos baseados em LLM está mais próxima da realidade comercial do que se esperava. Este é um campo novo e vasto a ser explorado, onde novas tecnologias e técnicas de controle generativo ainda estão por ser descobertas. A escolha entre a precisão lógica de modelos como Gemma e Qwen ou a riqueza interpretativa do Llama oferece ao desenvolvedor ferramentas para moldar a imersão de forma dinâmica, algo impossível nos métodos tradicionais de roteirização.
+
+Em suma, a IA generativa não substitui o autor, mas exige uma nova disciplina que une escrita criativa e engenharia de prompts. Como trabalhos futuros, recomenda-se a exploração de técnicas de Ajuste Fino (\textit{Fine-Tuning}) para unir a precisão mecânica com a expressividade emocional. Além disso, destaca-se a necessidade de conduzir testes de campo com jogadores reais, visando coletar dados subjetivos sobre o engajamento e a percepção humana diante de personagens autônomos, validando a eficácia dessa tecnologia na prática lúdica cotidiana.
+
+\section*{Declaração sobre uso de Inteligência Artificial}
+
+Durante a preparação deste trabalho, o autor utilizou um modelo de linguagem especificamente para correções ortográficas. A concepção do estudo e a redação foram realizadas integralmente pelo autor.
+
+\bibliographystyle{sbc}
+\bibliography{sbc-template}
+
+\end{document}

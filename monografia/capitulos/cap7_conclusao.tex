@@ -1,0 +1,45 @@
+\chapter{Conclusão e Trabalhos Futuros}
+\label{cap:conclusao}
+
+Este capítulo encerra a monografia, sintetizando as principais conclusões obtidas a partir da investigação, discutindo as limitações metodológicas identificadas ao longo da pesquisa e delineando os direcionamentos para trabalhos futuros na interseção entre inteligência artificial generativa e jogos digitais.
+
+\section{Síntese do Trabalho e Conclusões Principais}
+\label{sec:concl_sintese}
+
+Esta pesquisa investigou a viabilidade técnica e a estabilidade narrativa da aplicação de Modelos de Linguagem de Grande Escala (LLMs) e Modelos Compactos (SLMs) na geração dinâmica de diálogos para Personagens Não Jogáveis (NPCs) no gênero de jogos de mistério e dedução lógica. O objetivo central concentrou-se em superar a rigidez histórica e a explosão combinatória das árvores de diálogo estáticas sem comprometer a integridade das regras de álibi e a consistência espaço-temporal do caso policial.
+
+Para solucionar essa tensão entre agência dialógica e determinismo factual, foi concebida e implementada uma arquitetura híbrida de \textit{Agentic RAG} com fragmentação temporal dinâmica (\textit{Dynamic Chunking}), integrada ao motor gráfico Unity através do middleware Neo Cortex e executada integralmente em hardware local via plataforma Ollama. Submeteram-se quatro arquiteturas representativas de modelos abertos (Gemma-2-9b-it, Qwen-2.5-7b, Llama-3.1-8b e DeepSeek-R1-8b) a uma bateria sistemática de 50 perguntas inquisitivas sob estresse, auditando as respostas através do framework RAGAS com juiz sintético GPT-4o.
+
+Os resultados empíricos validaram a hipótese central da pesquisa:
+
+\begin{enumerate}
+    \item \textbf{Eficácia da Recuperação por Agente de Triagem:} A arquitetura de dois estágios atingiu pontuações unitárias perfeitas de Precisão de Contexto (1,00) e Abrangência de Contexto (1,00), demonstrando que o agente de triagem ReAct é capaz de decompor a intenção do jogador e despachar exclusivamente o bloco cronológico pertinente, reduzindo a sobrecarga informacional na janela de contexto;
+    \item \textbf{Diversidade de Perfis Comportamentais:} Constatou-se que modelos sob o mesmo roteiro documental comportam-se como atores distintos. O modelo Gemma-2-9b-it destacou-se pela maior solidez factual e lógica (fidelidade de 0,38 e relevância de 0,60), revelando-se ideal para personagens metódicos e precisos. Por sua vez, o Llama-3.1-8b sobressaiu-se na riqueza de encenação dramática e uso de rubricas teatrais, promovendo maior suspensão da descrença, embora apresente maior propensão a desvios temporais marginais;
+    \item \textbf{Inviabilidade de Modelos de Raciocínio sob Temperatura Baixa:} O DeepSeek-R1-8b revelou-se inadequado para a dramatização de personas quando operado sob hiperparâmetro rígido de temperatura (0.1), colapsando em respostas metalinguísticas ou quebrando a quarta parede;
+    \item \textbf{Aportes Teóricos sobre Avaliação Automatizada:} O estudo evidenciou o ``Paradoxo da Baixa Fidelidade'', demonstrando que métricas convencionais de RAG penalizam manifestações artísticas e retóricas legítimas do \textit{roleplay}, apontando a necessidade de diretrizes avaliativas especializadas para narrativas interativas.
+\end{enumerate}
+
+Em suma, a transição das árvores estáticas de diálogo para agentes interpretativos orientados a contexto é viável em computadores de consumo contemporâneos, desde que amparada por uma engenharia de contexto rigorosa que desacople o raciocínio factual da síntese de atuação dramática.
+
+\section{Limitações da Pesquisa}
+\label{sec:concl_limitacoes}
+
+Reconhecem-se as seguintes limitações metodológicas e operacionais no escopo deste trabalho:
+
+\begin{itemize}
+    \item \textbf{Avaliação Focada em Juiz Sintético:} Os dados quantitativos basearam-se primordialmente na auditoria computacional via RAGAS e GPT-4o. Embora garanta imparcialidade e reprodutibilidade sistemática, a avaliação não substitui a coleta de dados psicométricos de experiência do usuário com voluntários humanos em sessões de jogabilidade prolongada;
+    \item \textbf{Restrição a uma Única Persona:} Os testes concentraram-se na modelagem e estresse de Alberto Castelo. A dinâmica de inquérito cruzado entre múltiplos suspeitos interagindo simultaneamente permanece como um vetor de investigação em aberto;
+    \item \textbf{Impacto da Quantização em 4 Bits:} A utilização do formato quantizado Q4\_K\_M foi indispensável para viabilizar a execução local em memória VRAM restrita, mas pode ter atenuado nuances sutis de raciocínio dedutivo que estariam presentes em versões de precisão completa (\textit{float16}).
+\end{itemize}
+
+\section{Propostas para Trabalhos Futuros}
+\label{sec:concl_futuros}
+
+Como desdobramentos naturais desta pesquisa, sugerem-se as seguintes frentes de investigação:
+
+\begin{enumerate}
+    \item \textbf{Validação Ecológica com Jogadores Humanos:} Executar o protocolo experimental delineado na Seção \ref{sec:met_validacao_humana} com estudantes e voluntários na Universidade do Estado do Amazonas (UEA), mensurando a percepção de imersão, credibilidade de álibi e usabilidade através dos instrumentos psicométricos GEQ \cite{ijsselsteijn2013game} e SUS \cite{brooke1996sus}, validando empiricamente as projeções formuladas na Seção \ref{sec:res_projecoes_humanas};
+    \item \textbf{Ajuste Fino por Adaptação de Baixo Posto (LoRA):} Investigar o treinamento supervisionado leve com LoRA (\textit{Low-Rank Adaptation}) em modelos compactos, buscando fundir a disciplina factual do Gemma-2 com a expressividade dramática do Llama-3.1;
+    \item \textbf{Simulação Multiagente de Suspeitos Concorrentes:} Expandir o pipeline para suportar múltiplos NPCs simultâneos que trocam informações entre si em tempo de execução, permitindo que as confissões ou mentiras de um suspeito alterem dinamicamente o estado emocional dos demais;
+    \item \textbf{Agentes Guardiões de Segurança Dialógica:} Desenvolver um micro-classificador semântico especializado em detectar tentativas deliberadas de \textit{jailbreak} ou quebra de persona pelo jogador, convertendo entradas fora do escopo em respostas diegéticas coerentes com o universo ficcional do mistério.
+\end{enumerate}

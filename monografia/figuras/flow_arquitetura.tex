@@ -1,0 +1,48 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    auto,
+    node distance=1.0cm and 1.2cm,
+    box/.style={rectangle, draw=black!75, rounded corners=3pt, thick, align=center, font=\footnotesize, minimum height=0.85cm},
+    client/.style={box, fill=blue!10, draw=blue!80, minimum width=3.2cm},
+    mid/.style={box, fill=purple!10, draw=purple!80, minimum width=3.2cm},
+    db/.style={cylinder, draw=orange!80, fill=orange!10, shape border rotate=90, aspect=0.25, align=center, font=\scriptsize, minimum width=2.4cm, minimum height=0.9cm},
+    llm/.style={box, fill=green!15, draw=green!60!black, minimum width=3.6cm, font=\footnotesize\bfseries},
+    arr/.style={thick, ->, >=stealth}
+]
+
+    % Camada 1: Cliente e Apresentação
+    \node (player) [client, fill=yellow!15, draw=orange!80] {\textbf{Jogador (Detetive)}\\Inquérito em linguagem natural};
+    \node (unity) [client, right=1.2cm of player] {\textbf{Unity Engine (C\#)}\\Interface de Diálogo e Máquina de Estados};
+
+    % Camada 2: Mediação e Triagem
+    \node (neocortex) [mid, below=1.1cm of unity] {\textbf{Neo Cortex Middleware}\\Tratamento e Despachador HTTP};
+    \node (triage) [mid, fill=purple!20, below=1.1cm of player] {\textbf{Agente de Triagem (Gemma-2)}\\Ciclo ReAct: Decisão de Contexto};
+
+    % Camada 3: Base de Dados e Chunking
+    \node (dbnode) [db, below=1.0cm of triage] {\textbf{Base Factual JSON}\\Perfil, Cronograma, Relações};
+    \node (chunker) [box, fill=orange!15, draw=orange!80, right=1.2cm of dbnode, minimum width=3.2cm] {\textbf{Filtro de Chunking}\\Fragmentação Temporal Dinâmica};
+
+    % Camada 4: Inferência do Modelo Principal
+    \node (generator) [llm, below=1.0cm of chunker] {\textbf{Modelo da Persona (LLM Local)}\\Gemma-2 / Llama-3.1 / Qwen-2.5 / DeepSeek};
+
+    % Conexões do Fluxo
+    \draw [arr] (player) -- node [above, font=\scriptsize] {1. Pergunta livre} (unity);
+    \draw [arr] (unity) -- node [right, font=\scriptsize] {2. Requisição} (neocortex);
+    \draw [arr] (neocortex) -- node [above, font=\scriptsize] {3. Inquérito bruto} (triage);
+    \draw [arr] (triage) -- node [left, font=\scriptsize] {4. Comando [BUSCAR\_*]} (dbnode);
+    \draw [arr] (dbnode) -- node [above, font=\scriptsize] {5. Extração} (chunker);
+    \draw [arr] (chunker) -- node [right, font=\scriptsize] {6. Contexto Filtrado Mínimo} (generator);
+    
+    % Retorno ao Unity
+    \draw [arr] (generator.east) -- ++(0.7,0) |- node [pos=0.25, right, font=\scriptsize] {7. Réplica do NPC} (unity.east);
+
+    % Caixa de delimitação do ambiente local (Ollama)
+    \begin{scope}[on background layer]
+        \node (localbox) [draw=gray!50, dashed, fill=gray!4, rounded corners=6pt, fit=(triage) (dbnode) (chunker) (generator), label={[yshift=-0.5cm]above:\scriptsize\textbf{Ambiente de Execução Local (Ollama Runtime / Hardware do Usuário)}}] {};
+    \end{scope}
+
+\end{tikzpicture}
+\caption{Arquitetura em camadas do pipeline Agentic RAG integrado ao motor Unity via Neo Cortex.}
+\label{fig:arquitetura_pipeline}
+\end{figure}
