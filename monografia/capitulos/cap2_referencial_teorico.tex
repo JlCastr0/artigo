@@ -14,7 +14,7 @@ Historicamente, o comportamento e os diálogos de Personagens Não Jogáveis tê
 \centering
 \begin{tikzpicture}[
     auto,
-    node distance=1.1cm and 0.8cm,
+    node distance=0.75cm and 0.5cm,
     rootbox/.style={rectangle, rounded corners=3pt, draw=black!80, fill=gray!15, thick, minimum width=3.4cm, minimum height=0.8cm, align=center, font=\footnotesize\bfseries},
     decisionbox/.style={diamond, aspect=2.2, draw=blue!80, fill=blue!10, thick, minimum width=3.0cm, minimum height=0.8cm, align=center, font=\footnotesize},
     choicebox/.style={rectangle, rounded corners=2pt, draw=teal!80, fill=teal!10, thick, minimum width=2.6cm, minimum height=0.75cm, align=center, font=\scriptsize},
@@ -24,17 +24,17 @@ Historicamente, o comportamento e os diálogos de Personagens Não Jogáveis tê
 
     % Nós verticais principais
     \node (root) [rootbox] {Nó Raiz: NPC Inicia Diálogo};
-    \node (dec) [decisionbox, below=0.7cm of root] {Menu de Opções Fixas\\(Entrada do Jogador)};
+    \node (dec) [decisionbox, below=0.5cm of root] {Menu de Opções Fixas\\(Entrada do Jogador)};
 
     % Três ramificações balanceadas
-    \node (r2) [choicebox, below=0.9cm of dec] {Opção 2: Confronto\\(Resposta Defensiva)};
+    \node (r2) [choicebox, below=0.6cm of dec] {Opção 2: Confronto\\(Resposta Defensiva)};
     \node (r1) [choicebox, left=0.6cm of r2] {Opção 1: Pergunta Álibi\\(Depoimento Factual)};
     \node (r3) [choicebox, right=0.6cm of r2] {Opção 3: Nova Pista\\(Avanço de Quest)};
 
     % Nós finais / convergência
-    \node (leaf1) [leafbox, below=0.7cm of r1] {Fim de Ramo\\(Álibi Esgotado)};
-    \node (leaf2) [leafbox, below=0.7cm of r2] {Retorno ao Loop\\(NPC Repete Fala)};
-    \node (leaf3) [leafbox, below=0.7cm of r3] {Nó de Convergência\\(Próxima Fase)};
+    \node (leaf1) [leafbox, below=0.5cm of r1] {Fim de Ramo\\(Álibi Esgotado)};
+    \node (leaf2) [leafbox, below=0.5cm of r2] {Retorno ao Loop\\(NPC Repete Fala)};
+    \node (leaf3) [leafbox, below=0.5cm of r3] {Nó de Convergência\\(Próxima Fase)};
 
     % Conexões
     \draw [arr] (root) -- (dec);
@@ -159,7 +159,7 @@ A fundamentação formal do paradigma \textit{LLM-as-a-Judge} foi introduzida po
     \item \textbf{Avaliação Multiagente e Debate (\textit{Multi-Agent Evaluation}):} Proposto por Chan et al. \cite{chan2024chateval} no framework ChatEval, esse método simula um painel colegiado onde múltiplos agentes com personas avaliativas distintas (e.g., um crítico de precisão factual, um analista de tom e um avaliador de coerência) debatem e refinam conjuntamente o veredito final, neutralizando vieses idiossincráticos de um único modelo julgador.
 \end{enumerate}
 
-\subsubsection{Vieses Cognitivos Sistemáticos e Estratégias de Mitigação}
+\noindent\textbf{Vieses Cognitivos Sistemáticos e Estratégias de Mitigação}
 Apesar de sua flexibilidade e poder analítico, modelos avaliadores estão sujeitos a vieses sistemáticos bem documentados que podem comprometer a validade científica das medições caso não sejam rigorosamente controlados \cite{zheng2023judging,gu2024survey}:
 
 \begin{itemize}
@@ -179,7 +179,7 @@ Neste trabalho, para garantir máxima imparcialidade na avaliação dos diálogo
 
 Para quantificar objetivamente o pipeline de RAG e a estabilidade factual dos modelos, esta pesquisa fundamenta-se no framework científico RAGAS (\textit{Retrieval Augmented Generation Assessment}), concebido por Es et al. \cite{es2024ragas}. O RAGAS operacionaliza o paradigma \textit{LLM-as-a-Judge} através de métricas matemáticas que isolam a qualidade da recuperação da qualidade da geração:
 
-\subsubsection{Fidelidade Factual (\textit{Faithfulness})}
+\noindent\textbf{Fidelidade Factual (\textit{Faithfulness})}
 Mede a proporção de declarações geradas na resposta do modelo ($A$) que podem ser inferidas diretamente a partir do contexto fornecido ($C$). Uma resposta altamente fiel evita a invenção de evidências e detalhes factuais. A métrica é expressa matematicamente por:
 
 \begin{equation}
@@ -189,7 +189,7 @@ Mede a proporção de declarações geradas na resposta do modelo ($A$) que pode
 
 \noindent onde $S(A)$ representa o conjunto de declarações atômicas extraídas da resposta $A$, e $C \models s$ denota que a declaração $s$ é dedutível a partir do contexto $C$.
 
-\subsubsection{Relevância da Resposta (\textit{Answer Relevance})}
+\noindent\textbf{Relevância da Resposta (\textit{Answer Relevance})}
 Avalia se a fala do personagem responde com precisão àquilo que foi interrogado pelo jogador, penalizando respostas prolixas, evasivas ou desconexas. O cálculo é realizado gerando $M$ perguntas sintéticas potenciais $q_i$ a partir da resposta gerada $A$ e calculando a similaridade de cosseno média com a pergunta real original $q$:
 
 \begin{equation}
@@ -199,8 +199,8 @@ Avalia se a fala do personagem responde com precisão àquilo que foi interrogad
 
 \noindent onde $E(\cdot)$ denota a representação vetorial obtida por meio de um modelo de \textit{embedding}.
 
-\subsubsection{Precisão do Contexto (\textit{Context Precision})}
+\noindent\textbf{Precisão do Contexto (\textit{Context Precision})}
 Mensura a qualidade do mecanismo de recuperação (\textit{Retriever}), avaliando se as informações relevantes presentes no contexto recuperado $C$ foram dispostas nas primeiras posições de prioridade. Em sistemas que utilizam fragmentação dinâmica, essa métrica valida se o agente de triagem recuperou exclusivamente o bloco cronológico correto.
 
-\subsubsection{Abrangência do Contexto (\textit{Context Recall})}
+\noindent\textbf{Abrangência do Contexto (\textit{Context Recall})}
 Mede se todos os fatos necessários para responder à pergunta estavam presentes no contexto recuperado. O índice varia de 0,0 a 1,0, indicando se houve omissão de informações vitais para a sustentação do depoimento.

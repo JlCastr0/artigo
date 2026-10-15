@@ -161,10 +161,10 @@
 
 % --- DEDICATÓRIA E AGRADECIMENTOS ---
 \newpage
-\chapter*{Agradecimentos}
-\addcontentsline{toc}{chapter}{Agradecimentos}
+\chapter*{Agradecimentos e Epígrafe}
+\addcontentsline{toc}{chapter}{Agradecimentos e Epígrafe}
 
-Agradeço à minha família pelo apoio incondicional ao longo de toda a minha formação universitária. 
+Agradeço à minha família pelo apoio incondicional ao longo de toda a minha formação universitária.
 
 Ao meu orientador, Prof. Dr. Luis Cuevas Rodriguez, pela orientação precisa, paciência e incentivo constante durante a concepção e desenvolvimento desta pesquisa.
 
@@ -172,15 +172,14 @@ Aos colegas do curso de Sistemas de Informação da Universidade do Estado do Am
 
 A todos que direta ou indiretamente contribuíram para a realização deste trabalho.
 
-\newpage
-\chapter*{Epígrafe}
-\addcontentsline{toc}{chapter}{Epígrafe}
-\vspace*{14cm}
+\vspace{3.5cm}
 \hfill
-\begin{minipage}{0.6\textwidth}
+\begin{minipage}{0.65\textwidth}
+\linespread{1.1}\selectfont
+\small
 \textit{''Interactive narrative is not about the author dictating every branch, but creating intelligent worlds where player agency and emergent stories coexist seamlessly.''}
-\vspace{0.3cm}
-\hfill -- Mark O. Riedl
+\vspace{0.2cm}
+\hfill -- \textbf{Mark O. Riedl}
 \end{minipage}
 
 % --- RESUMO ---
@@ -203,6 +202,7 @@ A todos que direta ou indiretamente contribuíram para a realização deste trab
 
 % --- LISTAS ---
 \newpage
+\singlespacing
 \listoffigures
 \addcontentsline{toc}{chapter}{\listfigurename}
 
@@ -242,6 +242,7 @@ VRAM & \textit{Video Random Access Memory} (Memória de Vídeo) \\
 % ELEMENTOS TEXTUAIS
 % ==========================================
 \newpage
+\onehalfspacing
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
@@ -260,8 +261,14 @@ VRAM & \textit{Video Random Access Memory} (Memória de Vídeo) \\
 \bibliography{referencias}
 
 \appendix
+\singlespacing % Espaçamento simples para elementos pós-textuais e apêndices (norma ABNT)
+\setlist{noitemsep, topsep=1pt, parsep=0pt} % Compactação de listas nos apêndices
+\titlespacing*{\chapter}{0pt}{10pt}{10pt}
+\titlespacing*{\section}{0pt}{8pt}{4pt} % Espaçamento simples para elementos pós-textuais e apêndices (norma ABNT)
+\setlist{noitemsep, topsep=2pt, parsep=1pt} % Compactação de listas nos apêndices
 \include{apendices/apendice_a_prompts}
 \include{apendices/apendice_b_persona_json}
 \include{apendices/apendice_c_perguntas_estresse}
+\include{apendices/apendice_d_questionario_jogadores}
 
 \end{document}
