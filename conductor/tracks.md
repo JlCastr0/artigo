@@ -11,3 +11,8 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 - [x] **Track: Resolver sobreposição entre Capítulo 4 e Capítulo 5**
   *Link: [./tracks/desacoplamento_cap4_cap5_20260927/](./tracks/desacoplamento_cap4_cap5_20260927/)*
+
+---
+
+- [ ] **Track: Condensação e Otimização da Monografia para Meta de 75 Páginas**
+  *Link: [./tracks/condensacao_monografia_75pag_20261014/index.md](./tracks/condensacao_monografia_75pag_20261014/index.md)*
