@@ -14,5 +14,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [ ] **Track: Condensação e Otimização da Monografia para Meta de 75 Páginas**
+- [~] **Track: Condensação e Otimização da Monografia para Meta de 75 Páginas**
   *Link: [./tracks/condensacao_monografia_75pag_20261014/index.md](./tracks/condensacao_monografia_75pag_20261014/index.md)*
