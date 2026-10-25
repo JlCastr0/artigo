@@ -19,5 +19,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [ ] **Track: Revisão Estilística e Polimento Acadêmico da Monografia**
+- [~] **Track: Revisão Estilística e Polimento Acadêmico da Monografia**
   *Link: [./tracks/revisao_estilo_academico_20261014/index.md](./tracks/revisao_estilo_academico_20261014/index.md)*
