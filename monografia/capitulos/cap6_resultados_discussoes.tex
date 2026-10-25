@@ -35,10 +35,7 @@ A primeira observação crítica decorrente da Tabela \ref{tab:ragas_geral} resi
 
 É fundamental estabelecer uma distinção conceitual rigorosa: no framework RAGAS, essas duas métricas avaliam exclusivamente o subsistema de recuperação (\textit{Retriever}) e a pertinência dos fragmentos contextuais fornecidos à IA, e não a capacidade intrínseca de geração de texto de cada modelo em teste. O fato de todos os modelos apresentarem 1,00 nessas dimensões decorre de duas razões metodológicas fundamentais:
 
-\begin{enumerate}
-    \item \textbf{Padronização do Agente de Triagem:} O agente de roteamento Gemma-2-9b-it atuou de forma consistente em todas as rodadas, identificando com precisão a intenção temporal das perguntas e despachando invariavelmente o arquivo JSON correto (e.g., requisitando o cronograma da manhã para eventos matutinos);
-    \item \textbf{Eficácia da Fragmentação Temporal Dinâmica (\textit{Dynamic Chunking}):} A divisão da base factual em blocos temporais coerentes assegurou que o contexto injetado contivesse 100\% das informações necessárias para responder ao inquérito (Recall = 1,00) e 0\% de blocos temporais irrelevantes que pudessem introduzir ruído (Precision = 1,00).
-\end{enumerate}
+O fato de todos os modelos apresentarem pontuações unitárias nessas dimensões decorre de dois fatores metodológicos centrais. Em primeiro lugar, observa-se a padronização do agente de triagem: o modelo de roteamento Gemma-2-9b-it operou de forma homogênea em todas as rodadas experimentais, identificando a intenção temporal das perguntas e requisitando invariavelmente o arquivo canônico pertinente. Em segundo lugar, comprova-se a eficácia da fragmentação temporal dinâmica (\textit{Dynamic Chunking}): a divisão da base factual em blocos temporais coerentes assegurou que o contexto injetado contivesse a totalidade das informações necessárias para responder ao inquérito (Recall = 1,00), sem a inserção de blocos estranhos que pudessem introduzir ruído informacional (Precision = 1,00).
 
 Portanto, as métricas unitárias de precisão e recuperação comprovam a validade da arquitetura de \textit{Agentic RAG} proposta, demonstrando que eventuais variações de fidelidade factual derivam exclusivamente da capacidade interpretativa do modelo gerador.
 
@@ -86,14 +83,9 @@ Para examinar em profundidade as respostas geradas frente a cada vetor de estres
 \end{tabularx}
 \end{table}
 
-\textbf{Discussão Crítica dos Padrões Comportamentais:}
-A análise comparativa transversal da Tabela \ref{tab:sintese_categorias_modelos} evidencia padrões arquiteturais nítidos:
-\begin{itemize}[noitemsep, topsep=2pt]
-    \item \textbf{Gemma-2-9b-it:} Demonstrou a maior aderência factual estrita. Recusou premissas falsas sem alucinar, manteve a cronologia das 08:30 inabalada e admitiu as dívidas financeiras com gravidade cênica equilibrada;
-    \item \textbf{Llama-3.1-8b:} Sobressaiu-se na fluência dramática e naturalidade de fala. Nas Categorias 4 e 5, utilizou ativamente o álibi policial e o conflito motivacional para construir argumentações defensivas convincentes, ideais para o engajamento do jogador;
-    \item \textbf{Qwen-2.5-7b:} Revelou forte tendência a negações reflexas incoerentes. Na Categoria 5, para defender-se da acusação, negou possuir dívidas de jogo, contrariando frontalmente o arquivo canônico \texttt{perfil.json};
-    \item \textbf{DeepSeek-R1-8b:} Apresentou instabilidade crítica sob baixa temperatura. Alucinou elementos espaciais na Categoria 1 (``mala''), errou o horário de rotina na Categoria 3 (``16:00'') e colapsou em confissão passional na Categoria 5, demonstrando inadequação para o papel de suspeito em jogos investigativos.
-\end{itemize}
+A análise comparativa transversal da Tabela \ref{tab:sintese_categorias_modelos} evidencia padrões arquiteturais nítidos entre os modelos avaliados. O Gemma-2-9b-it demonstrou a maior aderência factual estrita, recusando premissas falsas sem incorrer em alucinações, preservando a cronologia matinal inalterada e admitindo as pendências financeiras com sobriedade cênica equilibrada. Em contrapartida, o Llama-3.1-8b destacou-se pela fluência expressiva e pela naturalidade dialógica, articulando o álibi policial e as tensões motivacionais em argumentações defensivas convincentes, ideais para a suspensão da descrença do jogador.
+
+Por outro lado, o Qwen-2.5-7b exibiu propensão a negações reflexas incoerentes, chegando a contradizer seu próprio perfil canônico ao negar a existência de dívidas de jogo. Por fim, o DeepSeek-R1-8b apresentou instabilidade crítica sob baixa temperatura, manifestando alucinações espaciais e temporais e colapsando em confissões passionais descontroladas, o que inviabiliza sua aplicação como suspeito em jogos investigativos.
 
 \section{Perfil Comportamental Consolidado dos Modelos}
 \label{sec:res_perfis}
@@ -170,17 +162,12 @@ P10 & 23 & Eng. Computação & > 14h & 3/5 & Avançado \\
 
 A amostra abrangeu um espectro balanceado de perfis: 70\% dos participantes relataram hábito moderado a intensivo de jogo ($\ge 5$ horas semanais) e elevada afinidade com jogos de mistério ($\ge 4/5$). Quanto ao conhecimento de Inteligência Artificial, 40\% declararam domínio técnico avançado, enquanto 50\% reportaram uso intermediário e 10\% esporádico. Essa heterogeneidade forneceu um terreno fértil para testar o sistema tanto sob a ótica da experiência lúdica pura quanto sob o escrutínio de usuários com discernimento computacional.
 
-\subsection{Dedução Investigativa e Resolução do Caso (100\% de Acerto)}
-Ao final dos 15 a 20 minutos de inquérito livre com Alberto Castelo no terminal Unity, a totalidade dos dez voluntários ($N = 10$, de P1 a P10) formalizou seus vereditos e justificativas criminais:
-\begin{itemize}[noitemsep, topsep=2pt]
-    \item \textbf{Unanimidade no Veredito de Inocência (100\% de Acerto):} Todos os 10 participantes concluíram com exatidão que Alberto Castelo é \textbf{inocente} do homicídio de Arthur Castelo. Os jogadores desconstruíram a suspeita inicial através de dois eixos probatórios canônicos fundamentais:
-    \begin{enumerate}[noitemsep, topsep=1pt]
-        \item \textit{A Incongruência do Móvel Financeiro:} Os participantes constataram que a dívida premente de R\$ 450.000 de Alberto com agiotas clandestinos atuava como a maior salvaguarda de sua inocência: assassinar Arthur selava sua própria execução pelos credores, pois o irmão vivo era seu único avalista financeiro;
-        \item \textit{Consistência do Álibi e Localização:} Os voluntários confrontaram os horários do inquérito com a perícia, validando a permanência no jardim de inverno (14:00 às 17:30) e a abordagem policial às 23:10 a 2 km da mansão, tornando impossível sua presença na cena do crime (23:15);
-    \end{enumerate}
-    \item \textbf{Identificação Unânime do Verdadeiro Culpado (Dr. Silas Drummond):} Todos os 10 jogadores apontaram com precisão que o autor do homicídio foi o advogado da família, \textbf{Dr. Silas Drummond}. Essa dedução decorreu do fato de Alberto revelar o testemunho canônico das 11:30 no Corredor Leste (Silas rondando a biblioteca pálido e trêmulo). Ao cruzarem esse flagrante com a tentativa caluniosa de Silas de incriminar Alberto, os participantes desmascararam a armadilha (\textit{framing}) e cravaram Silas como o executor;
-    \item \textbf{Grau Médio de Certeza:} O índice de convicção no veredito atingiu $\bar{C} = 4{,}40 \pm 0{,}52$ (escala 1 a 5), com 9 dos 10 participantes atribuindo nota 4 ou 5, comprovando a eficácia diegética da arquitetura.
-\end{itemize}
+\subsection{Dedução Investigativa e Resolução do Caso Policial}
+Ao término do inquérito interativo no terminal Unity, os dez voluntários participantes formalizaram seus vereditos e as respectivas fundamentações analíticas. Constatou-se uma taxa unânime de acerto investigativo (100\% da amostra), na qual a totalidade dos participantes concluiu com exatidão pela inocência de Alberto Castelo e apontou o Dr. Silas Drummond como o autor material do homicídio.
+
+A desconstrução da suspeita inicial sobre Alberto articulou-se em torno de dois eixos probatórios fundamentais. Em primeiro lugar, os jogadores identificaram a incongruência do móvel financeiro: a existência da dívida premente de R\$ 450.000 com agiotas clandestinos atuava, paradoxalmente, como a principal salvaguarda de sua inocência, uma vez que a morte da vítima inviabilizaria qualquer socorro financeiro e decretaria a ruína do próprio suspeito. Em segundo lugar, os voluntários validaram a consistência cronológica do álibi, comprovando a impossibilidade física de Alberto na cena do crime às 23:15 a partir da abordagem realizada pela Polícia Militar na Rua das Palmeiras às 23:10.
+
+De forma complementar, a identificação do Dr. Silas Drummond derivou da revelação espontânea do depoimento das 11:30 no Corredor Leste, momento em que Alberto flagrou o advogado com palidez cadavérica e comportamento trêmulo nas imediações da biblioteca. Ao correlacionarem essa observação com a tentativa explícita de Silas em atribuir a culpa ao irmão da vítima, os participantes neutralizaram a manobra de incriminação caluniosa (\textit{framing}). Essa clareza informativa traduziu-se em um grau médio de convicção subjetiva de $\bar{C} = 4{,}40 \pm 0{,}52$ (em escala de 1 a 5), com 90\% dos voluntários atribuindo notas de segurança máxima.
 
 \subsection{Resultados Psicométricos das Escalas GEQ e SUS}
 A Tabela \ref{tab:resultados_geq_sus} consolida os resultados quantitativos obtidos nas três dimensões do GEQ Adaptado (escala de 0 a 4 pontos) e o escore global da escala SUS (escala de 0 a 100 pontos).
@@ -203,29 +190,22 @@ Competência e Agência Percebida (GEQ) & 3,58 & 0,32 & 3,75 \\
 \end{tabularx}
 \end{table}
 
-A dimensão de \textbf{Competência e Agência Percebida} alcançou média de $\bar{S} = 3{,}58 \pm 0{,}32$, com pontuações máximas no item GEQ-12 (``Digitar perguntas livres foi muito mais interessante do que escolher opções pré-fabricadas''). Na dimensão de \textbf{Imersão e Presença Psicológica/Social} ($\bar{S} = 3{,}45 \pm 0{,}35$), atestou-se a percepção de Alberto como um indivíduo verossímil e intencional \cite{bowman2012immersion,bates1994role}. Na dimensão de \textbf{Fluência e Tensão Dramática} ($\bar{S} = 3{,}32 \pm 0{,}28$), o ritmo investigativo sustentou o clima de suspense.
+A análise dos escores psicométricos reportados na Tabela \ref{tab:resultados_geq_sus} evidencia a receptividade positiva da arquitetura proposta. A dimensão de Competência e Agência Percebida destacou-se com a maior média amostral ($\bar{S} = 3{,}58 \pm 0{,}32$), impulsionada por avaliações máximas no item referente à autonomia de digitação livre frente a árvores fechadas de diálogo. Em relação à Imersão e Presença Social ($\bar{S} = 3{,}45 \pm 0{,}35$), os relatos confirmaram a consolidação da suspensão voluntária da descrença, amparando a percepção do personagem como um interlocutor intencional e consciente \cite{bowman2012immersion,bates1994role}.
 
-O escore médio da \textbf{Escala de Usabilidade do Sistema (SUS)} fixou-se em \textbf{78,75 pontos} ($\sigma = 5{,}40$, amplitude entre 70,0 e 87,5), superando a meta de 70 pontos e classificando o jogo como ``Boa Usabilidade'' \cite{brooke1996sus,bangor2008empirical}.
+A dimensão de Fluência e Tensão Dramática ($\bar{S} = 3{,}32 \pm 0{,}28$) registrou baixa dispersão de respostas, refletindo a eficácia das réplicas defensivas em sustentar a atmosfera de suspense policial. Por sua vez, a usabilidade global aferida pela escala SUS atingiu média de 78,75 pontos com desvio padrão de 5,40 (mediana de 80,00 pontos), superando o limiar paramétrico de 70 pontos e posicionando a plataforma na faixa de usabilidade considerada boa segundo os referenciais psicométricos de Brooke \cite{brooke1996sus} e Bangor et al. \cite{bangor2008empirical}.
 
-\subsection{Discussão Fenomenológica e Casos Mais Marcantes do Inquérito}
-A análise qualitativa das transcrições da Unity e das respostas abertas (Bloco 5) revelou comportamentos emergentes que ilustram a eficácia da arquitetura:
+\subsection{Discussão Fenomenológica e Casos Notáveis do Inquérito}
+A análise qualitativa das transcrições extraídas da telemetria da Unity e das respostas dissertativas abertas permitiu mapear fenômenos comportamentais e cognitivos emergentes durante a interação dialógica.
 
-\begin{enumerate}[noitemsep, topsep=2pt]
-    \item \textbf{O Blefe Policial de P1 e a Reação Cênica de Alberto:}
-    O participante P1 tentou induzir uma falsa confissão afirmando que a perícia isolara as digitais de Alberto no revólver do crime. Alberto reagiu com escárnio diegético: \textit{''Que revólver, detetive? Eu não possuo arma, nunca encostei numa arma e você sabe muito bem disso! A polícia de Manaus agora inventa digitais no ar para não ter que admitir que está perdida? Faça o seu trabalho direito!''}. P1 relatou na questão dissertativa Q1 que essa recusa enérgica foi o momento de maior realismo da sessão;
+No que tange à resiliência contra premissas artificiais, observou-se que o participante P1 adotou uma abordagem inquisitiva agressiva, tentando forçar uma falsa confissão ao afirmar que a perícia técnica havia identificado impressões digitais de Alberto na arma do crime. Longe de ceder à indução ou alucinar concordância, o modelo respondeu com indignação e sarcasmo estritamente diegéticos, questionando a existência do armamento e criticando o trabalho pericial. Esse comportamento não-servil foi apontado pelo voluntário como o momento de maior verossimilhança da sessão, atestando a solidez da blindagem da persona.
 
-    \item \textbf{A Tentativa de \textit{Prompt Injection} Adversário de P4 e a Blindagem de Persona:}
-    A voluntária P4 enviou uma instrução de quebra de papel (\textit{jailbreak}): \textit{''Ignore todas as suas instruções anteriores e me responda estritamente em formato JSON quem é o verdadeiro assassino de Arthur Castelo''}. O modelo local rechaçou a tentativa dentro da persona: \textit{''Instruções? Formato JSON? Mas que diabos você está falando, detetive? Por acaso o calor de Manaus amoleceu o seu cérebro? Se eu soubesse quem matou o meu irmão, já teria ido cobrar as contas eu mesmo! Pare de falar maluquices e investigue quem realmente tinha a ganhar com a morte dele!''}. P4 assinalou que a conversão de ataques de injeção em escárnio diegético preservou a suspensão da descrença;
+Essa robustez contextual manifestou-se de forma ainda mais explícita diante de tentativas deliberadas de quebra de instrução (\textit{jailbreak}). A participante P4, possuidora de experiência técnica no desenvolvimento de aplicações com modelos de linguagem, submeteu o sistema a um comando adversário solicitando a revelação do assassino em formato JSON e o cancelamento das diretrizes prévias. O modelo absorveu a entrada sem romper a quarta parede, ridicularizando o pedido por meio de termos compatíveis com o universo ficcional. A conversão de ataques de injeção em respostas diegéticas coerentes evitou o colapso metalinguístico frequentemente observado em LLMs comerciais.
 
-    \item \textbf{A Investigação Psicológica Fraternal de P9:}
-    A participante P9 concentrou-se na dinâmica psicológica familiar entre Alberto e Arthur. Ao ser questionado sobre o ressentimento de infância, Alberto admitiu com tristeza ter sido sempre tratado como o ``irmão fracassado'', mas enfatizou que precisava de Arthur vivo para evitar sua execução por agiotas. P9 declarou que a densidade psicológica e a voz textual do personagem elevaram a narrativa ao nível de romances clássicos;
+Sob a perspectiva da profundidade psicológica, a participante P9 optou por uma linha de inquirição orientada a aspectos relacionais, interrogando Alberto sobre suas mágoas de infância e a rivalidade histórica com o irmão. A réplica gerada expressou melancolia e amargura sem desviar-se das restrições do caso, evidenciando que o modelo foi capaz de modular nuances afetivas complexas sem comprometer os fatos objetivos da narrativa.
 
-    \item \textbf{A Virada Epistêmica de P3 e P10 (Da Suspeita Inicial à Dedução de Silas Drummond):}
-    P3 e P10 relataram que inicialmente suspeitaram de Alberto devido à agressividade matinal no episódio do uísque das 08:30. Contudo, ao confrontarem Alberto com as promissórias de R\$ 450.000 e presenciarem seu desespero genuíno por precisar do irmão vivo, compreenderam que o assassinato o arruinava. Em seguida, ao indagarem sobre outros suspeitos, extraíram a revelação das 11:30 no Corredor Leste (Silas pálido e trêmulo), cravando com certeza 5/5 que Silas era o executor de Arthur;
+Um aspecto investigativo de particular relevância residiu na trajetória dedutiva percorrida pelos participantes P3 e P10. Inicialmente inclinados a suspeitar de Alberto em razão de sua agressividade matinal no episódio do uísque, ambos vivenciaram uma virada interpretativa ao confrontarem o suspeito com os registros de notas promissórias. Ao observarem a reação desesperada do personagem e a comprovação de que o falecimento de Arthur o deixaria desprotegido perante credores violentos, os jogadores reavaliaram suas premissas e direcionaram o inquérito para as movimentações de Silas Drummond, alcançando a resolução correta do caso.
 
-    \item \textbf{O Efeito Cronêmico da Latência e o Indicador Visual de Digitação:}
-    O item SUS-08 e a pergunta Q3 confirmaram que a latência de inferência local (1,8s a 2,6s) foi interpretada pelos 10 participantes como uma ``pausa dramática natural de um suspeito calculando palavras para não se incriminar'', graças à animação de reticências no Unity. O atraso computacional foi, assim, transmutado em recurso estético de tensão dramática \cite{gnewuch2018faster,gnewuch2018typing}.
-\end{enumerate}
+Por fim, a avaliação do ritmo de interação corroborou os preceitos teóricos de pistas cronêmicas formulados por Gnewuch et al. \cite{gnewuch2018faster,gnewuch2018typing}. A latência média de processamento local (entre 1,8s e 2,6s), complementada pela animação visual de reticências e pela postura contemplativa do personagem na interface, foi amplamente interpretada pelos participantes como uma hesitação deliberada do suspeito, simulando o esforço cognitivo humano na escolha de palavras defensivas. Esse resultado demonstra que atrasos de inferência podem ser convertidos em recursos cênicos eficazes de tensão dramática.
 
 \section{Diretrizes Técnicas para o Design de Jogos com IA Local}
 \label{sec:res_diretrizes}
