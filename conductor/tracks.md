@@ -16,3 +16,8 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 - [x] **Track: Condensação e Otimização da Monografia para Meta de 75 Páginas**
   *Link: [./tracks/condensacao_monografia_75pag_20261014/index.md](./tracks/condensacao_monografia_75pag_20261014/index.md)*
+
+---
+
+- [ ] **Track: Revisão Estilística e Polimento Acadêmico da Monografia**
+  *Link: [./tracks/revisao_estilo_academico_20261014/index.md](./tracks/revisao_estilo_academico_20261014/index.md)*
