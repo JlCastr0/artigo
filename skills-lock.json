@@ -1,11 +1,17 @@
 {
   "version": 1,
   "skills": {
+    "academic-paper-reviewer": {
+      "source": "imbad0202/academic-research-skills",
+      "sourceType": "github",
+      "skillPath": "academic-paper-reviewer/SKILL.md",
+      "computedHash": "358b70f96a7280b09aa89f8f425c08e865585520df8a388d0f8ee5d844e67a17"
+    },
     "nature-academic-search": {
       "source": "yuan1z0825/nature-skills",
       "sourceType": "github",
       "skillPath": "skills/nature-academic-search/SKILL.md",
-      "computedHash": "569cfa443e089d4bf0308437e4adf32246f18e57361915833d78c12507d400ab"
+      "computedHash": "660b905b100af39ea250e37a209a82ac1fa26054af9bd74447552addb0ba9a5e"
     }
   }
 }

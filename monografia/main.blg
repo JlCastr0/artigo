@@ -1,70 +1,57 @@
-This is BibTeX, Version 0.99e
+This is BibTeX, Version 0.99d (TeX Live 2023/Debian)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
-Reallocating 'name_of_file' (item size: 1) to 30 items.
 A level-1 auxiliary file: capitulos/cap1_introducao.aux
-Reallocating 'name_of_file' (item size: 1) to 39 items.
 A level-1 auxiliary file: capitulos/cap2_referencial_teorico.aux
-Reallocating 'name_of_file' (item size: 1) to 42 items.
 A level-1 auxiliary file: capitulos/cap3_trabalhos_relacionados.aux
-Reallocating 'name_of_file' (item size: 1) to 31 items.
 A level-1 auxiliary file: capitulos/cap4_metodologia.aux
-Reallocating 'name_of_file' (item size: 1) to 49 items.
 A level-1 auxiliary file: capitulos/cap5_desenvolvimento_implementacao.aux
-Reallocating 'name_of_file' (item size: 1) to 41 items.
 A level-1 auxiliary file: capitulos/cap6_resultados_discussoes.aux
-Reallocating 'name_of_file' (item size: 1) to 29 items.
 A level-1 auxiliary file: capitulos/cap7_conclusao.aux
-Reallocating 'name_of_file' (item size: 1) to 6 items.
 The style file: plain.bst
-Reallocating 'name_of_file' (item size: 1) to 12 items.
-Reallocating 'name_of_file' (item size: 1) to 33 items.
 A level-1 auxiliary file: apendices/apendice_a_prompts.aux
-Reallocating 'name_of_file' (item size: 1) to 38 items.
 A level-1 auxiliary file: apendices/apendice_b_persona_json.aux
-Reallocating 'name_of_file' (item size: 1) to 44 items.
 A level-1 auxiliary file: apendices/apendice_c_perguntas_estresse.aux
-Reallocating 'name_of_file' (item size: 1) to 48 items.
 A level-1 auxiliary file: apendices/apendice_d_questionario_jogadores.aux
 Database file #1: referencias.bib
-You've used 63 entries,
+You've used 62 entries,
             2118 wiz_defined-function locations,
-            844 strings with 16876 characters,
-and the built_in function-call counts, 25495 in all, are:
-= -- 2406
-> -- 1509
-< -- 25
-+ -- 602
-- -- 534
-* -- 1782
-:= -- 4155
-add.period$ -- 202
-call.type$ -- 63
-change.case$ -- 438
+            845 strings with 16785 characters,
+and the built_in function-call counts, 25815 in all, are:
+= -- 2444
+> -- 1531
+< -- 26
++ -- 611
+- -- 544
+* -- 1824
+:= -- 4185
+add.period$ -- 200
+call.type$ -- 62
+change.case$ -- 441
 chr.to.int$ -- 0
-cite$ -- 63
-duplicate$ -- 925
-empty$ -- 1831
-format.name$ -- 534
-if$ -- 5356
+cite$ -- 62
+duplicate$ -- 931
+empty$ -- 1839
+format.name$ -- 544
+if$ -- 5431
 int.to.chr$ -- 0
-int.to.str$ -- 63
-missing$ -- 62
-newline$ -- 328
-num.names$ -- 130
-pop$ -- 555
+int.to.str$ -- 62
+missing$ -- 61
+newline$ -- 324
+num.names$ -- 128
+pop$ -- 554
 preamble$ -- 1
-purify$ -- 382
+purify$ -- 386
 quote$ -- 0
-skip$ -- 721
+skip$ -- 733
 stack$ -- 0
-substring$ -- 1304
-swap$ -- 288
-text.length$ -- 25
+substring$ -- 1361
+swap$ -- 301
+text.length$ -- 26
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 232
+type$ -- 228
 warning$ -- 0
-while$ -- 207
-width$ -- 65
-write$ -- 707
+while$ -- 209
+width$ -- 64
+write$ -- 702

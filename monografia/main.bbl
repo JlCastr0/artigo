@@ -31,11 +31,10 @@ Joseph Bates.
 \newblock The role of emotion in believable agents.
 \newblock {\em Communications of the ACM}, 37(7):122--125, 1994.
 
-\bibitem{bowman2012immersion}
-Nicholas~David Bowman and Alison McMahan.
-\newblock Player immersion in video games: The role of presence, flow, and
-  psychological absorption.
-\newblock {\em Computers in Human Behavior}, 28(5):1692--1702, 2012.
+\bibitem{bowman2007virtual}
+Doug~A. Bowman and Ryan~P. McMahan.
+\newblock {Virtual Reality: How Much Immersion Is Enough?}
+\newblock {\em Computer}, 40(7):36--43, 2007.
 
 \bibitem{brooke1996sus}
 John Brooke.
@@ -48,8 +47,10 @@ John Brooke.
 Jinghan Cao, Yu~Ma, Xinjin Li, Qingyang Ren, and Xiangyun Chen.
 \newblock Task-specific efficiency analysis: When small language models
   outperform large language models.
-\newblock {\em arXiv preprint arXiv:2603.21389}, 2026.
-\newblock Aceito para publicação no ESANN 2025.
+\newblock In {\em Proceedings of the 34th European Symposium on Artificial
+  Neural Networks, Computational Intelligence and Machine Learning (ESANN
+  2026)}, pages 229--234, 2026.
+\newblock arXiv preprint arXiv:2603.21389.
 
 \bibitem{capcom2001aceattorney}
 {Capcom} and Shu Takumi.
@@ -157,13 +158,6 @@ Georgi Gerganov.
 \newblock \url{https://github.com/ggerganov/llama.cpp}, 2023.
 \newblock Acesso em: 2026.
 
-\bibitem{gnewuch2018typing}
-Ulrich Gnewuch, Marc T.~P. Adam, Stefan Morana, and Alexander Maedche.
-\newblock ``{The} chatbot is typing...'' -- {The} role of typing indicators in
-  human-chatbot interaction.
-\newblock In {\em Proceedings of the 17th Annual Pre-ICIS Workshop on HCI
-  Research in MIS}, pages 1--7, 2018.
-
 \bibitem{gnewuch2018faster}
 Ulrich Gnewuch, Stefan Morana, Marc T.~P. Adam, and Alexander Maedche.
 \newblock Faster is not always better: Understanding the effect of dynamic
@@ -173,9 +167,11 @@ Ulrich Gnewuch, Stefan Morana, Marc T.~P. Adam, and Alexander Maedche.
 
 \bibitem{gu2024survey}
 Jiawei Gu, Xuhui Jiang, Zhichao Shi, Hexiang Tan, Xuehao Zhai, Chengjin Xu, Wei
-  Li, Yinghan Shen, Shengjie Ma, Honghao Liu, Yuanzhuo Wang, and Jian Guo.
+  Li, Yinghan Shen, Shengjie Ma, Honghao Liu, Saizhuo Wang, Kun Zhang, Zhouchi
+  Lin, Bowen Zhang, Lionel~M. Ni, Wen Gao, Yuanzhuo Wang, and Jian Guo.
 \newblock {A Survey on {LLM}-as-a-Judge}.
-\newblock {\em arXiv preprint arXiv:2411.15594}, 2024.
+\newblock {\em The Innovation}, 7(6):101253, 2026.
+\newblock arXiv preprint arXiv:2411.15594.
 
 \bibitem{guo2025deepseek}
 Daya Guo, Dejian Yang, Haowei Zhang, Junxiao Song, Ruoyu Zhang, et~al.
@@ -188,7 +184,7 @@ Sunkyung Han, Nahyeon Park, Gaeun Seo, Seunghyun Yoon, and JinYeong Bak.
 \newblock {CHARM}: Character hallucination for multicultural role play
   benchmark.
 \newblock In {\em Findings of the Association for Computational Linguistics:
-  EMNLP 2026}, 2026.
+  EMNLP 2026}, pages 9659--9674, 2026.
 \newblock arXiv preprint arXiv:2609.01352.
 
 \bibitem{hevner2004design}
@@ -198,8 +194,7 @@ Alan~R. Hevner, Salvatore~T. March, Jinsoo Park, and Sudha Ram.
 
 \bibitem{ijsselsteijn2013game}
 Wijnand~A. IJsselsteijn, Yvonne A.~W. de~Kort, and Karolien Poels.
-\newblock {The {Game Experience Questionnaire}: Development of a Self-Report
-  Measure to Assess the Psychological Impact of Digital Games}.
+\newblock {The {Game Experience Questionnaire}}.
 \newblock Technical report, Technische Universiteit Eindhoven, Eindhoven,
   Netherlands, 2013.
 
@@ -235,8 +230,8 @@ Dawei Li, Bohan Jiang, Liangjie Huang, Alimohammad Beigi, Chengshuai Zhao, Zhen
   Natural Language Processing (EMNLP)}, pages 2757--2791, 2025.
 
 \bibitem{liu2024lost}
-Nelson~F. Liu, Kevin Lin, Peter Chen, Rohan Taori, Alane Selig, Omer Levy,
-  Christopher~D. Manning, and Christopher Potts.
+Nelson~F. Liu, Kevin Lin, John Hewitt, Ashwin Paranjape, Michele Bevilacqua,
+  Fabio Petroni, and Percy Liang.
 \newblock Lost in the middle: How language models use long contexts.
 \newblock {\em Transactions of the Association for Computational Linguistics},
   12:157--173, 2024.
@@ -251,7 +246,8 @@ Yang Liu, Dan Iter, Yichong Xu, Shuohang Wang, Ruochen Xu, and Chenguang Zhu.
 Michael Mateas and Andrew Stern.
 \newblock {Fa{\c{c}}ade: An Experiment in Building a Fully-Realized Interactive
   Drama}.
-\newblock In {\em Game Studies and Digital Arts and Culture (DAC)}, 2003.
+\newblock In {\em Proceedings of the Game Developers Conference (GDC 2003),
+  Game Design Track}, San Jose, CA, 2003.
 
 \bibitem{murray1997hamlet}
 Janet~H. Murray.
@@ -379,7 +375,7 @@ Dekun Wu, Haochen Shi, Zhiyuan Sun, and Bang Liu.
 \newblock {Deciphering Digital Detectives: Understanding {LLM} Behaviors and
   Capabilities in Multi-Agent Mystery Games}.
 \newblock In {\em Findings of the Association for Computational Linguistics:
-  ACL 2024}, pages 1773--1789, 2024.
+  ACL 2024}, pages 8225--8291, 2024.
 
 \bibitem{yao2023react}
 Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan,
@@ -396,8 +392,9 @@ Wesley Yin-Poole.
 \newblock Acesso em: 2026.
 
 \bibitem{zheng2023judging}
-Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Siyuan Hao, Zhanghao Wu, Joseph~E.
-  Ba, Zi~Lin Jiang, Eric~P. Xing, et~al.
+Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Siyuan Zhuang, Zhanghao Wu, Yonghao
+  Zhuang, Zi~Lin, Zhuohan Li, Dacheng Li, Eric~P. Xing, Hao Zhang, Joseph~E.
+  Gonzalez, and Ion Stoica.
 \newblock {Judging {LLM}-as-a-Judge with {MT-Bench} and {Chatbot Arena}}.
 \newblock In {\em Advances in Neural Information Processing Systems},
   volume~36, pages 46595--46623, 2023.
