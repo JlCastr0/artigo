@@ -10,27 +10,37 @@ Para viabilizar a simulação de personagens autônomos sem dependência de serv
 
 \input{figuras/flow_arquitetura.tex}
 
-O sistema organiza-se em três domínios principais:
-\begin{enumerate}
-    \item \textbf{Camada de Apresentação e Interação (Unity Engine):} Gerencia a renderização gráfica, o estado do jogo e a captura das mensagens digitadas pelo usuário;
-    \item \textbf{Camada de Mediação e Orquestração (Neo Cortex Middleware):} Atua como a ponte assíncrona entre o Unity e os modelos de linguagem, executando o ciclo de triagem ReAct e o despachador de fragmentos JSON;
-    \item \textbf{Camada de Inferência Neural Local (Ollama Runtime):} Responsável pela alocação dos pesos dos modelos quantizados em memória VRAM e pela execução do cálculo tensorial de geração de \textit{tokens}.
-\end{enumerate}
+O sistema organiza-se em três domínios principais interconectados. A camada de apresentação e interação, desenvolvida sobre a Unity Engine, gerencia a renderização gráfica da cena, o controle de estado da partida e a captura textual das mensagens digitadas pelo usuário. A camada de mediação e orquestração, consubstanciada no middleware Neo Cortex, atua como ponte assíncrona entre o motor de jogo e os modelos de linguagem, executando o ciclo de triagem analítica ReAct e o despachador de fragmentos JSON. Por sua vez, a camada de inferência neural local, gerenciada pelo runtime Ollama, responde pela alocação dos pesos neurais quantizados em memória gráfica de vídeo e pelo cálculo tensorial de geração de \textit{tokens}.
 
 \section{Implementação no Motor Gráfico Unity}
 \label{sec:dev_unity}
 
-O ambiente visual do jogo de investigação foi desenvolvido utilizando o motor gráfico Unity \textcolor{red}{[TODO: faltando informação: especificar a versão exata do Unity utilizada, e.g., Unity 2022.3.x LTS]}. 
+O ambiente visual e a experiência interativa do jogo de investigação foram desenvolvidos utilizando o motor gráfico Unity 6 \cite{unity2024engine}. A concepção visual apoia-se em uma estética sóbria de inquérito policial, orientada a direcionar a atenção do jogador para o comportamento verbal e as expressões dos suspeitos. A Figura \ref{fig:unity_telas} apresenta as duas telas fundamentais que estruturam o fluxo de interação na engine.
 
-A cena principal simula a sala de interrogatório de uma delegacia ou a biblioteca da mansão onde os suspeitos aguardam o inquérito. A interface de usuário (\textit{User Interface}, UI) foi estruturada através dos seguintes elementos gráficos:
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figuras/allphoto.png}
+    \caption{Galeria geral com o elenco de suspeitos.}
+    \label{fig:unity_lineup}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figuras/closedphoto.png}
+    \caption{Interface de inquérito individual.}
+    \label{fig:unity_dialogo}
+\end{subfigure}
+\caption{Telas da interface de usuário desenvolvidas na Unity 6: (a) visão geral de seleção dos suspeitos da mansão Castelo organizada em galeria de identificação policial; (b) cena de interrogatório direto com enquadramento em plano fechado de Alberto Castelo, histórico textual e campo de inquérito livre.}
+\label{fig:unity_telas}
+\end{figure}
 
-\begin{itemize}
-    \item \textbf{Área de Histórico de Diálogo (\textit{Scroll View} com TextMeshPro):} Exibe cronologicamente as intervenções do detetive e as respostas geradas pelo NPC, com suporte a cores diferenciadas e rubricas teatrais em itálico;
-    \item \textbf{Campo de Entrada de Texto (\textit{TMP\_InputField}):} Permite a digitação irrestrita de perguntas pelo jogador, enviadas ao pressionar a tecla \textit{Enter} ou o botão de confirmação;
-    \item \textbf{Indicador de Estado / \textit{Loading Spinner}:} Elemento visual que sinaliza quando o agente de triagem ou o modelo gerador está processando o turno, fornecendo \textit{feedback} imediato ao jogador para mascarar a latência de inferência local.
-\end{itemize}
+Na tela inicial de seleção, ilustrada na Figura \ref{fig:unity_lineup}, os quatro suspeitos do homicídio de Arthur Castelo são apresentados em um enquadramento panorâmico coletivo (\textit{lineup}), remetendo às salas clássicas de reconhecimento policial. Cada personagem (Alberto Castelo, Catarina Castelo, o mordomo James e o advogado Silas Drummond) exibe identidade visual singular e postura expressiva coerente com sua psicologia narrativa. Essa disposição permite ao jogador alternar entre os investigados e visualizar o conjunto de sujeitos que compõem a trama antes de aprofundar uma inquirição específica. Cada suspeito dispõe de sua própria base ontológica estruturada em arquivos JSON, e o modelo Gemma-2-9b-it é parametrizado dinamicamente pelo middleware com o respectivo perfil e cronograma correspondentes ao personagem sob inquirição.
 
-O script principal em C\#, denominado \texttt{InvestigationDialogueManager.cs}, coordena a máquina de estados da interface. A listagem de código a seguir ilustra a rotina assíncrona utilizada para despachar a entrada do jogador sem travar a taxa de quadros (\textit{framerate}) da engine:
+Ao selecionar um suspeito, a câmera transiciona para o modo de interrogatório direto, exibido na Figura \ref{fig:unity_dialogo}. Nesse cenário, o personagem selecionado (a exemplo de Alberto Castelo, retratado na figura) é destacado em plano médio contra uma parede com marcações de identificação policial (\textit{mugshot}), criando uma atmosfera intimista de inquérito. Ao lado da cena, a interface de usuário disponibiliza os elementos operacionais da conversa. A área lateral de diálogo exibe cronologicamente as intervenções do detetive e as respostas geradas pelo modelo, permitindo a leitura contínua do histórico e suportando cores distintas para cada interlocutor e rubricas cênicas em itálico. Na parte inferior, um campo de entrada de texto livre possibilita a digitação irrestrita de perguntas pelo jogador em linguagem natural. Adicionalmente, um indicador visual de processamento sinaliza quando a inferência neural está calculando a resposta, fornecendo \textit{feedback} imediato ao jogador para mascarar a latência do modelo local.
+
+O script principal em C\#, denominado \texttt{InvestigationDialogueManager.cs}, coordena a máquina de estados da interface. A listagem de código a seguir ilustra a rotina assíncrona utilizada para despachar a entrada do jogador sem travar a taxa de quadros (\textit{framerate}) da engine, exemplificando a requisição com o identificador de Alberto Castelo:
 
 \begin{lstlisting}[language={[Sharp]C}, caption={Rotina assíncrona em C\# para comunicação com o middleware Neo Cortex.}, label={lst:envio_mensagem}]
 public IEnumerator SendPlayerInquiry(string playerText) {
@@ -67,9 +77,9 @@ public IEnumerator SendPlayerInquiry(string playerText) {
 \section{O Middleware Neo Cortex e o Protocolo de Mensagens}
 \label{sec:dev_neocortex}
 
-O framework Neo Cortex atua como um barramento de integração que abstrai as chamadas brutas de API do Ollama e padroniza a conversão de tipos de dados entre o C\# do Unity e as cadeias de texto dos LLMs.
+O framework Neo Cortex atua como uma camada de mediação e barramento de integração implementada em C\# dentro do projeto Unity, responsável por desacoplar as mecânicas do motor gráfico da infraestrutura de inteligência artificial. Ele gerencia a máquina de estados conversacional, padroniza a conversão de tipos entre as estruturas lúdicas e as cadeias de texto dos LLMs e orquestra o ciclo ReAct de triagem e injeção contextual.
 
-O protocolo de comunicação baseia-se em requisições assíncronas HTTP REST direcionadas em malha fechada ao endereço local (\texttt{127.0.0.1}). A escolha por chamadas locais garante mínima sobrecarga de rede (latência de transporte inferior a 2 milissegundos), assegurando que o tempo de resposta percebido pelo jogador seja dominado exclusivamente pelo tempo de inferência dos modelos.
+O protocolo de comunicação apoia-se em requisições assíncronas HTTP REST disparadas pela rotina \texttt{UnityWebRequest} diretamente para a porta nativa do servidor Ollama local (\texttt{http://localhost:11434/api/generate}) em malha fechada (\texttt{127.0.0.1}). A escolha por chamadas em \textit{loopback} local elimina atrasos de transporte de rede (latência de conexão inferior a 2 milissegundos), garantindo que o tempo de resposta percebido pelo jogador seja dominado estritamente pela velocidade de decodificação tensorial e geração de \textit{tokens} das arquiteturas neurais.
 
 \section{O Algoritmo de Triagem ReAct e os Comandos Estruturados}
 \label{sec:dev_triagem}
@@ -80,7 +90,7 @@ Utilizando o modelo Gemma-2-9b-it configurado com diretrizes rigorosas de sistem
 
 \begin{quote}
 \small
-\texttt{Thought: [raciocínio analítico identificando intenção e período de tempo]}\\
+\texttt{Thought: [análise da intenção e do período temporal]}\\
 \texttt{Action: [comando estruturado selecionado]}
 \end{quote}
 
@@ -109,7 +119,7 @@ Após a identificação do comando pela expressão regular do despachador, o con
 \section{Infraestrutura Computacional e Ambiente de Execução Local}
 \label{sec:dev_hardware}
 
-A validação experimental foi conduzida integralmente em ambiente local. A Tabela \ref{tab:setup_hardware} sintetiza as especificações do ambiente de teste \textcolor{red}{[TODO: validar se as especificações de hardware abaixo coincidem exatamente com a máquina onde os testes foram executados]}.
+A validação experimental foi conduzida integralmente em ambiente local em estação de trabalho de consumo. A Tabela \ref{tab:setup_hardware} sintetiza as especificações técnicas da bancada computacional utilizada na execução dos modelos e nas sessões interativas de inquérito:
 
 \begin{table}[htbp]
 \centering
@@ -121,14 +131,18 @@ A validação experimental foi conduzida integralmente em ambiente local. A Tabe
 \begin{tabularx}{\textwidth}{|p{4.5cm}|X|}
 \hline
 \textbf{Componente} & \textbf{Especificação Técnica} \\ \hline
-Sistema Operacional & Linux (Ubuntu 24.04 LTS / Debian-based) / Windows 11 \\ \hline
-Processador (CPU) & \textcolor{red}{[faltando informação: e.g., AMD Ryzen 7 / Intel Core i7]} \\ \hline
-Placa Gráfica (GPU) & \textcolor{red}{[faltando informação: e.g., NVIDIA GeForce RTX 3060 / 4060, 12GB VRAM]} \\ \hline
-Memória RAM do Sistema & 16 GB / 32 GB DDR4/DDR5 \\ \hline
-Orquestrador de LLMs & Ollama (v0.3.x+) \\ \hline
-Formato de Quantização & GGUF Q4\_K\_M (4 bits) \\ \hline
-Temperatura Fixa & 0.1 \\ \hline
+Sistema Operacional & Windows 11 Pro (64 bits) \\ \hline
+Placa-Mãe & Asus TUF Gaming B760M-PLUS II (Chipset Intel B760, Socket LGA 1700, mATX) \\ \hline
+Processador (CPU) & Intel Core (Socket LGA 1700, arquitetura híbrida de alto desempenho) \\ \hline
+Placa Gráfica (GPU) & Galax NVIDIA GeForce RTX 4060 OC (8 GB GDDR6, 128-bit, arquitetura Ada Lovelace) \\ \hline
+Memória RAM do Sistema & 32 GB DDR5 (4800 MT/s) em canal duplo (\textit{dual-channel}, 2 $\times$ 16 GB) \\ \hline
+Armazenamento Primário & SSD NVMe M.2 (alta taxa de transferência de leitura e escrita) \\ \hline
+Orquestrador de LLMs & Ollama (versão 0.3.x) \\ \hline
+Formato de Quantização & GGUF Q4\_K\_M (quantização simétrica de 4 bits em blocos médios) \\ \hline
+Temperatura de Amostragem & 0.1 (regime quase-determinístico) \\ \hline
 \end{tabularx}
 \end{table}
 
-A utilização da quantização Q4\_K\_M permitiu que os modelos de 7B a 9B parâmetros ocupassem entre 4,8 GB e 6,2 GB de VRAM, permitindo a execução simultânea do motor gráfico Unity e do servidor Ollama na mesma máquina sem estouro de memória gráfica (\textit{Out of Memory}, OOM).
+A adoção do formato quantizado Q4\_K\_M permitiu que os modelos de 7B a 9B parâmetros ocupassem entre 4,4 GB e 5,6 GB de VRAM. Somado à demanda de memória gráfica do motor Unity (aproximadamente 1,0 GB) e da composição do sistema operacional, a ocupação total manteve-se abaixo do teto de 8 GB da RTX 4060, viabilizando a execução simultânea do jogo e do runtime Ollama na mesma máquina sem risco de exaustão de memória gráfica (\textit{Out-Of-Memory} - OOM). Complementarmente, a disponibilidade de 32 GB de memória RAM DDR5 em canal duplo assegurou ampla largura de banda e estabilidade contínua durante o carregamento de pesos e as transições de inquérito.
+
+Com a arquitetura do sistema, a interface gráfica na Unity, a orquestração do middleware Neo Cortex e o ambiente de execução local devidamente implementados e integrados, o Capítulo \ref{cap:resultados} apresenta os resultados e as discussões das avaliações experimentais, confrontando as métricas computacionais do framework RAGAS com a validação ecológica obtida junto aos participantes humanos.

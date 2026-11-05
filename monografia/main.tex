@@ -177,7 +177,7 @@ A todos que direta ou indiretamente contribuíram para a realização deste trab
 \begin{minipage}{0.65\textwidth}
 \linespread{1.1}\selectfont
 \small
-\textit{''Interactive narrative is not about the author dictating every branch, but creating intelligent worlds where player agency and emergent stories coexist seamlessly.''}
+\textit{``Interactive narrative is not about the author dictating every branch, but creating intelligent worlds where player agency and emergent stories coexist seamlessly.''}
 \vspace{0.2cm}
 \hfill -- \textbf{Mark O. Riedl}
 \end{minipage}
@@ -186,18 +186,18 @@ A todos que direta ou indiretamente contribuíram para a realização deste trab
 \newpage
 \chapter*{Resumo}
 \addcontentsline{toc}{chapter}{Resumo}
-\noindent Modelos de Linguagem de Grande Escala (\textit{Large Language Models} - LLMs) e Modelos Compactos (\textit{Small Language Models} - SLMs) representam uma alternativa arquitetural promissora para superar a rigidez e a explosão combinatória das tradicionais árvores de diálogo em jogos digitais, especialmente no gênero de dedução e mistério. No entanto, sua natureza estocástica introduz vulnerabilidades críticas de consistência espaço-temporal e suscetibilidade à quebra de persona sob pressão investigativa. Esta pesquisa desenvolve e avalia uma arquitetura híbrida de \textit{Agentic RAG} com fragmentação temporal dinâmica (\textit{Dynamic Chunking}) integrada ao motor gráfico Unity e executada localmente via framework Neo Cortex e plataforma Ollama. Submeteu-se uma bateria padronizada de 50 perguntas de inquérito sob estresse a quatro arquiteturas de modelos (Gemma-2-9b-it, Qwen-2.5-7b, Llama-3.1-8b e DeepSeek-R1-8b), auditando o desempenho pelo framework RAGAS com juiz sintético GPT-4o. Os resultados demonstram que o mecanismo de triagem e chunking alcançou precisão e recuperação de contexto perfeitas (1,00), validando a arquitetura de recuperação. Entre os modelos geradores, Gemma-2-9b-it obteve a maior fidelidade factual (0,38) e relevância (0,60), enquanto Llama-3.1-8b destacou-se pela riqueza de atuação dramática à custa de precisão factual (0,30). O DeepSeek-R1-8b apresentou instabilidade severa sob baixas temperaturas, quebrando a quarta parede. Conclui-se que a simulação robusta de NPCs exige uma abordagem de engenharia narrativa que desacople a recuperação de contexto da síntese dialógica, estabelecendo parâmetros para a adoção sustentável de IA generativa em hardware local de jogos.
+\noindent Modelos de Linguagem de Grande Escala (\textit{Large Language Models} - LLMs) e Modelos Compactos (\textit{Small Language Models} - SLMs) representam uma alternativa arquitetural promissora para superar a rigidez e a explosão combinatória das tradicionais árvores de diálogo em jogos digitais, especialmente no gênero de dedução e mistério. No entanto, sua natureza estocástica introduz vulnerabilidades críticas de consistência espaço-temporal e suscetibilidade à quebra de persona sob pressão investigativa. Esta pesquisa desenvolve e avalia uma arquitetura híbrida de \textit{Agentic RAG} com fragmentação temporal dinâmica (\textit{Dynamic Chunking}) integrada ao motor gráfico Unity e executada localmente via framework Neo Cortex e plataforma Ollama. Submeteu-se uma bateria padronizada de 50 perguntas de inquérito sob estresse a quatro arquiteturas de modelos (Gemma-2-9b-it, Qwen-2.5-7b, Llama-3.1-8b e DeepSeek-R1-8b), auditando o desempenho pelo framework RAGAS com juiz sintético GPT-4o. Os resultados demonstram que o mecanismo de triagem e chunking alcançou precisão e recuperação de contexto perfeitas (1,00), validando a arquitetura de recuperação. Entre os modelos geradores, Gemma-2-9b-it obteve a maior fidelidade factual (0,38) e relevância (0,60), enquanto Llama-3.1-8b destacou-se pela riqueza de atuação dramática à custa de precisão factual (0,30). O DeepSeek-R1-8b apresentou instabilidade severa sob baixas temperaturas, quebrando a quarta parede. De forma complementar, a validação ecológica com jogadores humanos ($N = 10$) no ambiente Unity confirmou a eficácia diegética da solução, alcançando 90\% de resolução correta do caso, escore de usabilidade SUS de 78,75 pontos e elevada sensação de agência no questionário GEQ (3,58 de 4,0). Conclui-se que a simulação robusta de NPCs exige uma abordagem de engenharia narrativa que desacople a recuperação de contexto da síntese dialógica, estabelecendo parâmetros para a adoção sustentável de IA generativa em hardware local de jogos.
 
-\vspace{0.8cm}
+\vspace{0.6cm}
 \noindent \textbf{Palavras-chave:} Modelos de Linguagem, Personagens Não Jogáveis, Jogos de Investigação, Agentic RAG, Consistência Espaço-Temporal, RAGAS.
 
 % --- ABSTRACT ---
 \newpage
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
-\noindent Large Language Models (LLMs) and Small Language Models (SLMs) offer a transformative architectural approach to overcoming the authorial bottleneck and combinatorial explosion of static dialogue trees in digital games, particularly within the mystery and detective genre. However, their probabilistic nature introduces severe vulnerabilities in spatiotemporal consistency, character hallucination, and persona derailment under rigorous cross-examination. This research develops and evaluates a hybrid Agentic RAG architecture featuring Dynamic Temporal Chunking, seamlessly integrated into the Unity engine and executed locally via the Neo Cortex middleware and the Ollama runtime. A standardized stress-test suite of 50 investigative inquiries across five vulnerability categories was administered to four distinct models (Gemma-2-9b-it, Qwen-2.5-7b, Llama-3.1-8b, and DeepSeek-R1-8b), followed by automated evaluation using the RAGAS framework with GPT-4o as a synthetic judge. Experimental findings show that the routing and chunking pipeline achieved perfect Context Precision and Recall (1.00), validating the retrieval architecture. Among generators, Gemma-2-9b-it achieved superior factual faithfulness (0.38) and answer relevance (0.60), whereas Llama-3.1-8b exhibited rich dramatic embodiment accompanied by minor temporal drift (0.30 faithfulness). DeepSeek-R1-8b collapsed into algorithmic meta-responses when restricted by low temperatures. We conclude that robust NPC simulation requires decoupling factual retrieval from dramatic synthesis, establishing concrete architectural guidelines for edge-deployed generative dialogue in games.
+\noindent Large Language Models (LLMs) and Small Language Models (SLMs) offer a transformative architectural approach to overcoming the authorial bottleneck and combinatorial explosion of static dialogue trees in digital games, particularly within the mystery and detective genre. However, their probabilistic nature introduces severe vulnerabilities in spatiotemporal consistency, character hallucination, and persona derailment under rigorous cross-examination. This research develops and evaluates a hybrid Agentic RAG architecture featuring Dynamic Temporal Chunking, seamlessly integrated into the Unity engine and executed locally via the Neo Cortex middleware and the Ollama runtime. A standardized stress-test suite of 50 investigative inquiries across five vulnerability categories was administered to four distinct models (Gemma-2-9b-it, Qwen-2.5-7b, Llama-3.1-8b, and DeepSeek-R1-8b), followed by automated evaluation using the RAGAS framework with GPT-4o as a synthetic judge. Experimental findings show that the routing and chunking pipeline achieved perfect Context Precision and Recall (1.00), validating the retrieval architecture. Among generators, Gemma-2-9b-it achieved superior factual faithfulness (0.38) and answer relevance (0.60), whereas Llama-3.1-8b exhibited rich dramatic embodiment accompanied by minor temporal drift (0.30 faithfulness). DeepSeek-R1-8b collapsed into algorithmic meta-responses when restricted by low temperatures. Complementing the computational benchmarks, an ecological study with human players ($N = 10$) in Unity demonstrated 90\% investigative resolution accuracy, a System Usability Scale (SUS) score of 78.75, and high perceived agency on the Game Experience Questionnaire (3.58 out of 4.0). We conclude that robust NPC simulation requires decoupling factual retrieval from dramatic synthesis, establishing concrete architectural guidelines for edge-deployed generative dialogue in games.
 
-\vspace{0.8cm}
+\vspace{0.6cm}
 \noindent \textbf{Keywords:} Large Language Models, Non-Player Characters, Investigation Games, Agentic RAG, Spatiotemporal Consistency, RAGAS.
 
 % --- LISTAS ---
@@ -215,7 +215,9 @@ A todos que direta ou indiretamente contribuíram para a realização deste trab
 \addcontentsline{toc}{chapter}{Lista de Abreviaturas e Siglas}
 \begin{tabular}{ll}
 API & \textit{Application Programming Interface} (Interface de Programação de Aplicações) \\
-CRISP-DM & \textit{Cross-Industry Standard Process for Data Mining} \\
+CASA & \textit{Computers Are Social Actors} \\
+DSR & \textit{Design Science Research} \\
+GEQ & \textit{Game Experience Questionnaire} \\
 GGUF & \textit{GPT-Generated Unified Format} \\
 GUI & \textit{Graphical User Interface} (Interface Gráfica de Usuário) \\
 IA & Inteligência Artificial \\
@@ -225,10 +227,14 @@ NLI & \textit{Natural Language Inference} (Inferência em Linguagem Natural) \\
 NLP / PLN & \textit{Natural Language Processing} / Processamento de Linguagem Natural \\
 NPC & \textit{Non-Player Character} (Personagem Não Jogável) \\
 OOC & \textit{Out of Character} (Fora do Personagem) \\
+OOM & \textit{Out of Memory} (Estouro de Memória) \\
+PENS & \textit{Player Experience of Need Satisfaction} \\
 RAG & \textit{Retrieval-Augmented Generation} (Geração Aumentada por Recuperação) \\
 RAGAS & \textit{Retrieval Augmented Generation Assessment} \\
 ReAct & \textit{Reasoning and Acting} (Raciocínio e Ação) \\
 SLM & \textit{Small Language Model} (Modelo de Linguagem Compacto) \\
+SUS & \textit{System Usability Scale} \\
+TCLE & Termo de Consentimento Livre e Esclarecido \\
 UEA & Universidade do Estado do Amazonas \\
 UI & \textit{User Interface} (Interface de Usuário) \\
 UX & \textit{User Experience} (Experiência do Usuário) \\
@@ -236,7 +242,12 @@ VRAM & \textit{Video Random Access Memory} (Memória de Vídeo) \\
 \end{tabular}
 
 \newpage
+\begingroup
+\small
+\linespread{0.90}\selectfont
+\setlength{\parskip}{0pt}
 \tableofcontents
+\endgroup
 
 % ==========================================
 % ELEMENTOS TEXTUAIS

@@ -1,15 +1,17 @@
 \babel@toc {english}{}\relax 
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces Interface contemporânea de diálogo em produções AAA (exemplo em \textit {Cyberpunk 2077}), evidenciando a mecânica de seleção manual de opções pré-definidas.}}{2}{figure.caption.9}%
-\contentsline {figure}{\numberline {1.2}{\ignorespaces Diagrama de ramificação massiva em uma árvore de diálogo tradicional, ilustrando a complexidade de rastreabilidade de caminhos e a explosão combinatória de autoria.}}{3}{figure.caption.10}%
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Interface contemporânea de diálogo em produções AAA (exemplo em \textit {Cyberpunk 2077}), evidenciando a mecânica de seleção manual de opções pré-definidas.}}{2}{figure.caption.8}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Diagrama de ramificação massiva em uma árvore de diálogo tradicional, ilustrando a complexidade de rastreabilidade de caminhos e a explosão combinatória de autoria.}}{2}{figure.caption.9}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Estrutura conceitual de uma árvore de diálogo determinística tradicional.}}{9}{figure.caption.11}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Estrutura conceitual de uma árvore de diálogo determinística tradicional.}}{8}{figure.caption.10}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Arquitetura em camadas do pipeline Agentic RAG integrado ao motor Unity via Neo Cortex.}}{31}{figure.caption.18}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Arquitetura em três camadas do pipeline de diálogo com Agentic RAG e inferência neural local.}}{29}{figure.caption.12}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Telas da interface de usuário desenvolvidas na Unity 6: (a) visão geral de seleção dos suspeitos da mansão Castelo organizada em galeria de identificação policial; (b) cena de interrogatório direto com enquadramento em plano fechado de Alberto Castelo, histórico textual e campo de inquérito livre.}}{30}{figure.caption.13}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Comparativo das métricas do framework RAGAS entre as quatro arquiteturas de LLMs avaliadas.}}{36}{figure.caption.22}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Comparativo das métricas do framework RAGAS entre as quatro arquiteturas de LLMs avaliadas.}}{35}{figure.caption.17}%
+\addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

@@ -2,7 +2,7 @@
 
 \bibitem{adams2014fundamentals}
 Ernest Adams.
-\newblock {\em Fundamentals of Game Design}.
+\newblock {\em {Fundamentals of Game Design}}.
 \newblock New Riders, San Francisco, 3rd edition, 2014.
 
 \bibitem{ahn2024timechara}
@@ -13,6 +13,24 @@ Jaewoo Ahn, Taehyun Lee, Junyoung Lim, Jin-Hwa Kim, Sangdoo Yun, Hwaran Lee,
 \newblock In {\em Findings of the Association for Computational Linguistics:
   ACL 2024}, pages 15745--15762, 2024.
 
+\bibitem{bakhtin2022diplomacy}
+Anton Bakhtin, Noam Brown, Emily Dinan, Gabriele Farina, Colin Foerster, Adam
+  Lerer, et~al.
+\newblock Human-level play in the game of {Diplomacy} by combining language
+  models with strategic reasoning.
+\newblock {\em Science}, 378(6624):1067--1074, 2022.
+
+\bibitem{bangor2008empirical}
+Aaron Bangor, Philip~T. Kortum, and James~T. Miller.
+\newblock {An Empirical Evaluation of the {System Usability Scale}}.
+\newblock {\em International Journal of Human-Computer Interaction},
+  24(6):574--594, 2008.
+
+\bibitem{bates1994role}
+Joseph Bates.
+\newblock The role of emotion in believable agents.
+\newblock {\em Communications of the ACM}, 37(7):122--125, 1994.
+
 \bibitem{bowman2012immersion}
 Nicholas~David Bowman and Alison McMahan.
 \newblock Player immersion in video games: The role of presence, flow, and
@@ -21,16 +39,27 @@ Nicholas~David Bowman and Alison McMahan.
 
 \bibitem{brooke1996sus}
 John Brooke.
-\newblock {SUS}: A 'quick and dirty' usability scale.
+\newblock {{SUS}: A 'Quick and Dirty' Usability Scale}.
 \newblock In P.~W. Jordan, B.~Thomas, B.~A. Weerdmeester, and I.~L. McClelland,
   editors, {\em Usability Evaluation in Industry}, pages 189--194. Taylor \&
   Francis, London, 1996.
 
 \bibitem{cao2026task}
-Yuan Cao et~al.
+Jinghan Cao, Yu~Ma, Xinjin Li, Qingyang Ren, and Xiangyun Chen.
 \newblock Task-specific efficiency analysis: When small language models
   outperform large language models.
-\newblock {\em arXiv preprint arXiv:2601.01234}, 2026.
+\newblock {\em arXiv preprint arXiv:2603.21389}, 2026.
+\newblock Aceito para publicação no ESANN 2025.
+
+\bibitem{capcom2001aceattorney}
+{Capcom} and Shu Takumi.
+\newblock {Phoenix Wright: Ace Attorney}.
+\newblock Jogo eletr{\^o}nico, Game Boy Advance / Nintendo DS, 2001.
+
+\bibitem{carr1935hollow}
+John~Dickson Carr.
+\newblock {\em The Hollow Man}.
+\newblock Hamish Hamilton, London, 1935.
 
 \bibitem{cdprojekt2023report}
 {CD Projekt Red}.
@@ -48,53 +77,129 @@ Chi-Min Chan, Weize Chen, Yusheng Su, Jianxuan Yu, Wei Xue, Shanghang Zhang,
 \newblock In {\em International Conference on Learning Representations (ICLR)},
   2024.
 
+\bibitem{christie1926ackroyd}
+Agatha Christie.
+\newblock {\em The Murder of Roger Ackroyd}.
+\newblock Collins Crime Club, London, 1926.
+
+\bibitem{christie1939and}
+Agatha Christie.
+\newblock {\em And Then There Were None}.
+\newblock Collins Crime Club, London, 1939.
+
 \bibitem{cox2023conversational}
 Samuel~Rhys Cox and Wei~Tsang Ooi.
-\newblock Conversational interactions with {NPCs} in {LLM}-driven gaming:
-  Guidelines from a content analysis of player feedback.
-\newblock {\em arXiv preprint arXiv:2307.09009}, 2023.
+\newblock {Conversational Interactions with {NPCs} in {LLM}-Driven Gaming:
+  Guidelines from a Content Analysis of Player Feedback}.
+\newblock In {\em Chatbot Research and Design (CONVERSATIONS 2023)}, volume
+  14524 of {\em Lecture Notes in Computer Science}, pages 167--184. Springer,
+  2024.
 
-\bibitem{deng2024mindmap}
-Zhi Deng et~al.
-\newblock {MindMap}: Knowledge graph and {LLM} for narrative consistency in
-  games.
-\newblock {\em IEEE Transactions on Games}, 2024.
+\bibitem{creswell2014research}
+John~W. Creswell.
+\newblock {\em Research Design: Qualitative, Quantitative, and Mixed Methods
+  Approaches}.
+\newblock SAGE Publications, Thousand Oaks, 4th edition, 2014.
 
-\bibitem{dubois2024alpacafarm}
-Yann Dubois, Xuechen Li, Rohan Taori, Tatsunori Hashimoto, Percy Liang, and
-  Carlos Guestrin.
+\bibitem{dettmers2023qlora}
+Tim Dettmers, Artidoro Pagnoni, Ari Holtzman, and Luke Zettlemoyer.
+\newblock {QLoRA}: Efficient finetuning of quantized {LLMs}.
+\newblock In {\em Advances in Neural Information Processing Systems (NeurIPS)},
+  volume~36, pages 10088--10115, 2023.
+
+\bibitem{doyle1892adventures}
+Arthur~Conan Doyle.
+\newblock {\em The Adventures of Sherlock Holmes}.
+\newblock George Newnes, London, 1892.
+
+\bibitem{dubey2024llama3}
+Abhimanyu Dubey, Abhinav Jauhri, Abhinav Pandey, Abhishek Kadian, Ahmad
+  Al-Dahle, et~al.
+\newblock {The Llama 3 Herd of Models}.
+\newblock {\em arXiv preprint arXiv:2407.21783}, 2024.
+
+\bibitem{dubois2023alpacafarm}
+Yann Dubois, Xuechen Li, Rohan Taori, Tianyi Zhang, Ishaan Gulrajani, Jimmy Ba,
+  Carlos Guestrin, Percy Liang, and Tatsunori~B. Hashimoto.
 \newblock {AlpacaFarm}: A simulation framework for methods that learn from
   human feedback.
 \newblock In {\em Advances in Neural Information Processing Systems},
-  volume~36, 2024.
+  volume~36, pages 30039--30069, 2023.
 
 \bibitem{es2024ragas}
 Shahul Es, Jithin James, Luis Espinosa-Anke, and Steven Schockaert.
-\newblock {RAGAS}: Automated evaluation of retrieval augmented generation.
+\newblock {{RAGAS}: Automated Evaluation of Retrieval Augmented Generation}.
 \newblock In {\em Proceedings of the 18th Conference of the European Chapter of
   the Association for Computational Linguistics (EACL): System Demonstrations},
   pages 150--158, 2024.
 
 \bibitem{fernandez2014introduction}
 Clara Fern{\'a}ndez-Vara.
-\newblock {\em Introduction to Game Analysis}.
+\newblock {\em {Introduction to Game Analysis}}.
 \newblock Routledge, New York, 2014.
 
 \bibitem{frasca2003simulation}
 Gonzalo Frasca.
 \newblock Simulation versus narrative: Introduction to ludology.
-\newblock {\em The Video Game Theory Reader}, pages 221--235, 2003.
+\newblock In Mark J.~P. Wolf and Bernard Perron, editors, {\em The Video Game
+  Theory Reader}, pages 221--235. Routledge, New York, 2003.
+
+\bibitem{team2024gemma2}
+{Gemma Team}, Morgane Riviere, Shreya Pathak, Pier~Giuseppe Sessa, Cassidy
+  Joshi, et~al.
+\newblock {Gemma 2}: Improving open language models at a practical size.
+\newblock {\em arXiv preprint arXiv:2408.00118}, 2024.
+
+\bibitem{gerganov2023llamacpp}
+Georgi Gerganov.
+\newblock {llama.cpp}: Port of {Facebook's} {LLaMA} model in {C/C++} with
+  {GGUF} quantization support.
+\newblock \url{https://github.com/ggerganov/llama.cpp}, 2023.
+\newblock Acesso em: 2026.
+
+\bibitem{gnewuch2018typing}
+Ulrich Gnewuch, Marc T.~P. Adam, Stefan Morana, and Alexander Maedche.
+\newblock ``{The} chatbot is typing...'' -- {The} role of typing indicators in
+  human-chatbot interaction.
+\newblock In {\em Proceedings of the 17th Annual Pre-ICIS Workshop on HCI
+  Research in MIS}, pages 1--7, 2018.
+
+\bibitem{gnewuch2018faster}
+Ulrich Gnewuch, Stefan Morana, Marc T.~P. Adam, and Alexander Maedche.
+\newblock Faster is not always better: Understanding the effect of dynamic
+  response delays in human-chatbot interaction.
+\newblock In {\em Proceedings of the 26th European Conference on Information
+  Systems (ECIS)}, pages 1--16, 2018.
 
 \bibitem{gu2024survey}
 Jiawei Gu, Xuhui Jiang, Zhichao Shi, Hexiang Tan, Xuehao Zhai, Chengjin Xu, Wei
   Li, Yinghan Shen, Shengjie Ma, Honghao Liu, Yuanzhuo Wang, and Jian Guo.
-\newblock A survey on {LLM}-as-a-judge.
+\newblock {A Survey on {LLM}-as-a-Judge}.
 \newblock {\em arXiv preprint arXiv:2411.15594}, 2024.
+
+\bibitem{guo2025deepseek}
+Daya Guo, Dejian Yang, Haowei Zhang, Junxiao Song, Ruoyu Zhang, et~al.
+\newblock {DeepSeek-R1}: Incentivizing reasoning capability in {LLMs} via
+  reinforcement learning.
+\newblock {\em arXiv preprint arXiv:2501.12948}, 2025.
+
+\bibitem{han2026charm}
+Sunkyung Han, Nahyeon Park, Gaeun Seo, Seunghyun Yoon, and JinYeong Bak.
+\newblock {CHARM}: Character hallucination for multicultural role play
+  benchmark.
+\newblock In {\em Findings of the Association for Computational Linguistics:
+  EMNLP 2026}, 2026.
+\newblock arXiv preprint arXiv:2609.01352.
+
+\bibitem{hevner2004design}
+Alan~R. Hevner, Salvatore~T. March, Jinsoo Park, and Sudha Ram.
+\newblock Design science in information systems research.
+\newblock {\em MIS Quarterly}, 28(1):75--105, 2004.
 
 \bibitem{ijsselsteijn2013game}
 Wijnand~A. IJsselsteijn, Yvonne A.~W. de~Kort, and Karolien Poels.
-\newblock The game experience questionnaire: Development of a self-report
-  measure to assess the psychological impact of digital games.
+\newblock {The {Game Experience Questionnaire}: Development of a Self-Report
+  Measure to Assess the Psychological Impact of Digital Games}.
 \newblock Technical report, Technische Universiteit Eindhoven, Eindhoven,
   Netherlands, 2013.
 
@@ -116,7 +221,7 @@ Seungone Kim, Jamin Shin, Yejin Cho, Joel Jang, Shayne Longpre, Hwaran Lee,
 Patrick Lewis, Ethan Perez, Aleksandra Piktus, Fabio Petroni, Vladimir
   Karpukhin, Naman Goyal, Heinrich K{\"u}ttler, Mike Lewis, Wen-tau Yih, Tim
   Rockt{\"a}schel, et~al.
-\newblock Retrieval-augmented generation for knowledge-intensive {NLP} tasks.
+\newblock {Retrieval-Augmented Generation for Knowledge-Intensive {NLP} Tasks}.
 \newblock In {\em Advances in Neural Information Processing Systems},
   volume~33, pages 9459--9474, 2020.
 
@@ -124,8 +229,8 @@ Patrick Lewis, Ethan Perez, Aleksandra Piktus, Fabio Petroni, Vladimir
 Dawei Li, Bohan Jiang, Liangjie Huang, Alimohammad Beigi, Chengshuai Zhao, Zhen
   Tan, Amrita Bhattacharjee, Yuxuan Jiang, Canyu Chen, Tianhao Wu, Kai Shu,
   Lu~Cheng, and Huan Liu.
-\newblock From generation to judgment: Opportunities and challenges of
-  {LLM}-as-a-judge.
+\newblock {From Generation to Judgment: Opportunities and Challenges of
+  {LLM}-as-a-Judge}.
 \newblock In {\em Proceedings of the 2025 Conference on Empirical Methods in
   Natural Language Processing (EMNLP)}, pages 2757--2791, 2025.
 
@@ -142,10 +247,21 @@ Yang Liu, Dan Iter, Yichong Xu, Shuohang Wang, Ruochen Xu, and Chenguang Zhu.
 \newblock In {\em Proceedings of the 2023 Conference on Empirical Methods in
   Natural Language Processing (EMNLP)}, pages 2511--2522, 2023.
 
+\bibitem{mateas2003facade}
+Michael Mateas and Andrew Stern.
+\newblock {Fa{\c{c}}ade: An Experiment in Building a Fully-Realized Interactive
+  Drama}.
+\newblock In {\em Game Studies and Digital Arts and Culture (DAC)}, 2003.
+
 \bibitem{murray1997hamlet}
 Janet~H. Murray.
 \newblock {\em Hamlet on the Holodeck: The Future of Narrative in Cyberspace}.
 \newblock MIT Press, Cambridge, 1997.
+
+\bibitem{nass2000machines}
+Clifford Nass and Youngme Moon.
+\newblock Machines and mindlessness: Social responses to computers.
+\newblock {\em Journal of Social Issues}, 56(1):81--103, 2000.
 
 \bibitem{newzoo2024games}
 {Newzoo}.
@@ -155,12 +271,40 @@ Janet~H. Murray.
   2024.
 \newblock Acesso em: setembro de 2026.
 
+\bibitem{ollama2023runtime}
+{Ollama Foundation}.
+\newblock {Ollama: Get up and running with large language models locally}.
+\newblock \url{https://ollama.com}, 2023.
+\newblock Acesso em: 2026.
+
+\bibitem{openai2024pricing}
+{OpenAI}.
+\newblock {OpenAI API Pricing and Token Economics}.
+\newblock \url{https://openai.com/api/pricing/}, 2024.
+\newblock Acesso em: 2026.
+
+\bibitem{packer2023memgpt}
+Charles Packer, Sarah Wooders, Kevin Lin, Vivian Fang, Shishir~G. Patil, Ion
+  Stoica, and Joseph~E. Gonzalez.
+\newblock {{MemGPT}: Towards {LLMs} as Operating Systems}.
+\newblock {\em arXiv preprint arXiv:2310.08560}, 2023.
+
 \bibitem{park2023generative}
 Joon~Sung Park, Joseph~C. O'Brien, Carrie~J. Cai, Meredith~Ringel Morris, Percy
   Liang, and Michael~S. Bernstein.
 \newblock Generative agents: Interactive simulacra of human behavior.
 \newblock In {\em Proceedings of the 36th Annual ACM Symposium on User
   Interface Software and Technology (UIST)}, pages 1--22, 2023.
+
+\bibitem{pratt1949clue}
+Anthony~E. Pratt.
+\newblock Cluedo.
+\newblock Jogo de tabuleiro, Waddingtons / Hasbro, 1949.
+
+\bibitem{qwen2024technical}
+{Qwen Team}, An~Yang, Baosong Yang, Binyuan Zhang, Bofei Hui, et~al.
+\newblock {Qwen2.5} {Technical} {Report}.
+\newblock {\em arXiv preprint arXiv:2412.15115}, 2024.
 
 \bibitem{riedl2013interactive}
 Mark~O. Riedl and Vadim Bulitko.
@@ -171,6 +315,19 @@ Mark~O. Riedl and Vadim Bulitko.
 Marie-Laure Ryan.
 \newblock {\em Avatars of Story: Narrative Modes in Interactive Media}.
 \newblock University of Minnesota Press, Minneapolis, 2006.
+
+\bibitem{ryan2006motivational}
+Richard~M. Ryan, C.~Scott Rigby, and Andrew Przybylski.
+\newblock The motivational pull of video games: A self-determination theory
+  approach.
+\newblock {\em Motivation and Emotion}, 30(4):344--360, 2006.
+
+\bibitem{sadeq2024mitigating}
+Nafis Sadeq, Zhouhang Xie, Byungkyu Kang, Prarit Lamba, Xiang Gao, and Julian
+  McAuley.
+\newblock {Mitigating Hallucination in Fictional Character Role-Play}.
+\newblock In {\em Findings of the Association for Computational Linguistics:
+  EMNLP 2024}, pages 14467--14479, 2024.
 
 \bibitem{schreier2017blood}
 Jason Schreier.
@@ -185,19 +342,22 @@ Murray Shanahan, Kyle McDonell, and Laria Reynolds.
 
 \bibitem{shao2023character}
 Yunfan Shao, Linyang Li, Junqi Dai, and Xipeng Qiu.
-\newblock Character-{LLM}: A trainable agent for role-playing.
-\newblock {\em arXiv preprint arXiv:2310.10158}, 2023.
+\newblock {Character-{LLM}: A Trainable Agent for Role-Playing}.
+\newblock In {\em Proceedings of the 2023 Conference on Empirical Methods in
+  Natural Language Processing (EMNLP)}, pages 13153--13187, 2023.
 
-\bibitem{shearer2000crisp}
-Colin Shearer.
-\newblock The {CRISP-DM} model: The new blueprint for data mining.
-\newblock {\em Journal of Data Warehousing}, 5(4):13--22, 2000.
+\bibitem{totilo2023sony}
+Stephen Totilo.
+\newblock {Sony} documents reveal {Horizon} and {The Last of Us Part II}
+  budgets in {FTC v. Microsoft}.
+\newblock Axios / FTC Court Filings, 2023.
+\newblock Acesso em: 2026.
 
-\bibitem{sunkyoung2024charm}
-Han Sunkyoung et~al.
-\newblock {CHARM}: A multicultural benchmark for evaluating character
-  hallucination in large language models.
-\newblock {\em arXiv preprint arXiv:2406.18243}, 2024.
+\bibitem{unity2024engine}
+{Unity Technologies}.
+\newblock {Unity 6 Engine: Real-Time 3D Development Platform}.
+\newblock \url{https://unity.com}, 2024.
+\newblock Acesso em: 2026.
 
 \bibitem{vaswani2017attention}
 Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
@@ -206,6 +366,21 @@ Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
 \newblock In {\em Advances in Neural Information Processing Systems},
   volume~30, pages 5998--6008, 2017.
 
+\bibitem{wang2024rolellm}
+Noah Wang, Z.~Y. Peng, Haoran Que, Jiaheng Liu, Wangchunshu Zhou, Yuhan Wu,
+  Hongcheng Guo, Ruitong Gan, Zehao Ni, Jian Yang, et~al.
+\newblock {{RoleLLM}: Benchmarking, Eliciting, and Enhancing Role-Playing
+  Abilities of Large Language Models}.
+\newblock In {\em Findings of the Association for Computational Linguistics:
+  ACL 2024}, pages 14743--14777, 2024.
+
+\bibitem{wu2024deciphering}
+Dekun Wu, Haochen Shi, Zhiyuan Sun, and Bang Liu.
+\newblock {Deciphering Digital Detectives: Understanding {LLM} Behaviors and
+  Capabilities in Multi-Agent Mystery Games}.
+\newblock In {\em Findings of the Association for Computational Linguistics:
+  ACL 2024}, pages 1773--1789, 2024.
+
 \bibitem{yao2023react}
 Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan,
   and Yuan Cao.
@@ -213,10 +388,17 @@ Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan,
 \newblock In {\em International Conference on Learning Representations (ICLR)},
   2023.
 
+\bibitem{yinpoole2023spiderman}
+Wesley Yin-Poole.
+\newblock {Insomniac Games} leak reveals {Marvel's Spider-Man 2} cost \$315
+  million to develop.
+\newblock IGN News, 2023.
+\newblock Acesso em: 2026.
+
 \bibitem{zheng2023judging}
 Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Siyuan Hao, Zhanghao Wu, Joseph~E.
   Ba, Zi~Lin Jiang, Eric~P. Xing, et~al.
-\newblock Judging {LLM}-as-a-judge with {MT-Bench} and {Chatbot Arena}.
+\newblock {Judging {LLM}-as-a-Judge with {MT-Bench} and {Chatbot Arena}}.
 \newblock In {\em Advances in Neural Information Processing Systems},
   volume~36, pages 46595--46623, 2023.
 
