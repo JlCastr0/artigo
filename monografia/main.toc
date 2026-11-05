@@ -66,7 +66,7 @@
 \contentsline {subsection}{\numberline {6.5.2}Dedução Investigativa e Resolução do Caso Policial}{40}{subsection.6.5.2}%
 \contentsline {subsection}{\numberline {6.5.3}Resultados Psicométricos das Escalas GEQ e SUS}{41}{subsection.6.5.3}%
 \contentsline {subsection}{\numberline {6.5.4}Discussão Fenomenológica e Casos Notáveis do Inquérito}{41}{subsection.6.5.4}%
-\contentsline {section}{\numberline {6.6}Diretrizes Técnicas para o Design de Jogos com IA Local}{43}{section.6.6}%
+\contentsline {section}{\numberline {6.6}Diretrizes Técnicas para o Design de Jogos com IA Local}{42}{section.6.6}%
 \contentsline {chapter}{\numberline {7}Conclusão e Trabalhos Futuros}{44}{chapter.7}%
 \contentsline {section}{\numberline {7.1}Síntese do Trabalho e Conclusões Principais}{44}{section.7.1}%
 \contentsline {section}{\numberline {7.2}Limitações da Pesquisa}{45}{section.7.2}%
